@@ -93,12 +93,12 @@ class JFilesystemPatcher
 	 */
 	public static function getInstance()
 	{
-		if (!isset(static::$instance))
+		if (!isset(self::$instance))
 		{
-			static::$instance = new static;
+			self::$instance = new static;
 		}
 
-		return static::$instance;
+		return self::$instance;
 	}
 
 	/**

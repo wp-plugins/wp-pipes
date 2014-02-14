@@ -34,7 +34,7 @@ abstract class JHtmlSearchtools
 	public static function main()
 	{
 		// Only load once
-		if (empty(static::$loaded[__METHOD__]))
+		if (empty(self::$loaded[__METHOD__]))
 		{
 			// Requires jQuery but allows to skip its loading
 			if ($loadJquery = (!isset($options['loadJquery']) || $options['loadJquery'] != 0))
@@ -46,7 +46,7 @@ abstract class JHtmlSearchtools
 			JHtml::_('script', 'jui/jquery.searchtools.min.js', false, true);
 			JHtml::_('stylesheet', 'jui/jquery.searchtools.css', false, true);
 
-			static::$loaded[__METHOD__] = true;
+			self::$loaded[__METHOD__] = true;
 		}
 
 		return;
@@ -67,16 +67,16 @@ abstract class JHtmlSearchtools
 		$sig = md5(serialize(array($selector, $options)));
 
 		// Only load once
-		if (!isset(static::$loaded[__METHOD__][$sig]))
+		if (!isset(self::$loaded[__METHOD__][$sig]))
 		{
 			// Include Bootstrap framework
-			static::main();
+			self::main();
 
 			// Add the form selector to the search tools options
 			$options['formSelector'] = $selector;
 
 			// Generate options with default values
-			$options = static::options2Jregistry($options);
+			$options = self::options2Jregistry($options);
 
 			$doc = JFactory::getDocument();
 			$script = "
@@ -90,7 +90,7 @@ abstract class JHtmlSearchtools
 			";
 			$doc->addScriptDeclaration($script);
 
-			static::$loaded[__METHOD__][$sig] = true;
+			self::$loaded[__METHOD__][$sig] = true;
 		}
 
 		return;

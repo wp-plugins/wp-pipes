@@ -38,7 +38,7 @@ abstract class JHtmlFormbehavior
 	 */
 	public static function chosen($selector = '.advancedSelect', $debug = null)
 	{
-		if (isset(static::$loaded[__METHOD__][$selector]))
+		if (isset(self::$loaded[__METHOD__][$selector]))
 		{
 			return;
 		}
@@ -70,7 +70,7 @@ abstract class JHtmlFormbehavior
 			"
 		);
 
-		static::$loaded[__METHOD__][$selector] = true;
+		self::$loaded[__METHOD__][$selector] = true;
 
 		return;
 	}
@@ -104,7 +104,7 @@ abstract class JHtmlFormbehavior
 		// Ajax URL is mandatory
 		if (!empty($url))
 		{
-			if (isset(static::$loaded[__METHOD__][$selector]))
+			if (isset(self::$loaded[__METHOD__][$selector]))
 			{
 				return;
 			}
@@ -112,7 +112,7 @@ abstract class JHtmlFormbehavior
 			JHtml::_('jquery.framework');
 
 			// Requires chosen to work
-			static::chosen($selector, $debug);
+			self::chosen($selector, $debug);
 
 			JHtml::_('script', 'jui/ajax-chosen.min.js', false, true, false, false, $debug);
 			JFactory::getDocument()->addScriptDeclaration("
@@ -139,7 +139,7 @@ abstract class JHtmlFormbehavior
 				"
 			);
 
-			static::$loaded[__METHOD__][$selector] = true;
+			self::$loaded[__METHOD__][$selector] = true;
 		}
 
 		return;

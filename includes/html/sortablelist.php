@@ -41,7 +41,7 @@ abstract class JHtmlSortablelist
 	public static function sortable($tableId, $formId, $sortDir = 'asc', $saveOrderingUrl, $proceedSaveOrderButton = true, $nestedList = false)
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__]))
+		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
@@ -64,11 +64,11 @@ abstract class JHtmlSortablelist
 
 		if ($proceedSaveOrderButton)
 		{
-			static::_proceedSaveOrderButton();
+			self::_proceedSaveOrderButton();
 		}
 
 		// Set static array
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 		return;
 	}
 

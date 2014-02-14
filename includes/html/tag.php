@@ -40,7 +40,7 @@ abstract class JHtmlTag
 	{
 		$hash = md5(serialize($config));
 
-		if (!isset(static::$items[$hash]))
+		if (!isset(self::$items[$hash]))
 		{
 			$config = (array) $config;
 			$db = JFactory::getDbo();
@@ -86,17 +86,17 @@ abstract class JHtmlTag
 			$items = $db->loadObjectList();
 
 			// Assemble the list options.
-			static::$items[$hash] = array();
+			self::$items[$hash] = array();
 
 			foreach ($items as &$item)
 			{
 				$repeat = ($item->level - 1 >= 0) ? $item->level - 1 : 0;
 				$item->title = str_repeat('- ', $repeat) . $item->title;
-				static::$items[$hash][] = JHtml::_('select.option', $item->id, $item->title);
+				self::$items[$hash][] = JHtml::_('select.option', $item->id, $item->title);
 			}
 		}
 
-		return static::$items[$hash];
+		return self::$items[$hash];
 	}
 
 	/**
@@ -138,15 +138,15 @@ abstract class JHtmlTag
 		$items = $db->loadObjectList();
 
 		// Assemble the list options.
-		static::$items[$hash] = array();
+		self::$items[$hash] = array();
 
 		foreach ($items as &$item)
 		{
 			$repeat = ($item->level - 1 >= 0) ? $item->level - 1 : 0;
 			$item->title = str_repeat('- ', $repeat) . $item->title;
-			static::$items[$hash][] = JHtml::_('select.option', $item->id, $item->title);
+			self::$items[$hash][] = JHtml::_('select.option', $item->id, $item->title);
 		}
-		return static::$items[$hash];
+		return self::$items[$hash];
 	}
 
 	/**

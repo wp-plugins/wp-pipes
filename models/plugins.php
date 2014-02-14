@@ -13,6 +13,22 @@ class PIPESModelPlugins extends Model {
 	public function getTable() {
 		require_once dirname( dirname( __FILE__ ) ) . DS . 'tables' . DS . 'plugins.php';
 		$itemsListTable = new PIPES_Plugins_List_Table();
+		$user             = get_current_user_id();
+		$current_per_page = get_user_meta( $user, 'addons_per_page', true );
+		if ( isset( $current_per_page ) && $current_per_page > 0 ) {
+			$value = $current_per_page;
+		}
+		//Fetch, prepare, sort, and filter our data...
+		if ( isset( $_POST['wp_screen_options']['option'] ) && $_POST['wp_screen_options']['option'] == 'addons_per_page' ) {
+// get the current admin screen
+			$option = $_POST['wp_screen_options']['option'];
+			$value  = $_POST['wp_screen_options']['value'];
+
+			update_user_meta( $user, $option, $value );
+		}
+		if ( isset( $value ) ) {
+			$itemsListTable->per_page = $value;
+		}
 		//Fetch, prepare, sort, and filter our data...
 		$itemsListTable->prepare_items();
 

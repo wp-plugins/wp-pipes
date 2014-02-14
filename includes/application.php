@@ -88,14 +88,15 @@ abstract class Application {
 		}
 		@list( $page_prefix, $type ) = explode( '.', $page );
 
-		if ( $page_prefix != $this->_page_prefix ) {
+		if ( $page_prefix != $this->_page_prefix 
+				&& $page_prefix != 'toplevel_page_'.$this->_page_prefix ) {
 			return;
 		}
 
 		$controller = Controller::getInstance( $type, $this->_prefix . 'Controller' );
-		if ( ! method_exists( $controller, $task ) ) {
+		if(!$controller->existsTask($task)){
 			return;
 		}
-		call_user_func( array( $controller, $task ) );
+		$controller->exec($task);
 	}
 }

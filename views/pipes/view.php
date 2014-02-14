@@ -25,19 +25,36 @@ class PIPESViewPipes extends View {
 	}
 
 	public function on_load_page() {
-		$screen = get_current_screen();
-
+		$user             = get_current_user_id();
+		//$screen           = get_current_screen();
+		if ( isset( $_POST['wp_screen_options'] ) && is_array( $_POST['wp_screen_options'] ) ) {
+			$default = $_POST['wp_screen_options']['value'];
+			update_user_meta( $user, 'pipes_per_page', $default );
+		} else {
+			$default = 10;
+		}
 		// add meta box
-		add_meta_box( 'pipes-items-helpbox-1',
+		/*add_meta_box( 'pipes-items-helpbox-1',
 			'Sidebox 1 Title',
 			array( $this, 'metabox_help' ),
 			$screen,
-			'items_top' );
+			'items_top' );*/
 
 		//ensure, that the needed javascripts been loaded to allow drag/drop, expand/collapse and hide/show of boxes
 		wp_enqueue_script( 'common' );
 		wp_enqueue_script( 'wp-lists' );
 		wp_enqueue_script( 'postbox' );
+		$args = array(
+			'label'   => __( 'Pipes per page', 'pipes' ),
+			'default' => $default,
+			'option'  => 'pipes_per_page'
+		);
+		add_screen_option( 'per_page', $args );
+	}
+
+	function pipes_per_page() {
+		var_dump( 'pth' );
+		die;
 	}
 
 	function metabox_help( $data = '' ) {

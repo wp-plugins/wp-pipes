@@ -82,7 +82,7 @@ abstract class JStringPunycode
 
 		foreach ($hostExploded as $hostex)
 		{
-			$hostex = static::toPunycode($hostex);
+			$hostex = self::toPunycode($hostex);
 			$newhost .= $hostex . '.';
 		}
 
@@ -208,7 +208,7 @@ abstract class JStringPunycode
 
 			foreach ($domainExploded as $domainex)
 			{
-				$domainex = static::toPunycode($domainex);
+				$domainex = self::toPunycode($domainex);
 				$newdomain .= $domainex . '.';
 			}
 
@@ -243,7 +243,7 @@ abstract class JStringPunycode
 
 			foreach ($domainExploded as $domainex)
 			{
-				$domainex = static::fromPunycode($domainex);
+				$domainex = self::fromPunycode($domainex);
 				$newdomain .= $domainex . '.';
 			}
 

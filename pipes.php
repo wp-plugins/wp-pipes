@@ -11,7 +11,7 @@ $Id: wpap.php 167 2014-01-26 03:05:32Z thongta $
 Plugin Name: WP Pipes
 Plugin URI: http://wppipes.com
 Description: WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
-Version: 1.1
+Version: 1.0
 Author: WPPipes
 Author URI: http://wppipes.com
 */
@@ -42,7 +42,7 @@ class PIPES extends Application {
 	public function admin_init() {
 		wp_register_style( 'pipes-obstyle', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/css/obstyle.css' );
 		wp_register_style( 'pipes-bootstrap-min', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/css/bootstrap.min.css' );
-		wp_register_style( 'pipes-font-awesome-css', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/css/font-awesome.min.css' );
+		wp_register_style( 'pipes-font-awesome-css', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' );
 		wp_register_style( 'pipes-process-css', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/css/process.css' );
 		wp_register_style( 'pipes-chosen-css', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/css/chosen.css' );
 		wp_register_script( 'pipes-bootstrap-min', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/bootstrap.min.js' );
@@ -83,7 +83,7 @@ class PIPES extends Application {
 //				add_submenu_page( $this->_page_prefix . '.pipes', __( 'Dashboard', 'cpanel' ), __( 'Dashboard', 'cpanel' ), "manage_options", $this->_page_prefix . ".cpanel", array( $this, 'display' ) );
 				$items_page = add_submenu_page( $this->_page_prefix . '.pipes', __( 'All Pipes', 'pipes' ), __( 'All Pipes', 'pipes' ), "manage_options", $this->_page_prefix . ".pipes", array( $this, 'display' ) );
 				$item_page  = add_submenu_page( $this->_page_prefix . '.pipes', __( 'Add New Pipe', 'add_new' ), __( 'Add New', 'add_new' ), "manage_options", $this->_page_prefix . ".pipe", array( $this, 'display' ) );
-				add_submenu_page( $this->_page_prefix . '.pipes', __( 'Addons', 'plugins' ), __( 'Addons', 'plugins' ), "manage_options", $this->_page_prefix . ".plugins", array( $this, 'display' ) );
+				$addon_page = add_submenu_page( $this->_page_prefix . '.pipes', __( 'Addons', 'plugins' ), __( 'Addons', 'plugins' ), "manage_options", $this->_page_prefix . ".plugins", array( $this, 'display' ) );
 				add_submenu_page( $this->_page_prefix . '.pipes', __( 'Settings', 'settings' ), __( 'Settings', 'settings' ), "manage_options", $this->_page_prefix . ".settings", array( $this, 'display' ) );
 				add_action( 'admin_print_styles-' . $item_page, array( $this, 'admin_style_item' ) );
 				add_action( 'admin_print_styles-' . $items_page, array( $this, 'admin_style_item' ) );
@@ -95,7 +95,7 @@ class PIPES extends Application {
 //			add_action('load-'.$pipes_page, array( $this, 'on_load_page_cpanel') );
 			add_action( 'load-' . $pipes_page, array( $this, 'on_load_page' ) );
 			add_action( 'load-' . $items_page, array( $this, 'on_load_page' ) );
-
+			add_action( 'load-' . $addon_page, array( $this, 'on_load_page' ) );
 
 		}
 	}

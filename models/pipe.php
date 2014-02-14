@@ -954,11 +954,23 @@ class PIPESModelPipe extends Model {
 
 	function remove_if_no_ip() {
 		global $wpdb;
-		$qry = "DELETE FROM `{$wpdb->prefix}wppipes_items` WHERE `engine`=''";
-		if ( ! $wpdb->query( $qry ) ) {
-			$error = $wpdb->last_error;
+		$sql       = "SELECT `id` FROM `{$wpdb->prefix}wppipes_items` WHERE `engine`='' AND `adapter`=''";
+		$list_pipe = $wpdb->get_results( $sql );
+		if ( count( $list_pipe ) > 0 ) {
+			foreach ( $list_pipe as $pipe ) {
+				$qry = "DELETE FROM `{$wpdb->prefix}wppipes_items` WHERE `id`= {$pipe->id}";
+				if ( ! $wpdb->query( $qry ) ) {
+					$error = $wpdb->last_error;
 
-			return $error;
+					return $error;
+				}
+				$qry = "DELETE FROM `{$wpdb->prefix}wppipes_pipes` WHERE `item_id`= {$pipe->id}";
+				if ( ! $wpdb->query( $qry ) ) {
+					$error = $wpdb->last_error;
+
+					return $error;
+				}
+			}
 		}
 	}
 

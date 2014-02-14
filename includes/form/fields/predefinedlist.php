@@ -65,9 +65,9 @@ abstract class JFormFieldPredefinedList extends JFormFieldList
 		$hash = md5($this->element);
 		$type = strtolower($this->type);
 
-		if (!isset(static::$options[$type][$hash]) && !empty($this->predefinedOptions))
+		if (!isset(self::$options[$type][$hash]) && !empty($this->predefinedOptions))
 		{
-			static::$options[$type][$hash] = parent::getOptions();
+			self::$options[$type][$hash] = parent::getOptions();
 
 			$options = array();
 
@@ -87,9 +87,9 @@ abstract class JFormFieldPredefinedList extends JFormFieldList
 				}
 			}
 
-			static::$options[$type][$hash] = array_merge(static::$options[$type][$hash], $options);
+			self::$options[$type][$hash] = array_merge(self::$options[$type][$hash], $options);
 		}
 
-		return static::$options[$type][$hash];
+		return self::$options[$type][$hash];
 	}
 }

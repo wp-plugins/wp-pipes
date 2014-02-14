@@ -41,7 +41,7 @@ abstract class JHtmlJquery
 	{
 		return;
 // Only load once
-		if (!empty(static::$loaded[__METHOD__]))
+		if (!empty(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
@@ -67,7 +67,7 @@ abstract class JHtmlJquery
 			JHtml::_('script', 'jui/jquery-migrate.min.js', false, true, false, false, $debug);
 		}
 
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 
 		return;
 	}
@@ -91,7 +91,7 @@ abstract class JHtmlJquery
 		$supported = array('core', 'sortable');
 
 		// Include jQuery
-		static::framework();
+		self::framework();
 
 		// If no debugging value is set, use the configuration setting
 		if ($debug === null)
@@ -104,10 +104,10 @@ abstract class JHtmlJquery
 		foreach ($components as $component)
 		{
 			// Only attempt to load the component if it's supported in core and hasn't already been loaded
-			if (in_array($component, $supported) && empty(static::$loaded[__METHOD__][$component]))
+			if (in_array($component, $supported) && empty(self::$loaded[__METHOD__][$component]))
 			{
 				JHtml::_('script', 'jui/jquery.ui.' . $component . '.min.js', false, true, false, false, $debug);
-				static::$loaded[__METHOD__][$component] = true;
+				self::$loaded[__METHOD__][$component] = true;
 			}
 		}
 

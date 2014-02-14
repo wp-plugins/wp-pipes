@@ -93,24 +93,24 @@ abstract class JHtml
 	 */
 	public static function _($key)
 	{
-		list($key, $prefix, $file, $func) = static::extract($key);
+		list($key, $prefix, $file, $func) = self::extract($key);
 
-		if (array_key_exists($key, static::$registry))
+		if (array_key_exists($key, self::$registry))
 		{
-			$function = static::$registry[$key];
+			$function = self::$registry[$key];
 			$args = func_get_args();
 
 			// Remove function name from arguments
 			array_shift($args);
 
-			return static::call($function, $args);
+			return self::call($function, $args);
 		}
 
 		$className = $prefix . ucfirst($file);
 
 		if (!class_exists($className))
 		{
-			$path = JPath::find(static::$includePaths, strtolower($file) . '.php');
+			$path = JPath::find(self::$includePaths, strtolower($file) . '.php');
 			if ($path)
 			{
 				require_once $path;
@@ -130,13 +130,13 @@ abstract class JHtml
 
 		if (is_callable($toCall))
 		{
-			static::register($key, $toCall);
+			self::register($key, $toCall);
 			$args = func_get_args();
 
 			// Remove function name from arguments
 			array_shift($args);
 
-			return static::call($toCall, $args);
+			return self::call($toCall, $args);
 		}
 		else
 		{
@@ -156,11 +156,11 @@ abstract class JHtml
 	 */
 	public static function register($key, $function)
 	{
-		list($key) = static::extract($key);
+		list($key) = self::extract($key);
 
 		if (is_callable($function))
 		{
-			static::$registry[$key] = $function;
+			self::$registry[$key] = $function;
 
 			return true;
 		}
@@ -179,11 +179,11 @@ abstract class JHtml
 	 */
 	public static function unregister($key)
 	{
-		list($key) = static::extract($key);
+		list($key) = self::extract($key);
 
-		if (isset(static::$registry[$key]))
+		if (isset(self::$registry[$key]))
 		{
-			unset(static::$registry[$key]);
+			unset(self::$registry[$key]);
 
 			return true;
 		}
@@ -202,9 +202,9 @@ abstract class JHtml
 	 */
 	public static function isRegistered($key)
 	{
-		list($key) = static::extract($key);
+		list($key) = self::extract($key);
 
-		return isset(static::$registry[$key]);
+		return isset(self::$registry[$key]);
 	}
 
 	/**
@@ -317,7 +317,7 @@ abstract class JHtml
 	{
 		if ($path_rel !== -1)
 		{
-			$includes = static::includeRelativeFiles('images', $file, $relative, false, false);
+			$includes = self::includeRelativeFiles('images', $file, $relative, false, false);
 			$file = count($includes) ? $includes[0] : null;
 		}
 
@@ -375,7 +375,7 @@ abstract class JHtml
 	 */
 	public static function stylesheet($file, $attribs = array(), $relative = false, $path_only = false, $detect_browser = true, $detect_debug = true)
 	{
-		$includes = static::includeRelativeFiles('css', $file, $relative, $detect_browser, $detect_debug);
+		$includes = self::includeRelativeFiles('css', $file, $relative, $detect_browser, $detect_debug);
 
 		// If only path is required
 		if ($path_only)
@@ -441,9 +441,9 @@ abstract class JHtml
 	{
 		foreach ($options as $key => $val)
 		{
-			if (isset(static::$formatOptions[$key]))
+			if (isset(self::$formatOptions[$key]))
 			{
-				static::$formatOptions[$key] = $val;
+				self::$formatOptions[$key] = $val;
 			}
 		}
 	}
@@ -563,7 +563,7 @@ abstract class JHtml
 		if (!$text)
 		{
 			$alt = htmlspecialchars($alt, ENT_COMPAT, 'UTF-8');
-			$text = static::image($image, $alt, null, true);
+			$text = self::image($image, $alt, null, true);
 		}
 
 		if ($href)
@@ -689,12 +689,12 @@ abstract class JHtml
 			$attribs = JArrayHelper::toString($attribs);
 		}
 
-		static::_('bootstrap.tooltip');
+		self::_('bootstrap.tooltip');
 
 		if (!$readonly && !$disabled)
 		{
 			// Load the calendar behavior
-			static::_('behavior.calendar');
+			self::_('behavior.calendar');
 
 			// Only display the triggers once for each control.
 			if (!in_array($id, $done))
@@ -718,14 +718,14 @@ abstract class JHtml
 				$done[] = $id;
 			}
 
-			return '<div class="input-append"><input type="text" title="' . (0 !== (int) $value ? static::_('date', $value, null, null) : '')
+			return '<div class="input-append"><input type="text" title="' . (0 !== (int) $value ? self::_('date', $value, null, null) : '')
 				. '" name="' . $name . '" id="' . $id . '" value="' . htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '" ' . $attribs . ' />'
 				. '<button type="button" class="btn" id="' . $id . '_img"><i class="icon-calendar"></i></button></div>';
 		}
 		else
 		{
-			return '<input type="text" title="' . (0 !== (int) $value ? static::_('date', $value, null, null) : '')
-				. '" value="' . (0 !== (int) $value ? static::_('date', $value, 'Y-m-d H:i:s', null) : '') . '" ' . $attribs
+			return '<input type="text" title="' . (0 !== (int) $value ? self::_('date', $value, null, null) : '')
+				. '" value="' . (0 !== (int) $value ? self::_('date', $value, 'Y-m-d H:i:s', null) : '') . '" ' . $attribs
 				. ' /><input type="hidden" name="' . $name . '" id="' . $id . '" value="' . htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '" />';
 		}
 	}
@@ -748,13 +748,13 @@ abstract class JHtml
 		// Loop through the path directories
 		foreach ($path as $dir)
 		{
-			if (!empty($dir) && !in_array($dir, static::$includePaths))
+			if (!empty($dir) && !in_array($dir, self::$includePaths))
 			{
-				array_unshift(static::$includePaths, JPath::clean($dir));
+				array_unshift(self::$includePaths, JPath::clean($dir));
 			}
 		}
 
-		return static::$includePaths;
+		return self::$includePaths;
 	}
 
 	/**
@@ -804,7 +804,7 @@ abstract class JHtml
 			}
 			else
 			{
-				$elements[] = $key . ': ' . static::getJSObject(is_object($v) ? get_object_vars($v) : $v);
+				$elements[] = $key . ': ' . self::getJSObject(is_object($v) ? get_object_vars($v) : $v);
 			}
 		}
 

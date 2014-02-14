@@ -16,6 +16,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 @$_SESSION['PIPES']['plugins'] = array();
 
 class PIPES_Plugins_List_Table extends WP_List_Table {
+	public $per_page = 10;
 	function extra_tablenav( $which ) {
 		global $addon_type;
 		if ( 'top' == $which ) {
@@ -267,9 +268,7 @@ class PIPES_Plugins_List_Table extends WP_List_Table {
 		/**
 		 * First, lets decide how many records per page to show
 		 */
-		$per_page = 10;
-
-
+		$per_page = $this->per_page;
 		/**
 		 * REQUIRED. Now we need to define our column headers. This includes a complete
 		 * array of columns to be displayed (slugs & titles), a list of columns

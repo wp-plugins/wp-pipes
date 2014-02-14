@@ -97,13 +97,18 @@ function ogb_unable_get(st) {
 	return true;
 }
 function showListOp(el) {
-	myPos = ogbFindPos(el);
-	x = myPos[0] - 235;
-	y = myPos[1] - 200;
+	//myPos = ogbFindPos(el);
+	myPos = jQuery(el).position();
+//	x = myPos[0] - 235;
+//	y = myPos[1] - 200;
+	console.log(jQuery(document).width()-jQuery(el).width());//.parrent().offsetWidth);
+	console.log(el.offsetWidth);
+	x = jQuery(document).width()-520;//myPos.left;
+	y = myPos.top-50;
 
 	var a = ogb_gid('ogb-list-output');
 	a.style.left = (x - 10) + 'px';
-	a.style.top = (y - 450) + 'px';
+	a.style.top = (y) + 'px';
 	a.style.display = 'inline';
 
 	ogb_getOrder(el);

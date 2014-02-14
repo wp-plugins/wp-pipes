@@ -21,4 +21,25 @@ class PIPESViewPlugins extends View {
 		$this->itemsTable = $model->getTable();
 		parent::display();
 	}
+
+	public function on_load_page() {
+		$user             = get_current_user_id();
+		//$screen           = get_current_screen();
+		if ( isset( $_POST['wp_screen_options'] ) && is_array( $_POST['wp_screen_options'] ) ) {
+			$default = $_POST['wp_screen_options']['value'];
+			update_user_meta( $user, 'addons_per_page', $default );
+		} else {
+			$default = 10;
+		}
+
+
+		//ensure, that the needed javascripts been loaded to allow drag/drop, expand/collapse and hide/show of boxes
+
+		$args = array(
+			'label'   => __( 'Addons per page', 'addons' ),
+			'default' => $default,
+			'option'  => 'addons_per_page'
+		);
+		add_screen_option( 'per_page', $args );
+	}
 }

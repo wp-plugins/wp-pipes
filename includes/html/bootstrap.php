@@ -214,10 +214,10 @@ abstract class JHtmlBootstrap
 	
 	public static function typeahead($selector = '.typeahead', $params = array())
 	{
-		if (!isset(static::$loaded[__METHOD__][$selector]))
+		if (!isset(self::$loaded[__METHOD__][$selector]))
 		{
 			// Include Bootstrap framework
-			static::framework();
+			self::framework();
 
 			// Setup options object
 			$opt['source']      = isset($params['source']) ? $params['source'] : '[]';
@@ -239,7 +239,7 @@ abstract class JHtmlBootstrap
 			);
 
 			// Set static array
-			static::$loaded[__METHOD__][$selector] = true;
+			self::$loaded[__METHOD__][$selector] = true;
 		}
 
 		return;
@@ -264,10 +264,10 @@ abstract class JHtmlBootstrap
 	{
 		$sig = md5(serialize(array($selector, $params)));
 
-		if (!isset(static::$loaded[__METHOD__][$sig]))
+		if (!isset(self::$loaded[__METHOD__][$sig]))
 		{
 			// Include Bootstrap framework
-			static::framework();
+			self::framework();
 
 			// Setup options object
 			$opt['parent'] = isset($params['parent']) ? (boolean) $params['parent'] : false;
@@ -284,8 +284,8 @@ abstract class JHtmlBootstrap
 			);
 
 			// Set static array
-			static::$loaded[__METHOD__][$sig] = true;
-			static::$loaded[__METHOD__]['active'] = $opt['active'];
+			self::$loaded[__METHOD__][$sig] = true;
+			self::$loaded[__METHOD__]['active'] = $opt['active'];
 		}
 
 		return '<div id="' . $selector . '" class="accordion">';
@@ -317,7 +317,7 @@ abstract class JHtmlBootstrap
 	 */
 	public static function addSlide($selector, $text, $id, $class = '')
 	{
-		$in = (static::$loaded['JHtmlBootstrap::startAccordion']['active'] == $id) ? ' in' : '';
+		$in = (self::$loaded['JHtmlBootstrap::startAccordion']['active'] == $id) ? ' in' : '';
 		$class = (!empty($class)) ? ' ' . $class : '';
 
 		$html = '<div class="accordion-group' . $class . '">'
@@ -358,10 +358,10 @@ abstract class JHtmlBootstrap
 	{
 		$sig = md5(serialize(array($selector, $params)));
 
-		if (!isset(static::$loaded[__METHOD__][$sig]))
+		if (!isset(self::$loaded[__METHOD__][$sig]))
 		{
 			// Include Bootstrap framework
-			static::framework();
+			self::framework();
 
 			// Setup options object
 			$opt['active'] = (isset($params['active']) && ($params['active'])) ? (string) $params['active'] : '';
@@ -371,8 +371,8 @@ abstract class JHtmlBootstrap
 				->addScriptDeclaration(JLayoutHelper::render('libraries.cms.html.bootstrap.starttabsetscript', array('selector' => $selector)));
 
 			// Set static array
-			static::$loaded[__METHOD__][$sig] = true;
-			static::$loaded[__METHOD__][$selector]['active'] = $opt['active'];
+			self::$loaded[__METHOD__][$sig] = true;
+			self::$loaded[__METHOD__][$selector]['active'] = $opt['active'];
 		}
 
 		$html = JLayoutHelper::render('libraries.cms.html.bootstrap.starttabset', array('selector' => $selector));
@@ -413,7 +413,7 @@ abstract class JHtmlBootstrap
 		$tabScriptLayout = is_null($tabScriptLayout) ? new JLayoutFile('libraries.cms.html.bootstrap.addtabscript') : $tabScriptLayout;
 		$tabLayout = is_null($tabLayout) ? new JLayoutFile('libraries.cms.html.bootstrap.addtab') : $tabLayout;
 
-		$active = (static::$loaded['JHtmlBootstrap::startTabSet'][$selector]['active'] == $id) ? ' active' : '';
+		$active = (self::$loaded['JHtmlBootstrap::startTabSet'][$selector]['active'] == $id) ? ' active' : '';
 
 		// Inject tab into UL
 		JFactory::getDocument()
@@ -452,10 +452,10 @@ abstract class JHtmlBootstrap
 	public static function startPane($selector = 'myTab', $params = array())
 	{
 		$sig = md5(serialize(array($selector, $params)));
-		if (!isset(static::$loaded['JHtmlBootstrap::startTabSet'][$sig]))
+		if (!isset(self::$loaded['JHtmlBootstrap::startTabSet'][$sig]))
 		{
 			// Include Bootstrap framework
-			static::framework();
+			self::framework();
 
 			// Setup options object
 			$opt['active'] = isset($params['active']) ? (string) $params['active'] : '';
@@ -471,8 +471,8 @@ abstract class JHtmlBootstrap
 			);
 
 			// Set static array
-			static::$loaded['JHtmlBootstrap::startTabSet'][$sig] = true;
-			static::$loaded['JHtmlBootstrap::startTabSet'][$selector]['active'] = $opt['active'];
+			self::$loaded['JHtmlBootstrap::startTabSet'][$sig] = true;
+			self::$loaded['JHtmlBootstrap::startTabSet'][$selector]['active'] = $opt['active'];
 		}
 
 		return '<div class="tab-content" id="' . $selector . 'Content">';
@@ -504,7 +504,7 @@ abstract class JHtmlBootstrap
 	 */
 	public static function addPanel($selector, $id)
 	{
-		$active = (static::$loaded['JHtmlBootstrap::startTabSet'][$selector]['active'] == $id) ? ' active' : '';
+		$active = (self::$loaded['JHtmlBootstrap::startTabSet'][$selector]['active'] == $id) ? ' active' : '';
 
 		return '<div id="' . $id . '" class="tab-pane' . $active . '">';
 	}

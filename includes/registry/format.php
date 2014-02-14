@@ -33,7 +33,7 @@ abstract class JRegistryFormat
 	 * @return  JRegistryFormat  Registry format handler
 	 *
 	 * @since   11.1
-	 * @throws  InvalidArgumentException
+	 * @throws  JException
 	 */
 	public static function getInstance($type)
 	{
@@ -43,26 +43,23 @@ abstract class JRegistryFormat
 		// Only instantiate the object if it doesn't already exist.
 		if (!isset(self::$instances[$type]))
 		{
-			// Only load the file if the class does not exist.
+			// Only load the file the class does not exist.
 			$class = 'JRegistryFormat' . $type;
-
 			if (!class_exists($class))
 			{
-				$path = __DIR__ . '/format/' . $type . '.php';
-
+				$path = dirname(__FILE__) . '/format/' . $type . '.php';
 				if (is_file($path))
 				{
 					include_once $path;
 				}
 				else
 				{
-					throw new InvalidArgumentException('Unable to load format class.', 500);
+					throw new JException(JText::_('JLIB_REGISTRY_EXCEPTION_LOAD_FORMAT_CLASS'), 500, E_ERROR);
 				}
 			}
 
 			self::$instances[$type] = new $class;
 		}
-
 		return self::$instances[$type];
 	}
 
@@ -88,5 +85,5 @@ abstract class JRegistryFormat
 	 *
 	 * @since   11.1
 	 */
-	abstract public function stringToObject($data, array $options = array());
+	abstract public function stringToObject($data, $options = null);
 }

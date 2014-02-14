@@ -32,6 +32,7 @@ class JRegistryFormatXML extends JRegistryFormat
 	 */
 	public function objectToString($object, $options = array())
 	{
+		// Initialise variables.
 		$rootName = (isset($options['name'])) ? $options['name'] : 'registry';
 		$nodeName = (isset($options['nodeName'])) ? $options['nodeName'] : 'node';
 
@@ -54,8 +55,9 @@ class JRegistryFormatXML extends JRegistryFormat
 	 *
 	 * @since   11.1
 	 */
-	public function stringToObject($data, array $options = array())
+	public function stringToObject($data, $options = array())
 	{
+		// Initialize variables.
 		$obj = new stdClass;
 
 		// Parse the XML string.
@@ -84,7 +86,6 @@ class JRegistryFormatXML extends JRegistryFormat
 		{
 			case 'integer':
 				$value = (string) $node;
-
 				return (int) $value;
 				break;
 			case 'string':
@@ -92,17 +93,14 @@ class JRegistryFormatXML extends JRegistryFormat
 				break;
 			case 'boolean':
 				$value = (string) $node;
-
 				return (bool) $value;
 				break;
 			case 'double':
 				$value = (string) $node;
-
 				return (float) $value;
 				break;
 			case 'array':
 				$value = array();
-
 				foreach ($node->children() as $child)
 				{
 					$value[(string) $child['name']] = $this->getValueFromNode($child);
@@ -110,7 +108,6 @@ class JRegistryFormatXML extends JRegistryFormat
 				break;
 			default:
 				$value = new stdClass;
-
 				foreach ($node->children() as $child)
 				{
 					$value->$child['name'] = $this->getValueFromNode($child);
@@ -124,7 +121,7 @@ class JRegistryFormatXML extends JRegistryFormat
 	/**
 	 * Method to build a level of the XML string -- called recursively
 	 *
-	 * @param   SimpleXMLElement  $node      SimpleXMLElement object to attach children.
+	 * @param   SimpleXMLElement  &$node     SimpleXMLElement object to attach children.
 	 * @param   object            $var       Object that represents a node of the XML document.
 	 * @param   string            $nodeName  The name to use for node elements.
 	 *
@@ -132,7 +129,7 @@ class JRegistryFormatXML extends JRegistryFormat
 	 *
 	 * @since   11.1
 	 */
-	protected function getXmlChildren(SimpleXMLElement $node, $var, $nodeName)
+	protected function getXmlChildren(&$node, $var, $nodeName)
 	{
 		// Iterate over the object members.
 		foreach ((array) $var as $k => $v)

@@ -47,10 +47,10 @@ abstract class JHtmlActionsDropdown
 
 		$html[] = '</button>';
 		$html[] = '<ul class="dropdown-menu">';
-		$html[] = implode('', static::$dropDownList);
+		$html[] = implode('', self::$dropDownList);
 		$html[] = '</ul></div>';
 
-		static::$dropDownList = null;
+		self::$dropDownList = null;
 
 		return implode('', $html);
 	}
@@ -68,7 +68,7 @@ abstract class JHtmlActionsDropdown
 	public static function publish($id, $prefix = '')
 	{
 		$task = ($prefix ? $prefix . '.' : '') . 'publish';
-		static::addCustomItem(JText::_('JTOOLBAR_PUBLISH'), 'publish', $id, $task);
+		self::addCustomItem(JText::_('JTOOLBAR_PUBLISH'), 'publish', $id, $task);
 	}
 
 	/**
@@ -84,7 +84,7 @@ abstract class JHtmlActionsDropdown
 	public static function unpublish($id, $prefix = '')
 	{
 		$task = ($prefix ? $prefix . '.' : '') . 'unpublish';
-		static::addCustomItem(JText::_('JTOOLBAR_UNPUBLISH'), 'unpublish', $id, $task);
+		self::addCustomItem(JText::_('JTOOLBAR_UNPUBLISH'), 'unpublish', $id, $task);
 	}
 
 	/**
@@ -100,7 +100,7 @@ abstract class JHtmlActionsDropdown
 	public static function feature($id, $prefix = '')
 	{
 		$task = ($prefix ? $prefix . '.' : '') . 'featured';
-		static::addCustomItem(JText::_('JFEATURE'), 'featured', $id, $task);
+		self::addCustomItem(JText::_('JFEATURE'), 'featured', $id, $task);
 	}
 
 	/**
@@ -116,7 +116,7 @@ abstract class JHtmlActionsDropdown
 	public static function unfeature($id, $prefix = '')
 	{
 		$task = ($prefix ? $prefix . '.' : '') . 'unfeatured';
-		static::addCustomItem(JText::_('JUNFEATURE'), 'unfeatured', $id, $task);
+		self::addCustomItem(JText::_('JUNFEATURE'), 'unfeatured', $id, $task);
 	}
 
 	/**
@@ -132,7 +132,7 @@ abstract class JHtmlActionsDropdown
 	public static function archive($id, $prefix = '')
 	{
 		$task = ($prefix ? $prefix . '.' : '') . 'archive';
-		static::addCustomItem(JText::_('JTOOLBAR_ARCHIVE'), 'archive', $id, $task);
+		self::addCustomItem(JText::_('JTOOLBAR_ARCHIVE'), 'archive', $id, $task);
 	}
 
 	/**
@@ -148,7 +148,7 @@ abstract class JHtmlActionsDropdown
 	public static function unarchive($id, $prefix = '')
 	{
 		$task = ($prefix ? $prefix . '.' : '') . 'unpublish';
-		static::addCustomItem(JText::_('JTOOLBAR_UNARCHIVE'), 'unarchive', $id, $task);
+		self::addCustomItem(JText::_('JTOOLBAR_UNARCHIVE'), 'unarchive', $id, $task);
 	}
 
 	/**
@@ -164,7 +164,7 @@ abstract class JHtmlActionsDropdown
 	public static function duplicate($id, $prefix = '')
 	{
 		$task = ($prefix ? $prefix . '.' : '') . 'duplicate';
-		static::addCustomItem(JText::_('JTOOLBAR_DUPLICATE'), 'copy', $id, $task);
+		self::addCustomItem(JText::_('JTOOLBAR_DUPLICATE'), 'copy', $id, $task);
 	}
 
 	/**
@@ -180,7 +180,7 @@ abstract class JHtmlActionsDropdown
 	public static function trash($id, $prefix = '')
 	{
 		$task = ($prefix ? $prefix . '.' : '') . 'trash';
-		static::addCustomItem(JText::_('JTOOLBAR_TRASH'), 'trash', $id, $task);
+		self::addCustomItem(JText::_('JTOOLBAR_TRASH'), 'trash', $id, $task);
 	}
 
 	/**
@@ -207,7 +207,7 @@ abstract class JHtmlActionsDropdown
 	 */
 	public static function divider()
 	{
-		static::$dropDownList[] = '<li class="divider"></li>';
+		self::$dropDownList[] = '<li class="divider"></li>';
 	}
 
 	/**
@@ -224,7 +224,7 @@ abstract class JHtmlActionsDropdown
 	 */
 	public static function addCustomItem($label, $icon = '', $id = '', $task = '')
 	{
-		static::$dropDownList[] = '<li>'
+		self::$dropDownList[] = '<li>'
 			. '<a href = "javascript://" onclick="listItemTask(\'' . $id . '\', \'' . $task . '\')">'
 			. ($icon ? '<span class="icon-' . $icon . '"></span> ' : '')
 			. $label

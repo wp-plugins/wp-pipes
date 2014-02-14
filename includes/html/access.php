@@ -241,7 +241,7 @@ abstract class JHtmlAccess
 	 */
 	public static function assetgroups()
 	{
-		if (empty(static::$asset_groups))
+		if (empty(self::$asset_groups))
 		{
 			$db = JFactory::getDbo();
 			$query = $db->getQuery(true)
@@ -251,10 +251,10 @@ abstract class JHtmlAccess
 				->order('a.ordering ASC');
 
 			$db->setQuery($query);
-			static::$asset_groups = $db->loadObjectList();
+			self::$asset_groups = $db->loadObjectList();
 		}
 
-		return static::$asset_groups;
+		return self::$asset_groups;
 	}
 
 	/**
@@ -273,7 +273,7 @@ abstract class JHtmlAccess
 	{
 		static $count;
 
-		$options = static::assetgroups();
+		$options = self::assetgroups();
 
 		if (isset($config['title']))
 		{

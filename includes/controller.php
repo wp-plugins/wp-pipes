@@ -11,11 +11,34 @@ defined( 'PIPES_CORE' ) or die( 'Restricted access' );
 class Controller {
 	private $model;
 	private $view;
+	public $task = '';
+	public $tasks = array();
 
 	public function __construct( $config ) {
 //		$this->model = $model;
 	}
+	
+	public function registTask( $key, $function ){
+		$this->tasks[$key]=$function;
+	}
 
+	public function existsTask($task){
+		if(array_key_exists($task, $this->tasks)){
+			return true;
+		}elseif (method_exists($this, $task)) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	public function exec($task){
+		if (method_exists($this, $task)) {
+			return call_user_func( array( $this, $task ) );
+		}elseif(array_key_exists($task, $this->tasks) && method_exists($this, $this->tasks[$task])){
+			return call_user_func( array( $this, $this->tasks[$task] ) );
+		}
+	}
 	/*
 		public function display(){
 			$page = $_REQUEST['page'];

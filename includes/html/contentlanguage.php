@@ -39,7 +39,7 @@ abstract class JHtmlContentLanguage
 	 */
 	public static function existing($all = false, $translate = false)
 	{
-		if (empty(static::$items))
+		if (empty(self::$items))
 		{
 			// Get the database object and a new query object.
 			$db    = JFactory::getDbo();
@@ -53,17 +53,17 @@ abstract class JHtmlContentLanguage
 
 			// Set the query and load the options.
 			$db->setQuery($query);
-			static::$items = $db->loadObjectList();
+			self::$items = $db->loadObjectList();
 		}
 
 		if ($all)
 		{
 			$all_option = array(new JObject(array('value' => '*', 'text' => $translate ? JText::alt('JALL', 'language') : 'JALL_LANGUAGE')));
-			return array_merge($all_option, static::$items);
+			return array_merge($all_option, self::$items);
 		}
 		else
 		{
-			return static::$items;
+			return self::$items;
 		}
 	}
 }

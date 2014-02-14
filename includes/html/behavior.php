@@ -43,7 +43,7 @@ abstract class JHtmlBehavior
 		$type = $extras ? 'more' : 'core';
 
 		// Only load once
-		if (!empty(static::$loaded[__METHOD__][$type]))
+		if (!empty(self::$loaded[__METHOD__][$type]))
 		{
 			return;
 		}
@@ -55,14 +55,14 @@ abstract class JHtmlBehavior
 			$debug = $config->get('debug');
 		}
 
-		if ($type != 'core' && empty(static::$loaded[__METHOD__]['core']))
+		if ($type != 'core' && empty(self::$loaded[__METHOD__]['core']))
 		{
-			static::framework(false, $debug);
+			self::framework(false, $debug);
 		}
 
 		JHtml::_('script', 'system/mootools-' . $type . '.js', false, true, false, false, $debug);
 		JHtml::_('script', 'system/core.js', false, true);
-		static::$loaded[__METHOD__][$type] = true;
+		self::$loaded[__METHOD__][$type] = true;
 
 		return;
 	}
@@ -79,7 +79,7 @@ abstract class JHtmlBehavior
 	public static function caption($selector = 'img.caption')
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__][$selector]))
+		if (isset(self::$loaded[__METHOD__][$selector]))
 		{
 			return;
 		}
@@ -97,7 +97,7 @@ abstract class JHtmlBehavior
 		);
 
 		// Set static array
-		static::$loaded[__METHOD__][$selector] = true;
+		self::$loaded[__METHOD__][$selector] = true;
 	}
 
 	/**
@@ -115,7 +115,7 @@ abstract class JHtmlBehavior
 	public static function formvalidation()
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__]))
+		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
@@ -124,10 +124,10 @@ abstract class JHtmlBehavior
 		JText::script('JLIB_FORM_FIELD_INVALID');
 
 		// Include MooTools More framework
-		static::framework('more');
+		self::framework('more');
 
 		JHtml::_('script', 'system/validate.js', false, true);
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 	}
 
 	/**
@@ -140,7 +140,7 @@ abstract class JHtmlBehavior
 	public static function switcher()
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__]))
+		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
@@ -161,7 +161,7 @@ abstract class JHtmlBehavior
 			});";
 
 		JFactory::getDocument()->addScriptDeclaration($script);
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 	}
 
 	/**
@@ -176,15 +176,15 @@ abstract class JHtmlBehavior
 	 */
 	public static function combobox()
 	{
-		if (isset(static::$loaded[__METHOD__]))
+		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
 		// Include MooTools framework
-		static::framework();
+		self::framework();
 
 		JHtml::_('script', 'system/combobox.js', true, true);
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 	}
 
 	/**
@@ -217,13 +217,13 @@ abstract class JHtmlBehavior
 	{
 		$sig = md5(serialize(array($selector, $params)));
 
-		if (isset(static::$loaded[__METHOD__][$sig]))
+		if (isset(self::$loaded[__METHOD__][$sig]))
 		{
 			return;
 		}
 
 		// Include MooTools framework
-		static::framework(true);
+		self::framework(true);
 
 		// Setup options object
 		$opt['maxTitleChars'] = (isset($params['maxTitleChars']) && ($params['maxTitleChars'])) ? (int) $params['maxTitleChars'] : 50;
@@ -255,7 +255,7 @@ abstract class JHtmlBehavior
 		);
 
 		// Set static array
-		static::$loaded[__METHOD__][$sig] = true;
+		self::$loaded[__METHOD__][$sig] = true;
 
 		return;
 	}
@@ -286,10 +286,10 @@ abstract class JHtmlBehavior
 		$document = JFactory::getDocument();
 
 		// Load the necessary files if they haven't yet been loaded
-		if (!isset(static::$loaded[__METHOD__]))
+		if (!isset(self::$loaded[__METHOD__]))
 		{
 			// Include MooTools framework
-			static::framework(true);
+			self::framework(true);
 
 			// Load the JavaScript and css
 			JHtml::_('script', 'system/modal.js', true, true);
@@ -298,7 +298,7 @@ abstract class JHtmlBehavior
 
 		$sig = md5(serialize(array($selector, $params)));
 
-		if (isset(static::$loaded[__METHOD__][$sig]))
+		if (isset(self::$loaded[__METHOD__][$sig]))
 		{
 			return;
 		}
@@ -343,7 +343,7 @@ abstract class JHtmlBehavior
 		);
 
 		// Set static array
-		static::$loaded[__METHOD__][$sig] = true;
+		self::$loaded[__METHOD__][$sig] = true;
 
 		return;
 	}
@@ -360,7 +360,7 @@ abstract class JHtmlBehavior
 	public static function multiselect($id = 'adminForm')
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__][$id]))
+		if (isset(self::$loaded[__METHOD__][$id]))
 		{
 			return;
 		}
@@ -378,7 +378,7 @@ abstract class JHtmlBehavior
 		);
 
 		// Set static array
-		static::$loaded[__METHOD__][$id] = true;
+		self::$loaded[__METHOD__][$id] = true;
 
 		return;
 	}
@@ -397,12 +397,12 @@ abstract class JHtmlBehavior
 	public static function tree($id, $params = array(), $root = array())
 	{
 		// Include MooTools framework
-		static::framework();
+		self::framework();
 
 		JHtml::_('script', 'system/mootree.js', true, true, false, false);
 		JHtml::_('stylesheet', 'system/mootree.css', array(), true);
 
-		if (isset(static::$loaded[__METHOD__][$id]))
+		if (isset(self::$loaded[__METHOD__][$id]))
 		{
 			return;
 		}
@@ -442,7 +442,7 @@ abstract class JHtmlBehavior
 		$document->addScriptDeclaration($js);
 
 		// Set static array
-		static::$loaded[__METHOD__][$id] = true;
+		self::$loaded[__METHOD__][$id] = true;
 
 		return;
 	}
@@ -457,7 +457,7 @@ abstract class JHtmlBehavior
 	public static function calendar()
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__]))
+		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
@@ -469,13 +469,13 @@ abstract class JHtmlBehavior
 		JHtml::_('script', $tag . '/calendar.js', false, true);
 		JHtml::_('script', $tag . '/calendar-setup.js', false, true);
 
-		$translation = static::calendartranslation();
+		$translation = self::calendartranslation();
 
 		if ($translation)
 		{
 			$document->addScriptDeclaration($translation);
 		}
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 	}
 
 	/**
@@ -488,7 +488,7 @@ abstract class JHtmlBehavior
 	public static function colorpicker()
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__]))
+		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
@@ -511,7 +511,7 @@ abstract class JHtmlBehavior
 			"
 		);
 
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 	}
 
 	/**
@@ -524,7 +524,7 @@ abstract class JHtmlBehavior
 	public static function simplecolorpicker()
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__]))
+		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
@@ -541,7 +541,7 @@ abstract class JHtmlBehavior
 			"
 		);
 
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 	}
 
 	/**
@@ -554,13 +554,13 @@ abstract class JHtmlBehavior
 	public static function keepalive()
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__]))
+		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
 
 		// Include MooTools framework
-		static::framework();
+		self::framework();
 
 		$config = JFactory::getConfig();
 		$lifetime = ($config->get('lifetime') * 60000);
@@ -584,7 +584,7 @@ abstract class JHtmlBehavior
 		$script .= ');';
 
 		$document->addScriptDeclaration($script);
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 
 		return;
 	}
@@ -608,7 +608,7 @@ abstract class JHtmlBehavior
 	{
 		$sig = md5(serialize(array($terms, $start, $end)));
 
-		if (isset(static::$loaded[__METHOD__][$sig]))
+		if (isset(self::$loaded[__METHOD__][$sig]))
 		{
 			return;
 		}
@@ -640,7 +640,7 @@ abstract class JHtmlBehavior
 			});
 		");
 
-		static::$loaded[__METHOD__][$sig] = true;
+		self::$loaded[__METHOD__][$sig] = true;
 
 		return;
 	}
@@ -655,13 +655,13 @@ abstract class JHtmlBehavior
 	public static function noframes()
 	{
 		// Only load once
-		if (isset(static::$loaded[__METHOD__]))
+		if (isset(self::$loaded[__METHOD__]))
 		{
 			return;
 		}
 
 		// Include MooTools framework
-		static::framework();
+		self::framework();
 
 		$js = "window.addEvent('domready', function () {if (top == self) {document.documentElement.style.display = 'block'; }" .
 			" else {top.location = self.location; }});";
@@ -671,7 +671,7 @@ abstract class JHtmlBehavior
 
 		JFactory::getApplication()->setHeader('X-Frames-Options', 'SAMEORIGIN');
 
-		static::$loaded[__METHOD__] = true;
+		self::$loaded[__METHOD__] = true;
 	}
 
 	/**
