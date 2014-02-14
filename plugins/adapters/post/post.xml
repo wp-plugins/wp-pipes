@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<extension version="2.5" type="plugin" group="wppipes-adapter" method="upgrade">
+	<name>Post</name>
+	<author>wppipes.com</author>
+	<creationDate>Jan 2013</creationDate>
+	<copyright>© 2007-2012 wppipes.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>info@wppipes.com</authorEmail>
+	<authorUrl>http://www.wppipes.com</authorUrl>
+	<version>2.3</version>
+	<description>WPPipes Adapter for post</description>
+	<files>
+		<filename plugin="content">post.php</filename>
+		<filename plugin="content">post.xml</filename>
+		<filename>post.png</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+		<folder>fields</folder>
+		<folder>tables</folder>
+	</files>
+	<config>
+		<fields name="params" addfieldpath="/plugins/adapters/post/fields/">
+			<fieldset name="basic">
+				<field name="category" multiple="1" class="fullwidth" type="postcategories" label="Categories"
+					   description="The categories that this feed is assigned to. Press Ctrl while selecting multiple categories."/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="postformat" type="postformat" default="0" label="Post Format"
+					   description="Select Format of Post"/>
+				<field name="public" type="list" default="publish" class="form-control" label="Public"
+					   description="Just like the Publish field when you add a new post. Set to publish to have your post published immediately.">
+					<option value="draft">Draft</option>
+					<option value="publish">Publish</option>
+					<option value="pending">Pending</option>
+					<option value="future">Future</option>
+					<option value="private">Private</option>
+				</field>
+				<field name="author" type="gruser" default="" class="form-control" label="Author" description="Select an author for posts"/>
+				<!--<field name="featured" type="list" class="form-control" default="0" label="Featured"-->
+					   <!--description="COM_OBGRABBER_ADAPTER_CONTENT_ISFEATURED_DESC">-->
+					<!--<option value="0">No</option>-->
+					<!--<option value="1">Yes</option>-->
+				<!--</field>-->
+				<!--<field name="allow_comment" type="checkbox" label="Allow comments" />-->
+				<!--<field name="allow_trackbacks_and_pingbacks" type="checkbox" label="Allow trackbacks and pingbacks" />-->
+			</fieldset>
+		</fields>
+	</config>
+</extension>

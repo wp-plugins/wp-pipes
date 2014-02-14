@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<extension version="2.5" type="plugin" group="wppipes-adapter" method="upgrade">
+	<name>RSS</name>
+	<author>wppipes.com</author>
+	<creationDate>Jan 2014</creationDate>
+	<copyright>© 2007-2014 wppipes.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>info@wppipes.com</authorEmail>
+	<authorUrl>http://www.wppipes.com</authorUrl>
+	<version>2.3</version>
+	<description>WPPipes Adapter for Feed</description>
+	<files>
+		<filename plugin="rss">rss.php</filename>
+		<filename plugin="rss">rss.xml</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+		<folder>fields</folder>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="folder" class="form-control" type="text" label="Folder"
+					   default="feed"
+					   description="The folder where you want to store your RSS Feed, from the root folder (the root folder is the folder where your Wordpress wp-config.php file located in). For example: /feed/. Make sure it is writable."/>
+				<field name="filename" class="form-control" type="text" label="Filename"
+					   default="latest.rss"
+					   description="The filename for your RSS Feed. For example: latest.rss"/>
+				<field name="feedurl" type="feedurl" class="fullwidth" label="Your RSS Feed URL" description="" />
+				<field name="feed_title" type="text" class="fullwidth" label="RSS Feed Title" description="Leave blank to use your Wordpress site Title."/>
+				<field name="feed_description" type="textarea" class="fullwidth" label="RSS Feed Description" description="Leave blank to use the Wordpress site description."/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="items_number" type="text" default="10" label="Items number" description="The number of items show in the RSS feed"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

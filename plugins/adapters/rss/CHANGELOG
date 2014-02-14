@@ -1,0 +1,8 @@
+$Id: CHANGELOG 121 2014-01-20 10:14:24Z phonglq $
+/* 2.0 - 2013-01-20 */
++ publish_up input field
++ publish_down input field
+- created input field
+
+/* 2.0 - 2011-11-05 */
++ The first release.

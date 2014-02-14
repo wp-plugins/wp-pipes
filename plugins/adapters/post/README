@@ -1,0 +1,10 @@
+# Content Adapter for WPPipes
+# Website: http://wppipes.com
+# Author: wppipes.com
+
+INSTALLATION
+- Go to Joomla Backend > Components > WPPipes > Addons > click Install button > browse the addon file and Submit.
+
+UPGRADE
+- Uninstall the previous version.
+- Install the new one.
