@@ -15,10 +15,8 @@ WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipe
 Yahoo Pipes & Zapier are powerful online services for making pipeline of data, WP Pipes comes available to the Wordpress community to bring such of powerful abilities to Wordpress site, works right inside your Wordpress site.
 You can create many Pipes, give your Pipes input and get output as your needs.
 
-See:
-
-http://pipes.yahoo.com/
-
+See:<br />
+http://pipes.yahoo.com/<br />
 http://zapier.com/
 
 <h4>Here are things you can do with WP Pipes (just like Yahoo Pipes):</h4>
