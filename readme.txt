@@ -41,6 +41,24 @@ Here are things you can do with WP Pipes (just like Yahoo Pipes):
 * Unlimited usage, there is no FREE or PRO version.
 * Smart schedule to execute pipes using cronjob.
 
+# AVAILABLE SOURCES (more will come up later):
+* RSS Reader: to read RSS Feed
+* Post: to read Posts from Wordpress
+
+# AVAILABLE DESTINATIONS (more will come up later):
+* RSS Creator: to create RSS Feed for Wordpress
+* Post: to create Posts for Wordpress
+
+# AVAILABLE PROCESSORS (more will come up later):
+* Alias: create slug from text/title/subject.
+* Duplicate: check and prevent duplicate data items from source, recommend to use right after alias.
+* Cut Introtext: cutting text into two parts.
+* Get Fulltext: getting fulltext from a link.
+* Get Images: get images from a link or html.
+* Keywords Filter: filter by keywords with AND, OR and NOT operators.
+* Strip Tags: strip html tags out of input html or text.
+* Change Time: adjust date/time.
+
 # ROADMAP
 
 * Writing more Source Addons: WooCommerce Products, Easy Digital Downloads, bbPress; will add ability to WP Pipes to create RSS Feed for WooCommerce, Easy Digital Downloads or bbPress.
