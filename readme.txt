@@ -32,6 +32,7 @@ Here are things you can do with WP Pipes (just like Yahoo Pipes):
 
 # FEATURES
 
+* Requires PHP 5.4 or higher with JSON, cURL to work properly.
 * Create unlimited pipes.
 * Each Pipe will start by a SOURCE and finish by a DESTINATION.
 * There is PROCESSOR between SOURCE and DESTINATION to process your Pipe.
