@@ -123,4 +123,3 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 == Upgrade Notice ==
 
 = 1.0 =
-
