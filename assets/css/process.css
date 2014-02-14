@@ -1,0 +1,154 @@
+	fieldset input, fieldset select { 
+		 	float: none;
+		 }
+	table.oblist td.ob_key {
+		background-color: #F6F6F6;
+		border-bottom: 1px solid #E9E9E9;
+		border-right: 1px solid #E9E9E9;
+		color: #666666;
+		font-weight: bold;
+		text-align: right;
+		width: 140px;
+	}	 
+	table.oblist thead th {
+		background: none repeat scroll 0 0 #F0F0F0;
+		border-bottom: 1px solid #999999;
+		border-left: 1px solid #FFFFFF;
+		color: #666666;
+		text-align: center;   
+	}
+	table.oblist td, table.oblist th {
+		padding: 4px;
+	}
+	
+	table.oblist {
+		background-color: #E7E7E7;
+		border-spacing: 1px;
+		color: #666666;
+		width: 100%;
+	}
+	table.oblist tbody tr td {
+		background: none repeat scroll 0 0 #FFFFFF;
+		border: 1px solid #FFFFFF;		
+	}
+	table.oblist tfoot tr {
+		color: #333333;
+		text-align: center;
+	}
+	table.oblist tfoot td, table.oblist tfoot th {
+		background-color: #F3F3F3;
+		border-top: 1px solid #999999;
+		text-align: center;
+	}
+	table.oblist tbody tr:hover td,
+	table.oblist tbody tr:hover td  {
+		background-color: #ffd ; 
+	}
+
+	table.obparams td.key, table.obparams td.paramlist_key {
+		background-color: #F6F6F6;
+		border-bottom: 1px solid #E9E9E9;
+		border-right: 1px solid #E9E9E9;
+		color: #666666;
+		font-weight: bold;
+		text-align: right;
+		width:120px;
+	}
+table.obparams td{
+	height: 5px;
+	padding: 0px;
+}
+
+table.obparams td.paramlist_value{
+ 	
+
+}
+ul.oblistfield {
+	margin: 0;
+}
+
+ul.oblistfield li.obfield{
+	border: 1px solid #ffffff;
+	list-style: none outside none;
+	margin: 0;
+	padding: 2px;
+	cursor: pointer;
+}
+ul.oblistfield li.obfield:hover {
+	border: 1px solid #009900;
+	color: #006600;
+	background:#ffff99;
+}
+
+.row ul.unstyled li {
+	clear: both;
+	padding: 5px 0;
+}
+.row ul.unstyled li.pipes-left {
+	padding-right: 10px;
+}
+.row ul.unstyled li.pipes-right {
+	padding-left: 10px;
+}
+
+ a.obparams {
+		color: #666666;
+		font-weight: bold;
+		text-align: right;
+	}   
+.obkey {
+	width:100px;
+	border: 1px solid #009900;
+	float: left;
+	background:#ffffff;	
+	cursor: pointer;
+	padding-left:5px;
+}
+.obkey:hover{
+	border: 1px solid #ff3300;
+	color:#ff3300;
+}
+.obnone {
+	color:#999999;
+	border: 1px solid #ff6600;
+}
+.ogb-close {
+	top: -10px;
+	right: -5px;
+	color:#993300;
+	cursor: pointer;
+	position: absolute;
+}
+.ogb-close:hover{
+}
+.obg-list-op{
+	background: none repeat scroll 0 0 #FCFCFC;
+	border: 1px solid #DDDDDD;
+	max-height: 300px;
+	overflow: auto;
+}
+.ob-list-output {
+	/*overflow: auto;*/
+	position: absolute;
+	right:10px;
+	width:200px;
+	display:none;
+}
+#change-field {
+	color:#006600;
+	cursor: pointer;
+}
+#change-field:hover {
+	color:#FF9900;
+}
+p.noparams {
+	color:#ff9900;
+	font-style: italic;
+	font-weight: bold;	
+}
+p.ogb-addon-error{
+	color:#ff3300;
+	font-style: italic;
+	font-weight: bold;
+	padding: 20px 15px;
+}
