@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="wppipes-engine" method="upgrade">
+	<name>RSSReader</name>
+	<author>wppipes.com</author>
+	<creationDate>May 2013</creationDate>
+	<copyright>© 2007-2012 wppipes.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>info@wppipes.com</authorEmail>
+	<authorUrl>http://www.wppipes.com</authorUrl>
+	<version>2.5</version>
+	<description>RSS Reader Source for WPPipes</description>
+	<files>
+		<filename plugin="rssreader">rssreader.php</filename>
+		<filename plugin="rssreader">rssreader.xml</filename>
+		<filename>rssreader.png</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+		<folder>helpers</folder>
+		<folder>language</folder>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_wppipes-engine_rssreader.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="feed_url"
+					   type="textarea"
+					   rows="3"
+					   class="fullwidth"
+					   default=""
+					   label="RSS Feed URL"
+					   description="Feed URL, multiple Feed support, each Feed per a new line"/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="limit_items"
+					   type="text"
+					   size="6"
+					   class="form-control"
+					   default="100"
+					   label="Limit Items"
+					   description="The limit number of items will be fetched from the Feed source"/>
+				<field name="mode"
+					   type="list"
+					   default="0"
+					   class="form-control"
+					   label="cURL Mode"
+					   description="cURL Mode is for contacting with Feed Source's server. In the most cases, Level 1 will work for you. If it doesn't, please try to change to Level 2.">
+					<option value="0">Level 1</option>
+					<option value="1">Level 2</option>
+				</field>
+				<field name="fix_time"
+					   type="text"
+					   size="6"
+					   class="form-control"
+					   default="-24"
+					   label="Fix Time"
+					   description="Fix Publish Time (default: -24h)"/>
+				<field name="cache"
+					   type="list"
+					   default="1"
+					   class="form-control"
+					   label="Cache"
+					   description="Cache">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="cache_time"
+					   type="text"
+					   size="8"
+					   class="form-control"
+					   default="3600"
+					   label="Cache time"
+					   description="Cache time"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

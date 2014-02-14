@@ -1,0 +1,11 @@
+# RSSReader Engine for WPPipes
+# This is special addon to add RSS Reader engine to WPPipes at http://foob.la/WPPipes
+# Website: http://wppipes.com
+# Author: wppipes.com
+
+INSTALLATION
+- Install as regular Joomla plugin
+
+UPGRADE
+- Uninstall the previous version.
+- Install the new one.

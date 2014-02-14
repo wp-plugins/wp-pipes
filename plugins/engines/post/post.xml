@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="wppipes-engine" method="upgrade">
+	<name>Post</name>
+	<author>wppipes.com</author>
+	<creationDate>Jan 2014</creationDate>
+	<copyright>© 2007-2014 wppipes.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>info@wppipes.com</authorEmail>
+	<authorUrl>http://www.wppipes.com</authorUrl>
+	<version>2.5</version>
+	<description>Post Source for WPPipes</description>
+	<files>
+		<filename plugin="post">post.php</filename>
+		<filename plugin="post">post.xml</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+		<folder>fields</folder>
+	</files>
+	
+	<config>
+		<fields name="params" addfieldpath="/plugins/engines/post/fields/">
+			<fieldset name="basic">
+				<field name="categories" multiple="1" type="postcategories" label="Categories" 
+				description="The categories that this engine will get posts from. Press Ctrl while selecting multiple categories."/>
+				<field name="author" type="gruser" default="" class="form-control" label="Author" description="Select an author for posts"/>
+			</fieldset>
+			<fieldset name="advanced">
+				<field name="tags" multiple="1" type="posttags" label="Tags" 
+				description="The tags that this engine will get posts base on them. Press Ctrl while selecting multiple categories."/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

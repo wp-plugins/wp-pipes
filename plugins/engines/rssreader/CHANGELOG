@@ -1,0 +1,9 @@
+$Id: CHANGELOG 23 2014-01-11 08:24:20Z thongta $
+/* 2.5 - 2013-05-09 */
+~ Improve feature cache
+
+/* 2.3 - 2013-04-18 */
++ add Mode get feed content
+
+/* 2.0 - 2011-11-05 */
++ The first release.
