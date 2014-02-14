@@ -12,8 +12,6 @@ WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipe
 
 == Description ==
 
-WARNING: the download is not ready due to Subversion commit timeout. Hopefully it will be done shortly. Please come back in 30 minutes.
-
 Yahoo Pipes & Zapier are powerful online services for making pipeline of data, WP Pipes comes available to the Wordpress community to bring such of powerful abilities to Wordpress site, works right inside your Wordpress site.
 You can create many Pipes, give your Pipes input and get output as your needs.
 
