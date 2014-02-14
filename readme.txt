@@ -43,9 +43,10 @@ Here are things you can do with WP Pipes (just like Yahoo Pipes):
 
 # ROADMAP
 
-* Writing more Sources: WooCommerce Products, Easy Digital Downloads, bbPress; will add ability to WP Pipes to create RSS Feed for WooCommerce, Easy Digital Downloads or bbPress.
-* Writing more Destination: Google Drive (to store document as Google Drive Docs),iTunes Podcast (to generate iTunes Podcast), Google XML Sitemap (to generate Google XML Sitemap).
+* Writing more Source Addons: WooCommerce Products, Easy Digital Downloads, bbPress; will add ability to WP Pipes to create RSS Feed for WooCommerce, Easy Digital Downloads or bbPress.
+* Writing more Destination Addons: Google Drive (to store document as Google Drive Docs),iTunes Podcast (to generate iTunes Podcast), Google XML Sitemap (to generate Google XML Sitemap).
 * Custom schedule for each Pipe instead of the whole Pipes.
+* Adding Pre-made / Template Fields Matching sets.
 
 == Installation ==
 
