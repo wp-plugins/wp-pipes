@@ -11,7 +11,7 @@ $Id: wpap.php 167 2014-01-26 03:05:32Z thongta $
 Plugin Name: WP Pipes
 Plugin URI: http://wppipes.com
 Description: WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
-Version: 1.0
+Version: 1.2
 Author: WPPipes
 Author URI: http://wppipes.com
 */

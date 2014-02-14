@@ -30,7 +30,7 @@ http://zapier.com - Zapier
 
 <h4>FEATURES</h4>
 
-* Requires PHP 5.4 or higher with JSON, cURL to work properly.
+* Requires PHP 5.3 or higher with JSON, cURL to work properly.
 * Create unlimited pipes.
 * Each Pipe will start by a SOURCE and finish by a DESTINATION.
 * There is PROCESSOR between SOURCE and DESTINATION to process your Pipe.
@@ -111,6 +111,12 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 4. Settings: where to configure cronjob.
 
 == Changelog ==
+
+= 1.2 =
+~ Improved PHP code to work with PHP 5.3. It used to requires PHP 5.4 or higher.
+~ Allowed user to choose the number of pipes to be displayed on the Pipes Listing.
+~ Fixed minor bugs on Pipe form.
+~ Improved RSS Creator Destination addon.
 
 = 1.1 =
 ~ Fixed RSS Destination to force create RSS in any file extension.
