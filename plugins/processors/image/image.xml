@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="wppipes-processor" method="upgrade">
+	<name>Get Images</name>
+	<author>wppipes.com</author>
+	<creationDate>Dec 2013</creationDate>
+	<copyright>© 2007-2013 wppipes.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>info@wppipes.com</authorEmail>
+	<authorUrl>http://www.wppipes.com</authorUrl>
+	<version>2.2</version>
+	<description>WPPipes Processor Get Fulltext Get Images</description>
+	<files>
+		<filename plugin="image">image.php</filename>
+		<filename plugin="image">image.xml</filename>
+		<filename>image.png</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="get_image" type="list" default="1" label="Get To local" description="Get image To local">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="clear_tiny" type="text" size="30" default="64x64" label="Clear Tiny"
+					   description="clear tiny images size less than (width x hight)"/>
+				<field name="image_local" type="text" size="30" default="images/wppipes" label="Save to"
+					   description="Save to"/>
+				<field name="origin_url" type="text" size="30" default="" label="Origin Url" description="Origin Url"/>
+				<field name="makelist" type="list" default="1" label="Make list" description="Make list Images">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="number_imgs" type="text" default="1" size="5" label="Number images"
+					   description="Number images make list"/>
+				<field name="remove" type="list" default="0" label="Remove"
+					   description="Remove images make list out html">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="note" type="hidden" default=""/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="wppipes-processor" method="upgrade">
+	<name>Cut introtext</name>
+	<author>wppipes.com</author>
+	<creationDate>Apr 2013</creationDate>
+	<copyright>© 2007-2012 wppipes.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>info@wppipes.com</authorEmail>
+	<authorUrl>http://www.wppipes.com</authorUrl>
+	<version>2.2</version>
+	<description>WPPipes Processor Cut introtext</description>
+	<files>
+		<filename plugin="cut_introtext">cut_introtext.php</filename>
+		<filename>cut_introtext.png</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="words" type="text" default="30" label="Words"
+					   description="Number word will be get as intro text"/>
+				<field name="finish_sentence" type="list" default="0" label="Finish Sentence"
+					   description="detect finish sentence">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="note" type="hidden" default=""/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

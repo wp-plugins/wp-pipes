@@ -1,0 +1,16 @@
+<div class="ogb-params ogb-help">
+    <strong>Input:</strong></br>
+    - HTML source (with image includes)</br>
+    - URL: of the original content (it’s optional). Usually, we will use this processor with Get FullText processor, Get FullText processor will have “fulltext” as output, and this field will often use for the input of Image processor.</br>
+    <strong>Parameters:</strong>
+    - Get To local: set to Yes if you want to store images to your server. No is for using remote images from source content. Besure to set “Origin URL” value if you set No for this option.</br>
+    - Clear Tiny: remove all images with (width)x(height) in pixel less than this value.</br>
+    - Save to: the directory to store all the images (if you set “Get to local” to Yes).</br>
+    - Origin Url: this is the URL of the source site (the main path, for example: http://foobla.com)</br>
+    - Make list: In the case you want to get more than one images from the source (see “Number Images” option), you will want to make a list of images instead of only first one. Set this on if you want to have the images field output to use with Content intro image, content fulltext image or K2 image tab.</br>
+    - Number images: number of images will be addressed in the above “Make list” option.</br>
+    - Remove: remove all images tags out of the html[2] output.</br>
+    <strong>Output:</strong></br>
+    - images[1]: array of images object (html, src, path). Use this output field for Content Intro Image, Content Fulltext Image or K2 Image tab.</br>
+    - html[2]: HTML source with img tags (img tag). Images already downloaded to the local server. Use this field to insert images into text field.
+</div>

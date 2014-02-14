@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help name="get_fulltext">
+	<type>ip</type>
+	<name>url</name>
+	<text>ashd lakshdhfjk ahsdfk akjdshf akdsfh asdhf aksjdfh asdlkjf</text>
+
+	<type>ip</type>
+	<name>html</name>
+	<text>t;cvb</text>
+
+	<type>op</type>
+	<name>full_html</name>
+	<text>ashd lakshdhfjk ahsdfk akjdshf akdsfh asdhf aksjdfh asdlkjf</text>
+
+	<type>op</type>
+	<name>fulltext</name>
+	<text>ashd lakshdhfjk ahsdfk akjdshf akdsfh asdhf aksjdfh asdlkjf</text>
+</help>

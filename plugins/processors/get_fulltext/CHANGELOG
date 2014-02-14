@@ -1,0 +1,10 @@
+$Id: CHANGELOG 23 2014-01-11 08:24:20Z thongta $
+/* 2.5 - 2013-06 */
+	+ Improve feature grab the contents (CURL)
+	+ add feature process a tags
+
+/* 2.3 - 2013-05-12 */
+	+ Add Parser Code functions.
+
+/* 2.1 - 2011-11-05 */
+	+ The first release.

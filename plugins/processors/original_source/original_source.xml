@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="wppipes-processor" method="upgrade">
+	<name>Original Source</name>
+	<author>wppipes.com</author>
+	<creationDate>Dec 2012</creationDate>
+	<copyright>© 2007-2012 wppipes.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>info@wppipes.com</authorEmail>
+	<authorUrl>http://www.wppipes.com</authorUrl>
+	<version>1.0</version>
+	<description>Original Source Processor for WPPipes</description>
+	<files>
+		<filename plugin="original_source">original_source.php</filename>
+		<filename plugin="original_source">original_source.xml</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="text" type="text" size="35" default="Original Source" label="Text" description="Text"/>
+				<field name="note" type="hidden" default=""/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

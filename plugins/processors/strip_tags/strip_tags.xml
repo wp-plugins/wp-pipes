@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="wppipes-processor" method="upgrade">
+	<name>Strip Tags</name>
+	<author>wppipes.com</author>
+	<creationDate>Mar 2013</creationDate>
+	<copyright>© 2007-2012 wppipes.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>info@wppipes.com</authorEmail>
+	<authorUrl>http://www.wppipes.com</authorUrl>
+	<version>2.2</version>
+	<description>WPPipes Processor Strip Tags</description>
+	<files>
+		<filename plugin="strip_tags">strip_tags.php</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="strip_tag" type="text" size="35" default="*" label="Strip tags"
+					   description="Strip tags (a,div,span...,*)"/>
+				<field name="ignore" type="text" size="35" default="div,p,a,img" label="Ignore"
+					   description="ignore tags if Strip tags is *"/>
+				<field name="note" type="hidden" default=""/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
