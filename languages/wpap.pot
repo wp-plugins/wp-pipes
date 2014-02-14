@@ -1,0 +1,2 @@
+msgid "Toolbar Title"
+msgstr "Hello world"
