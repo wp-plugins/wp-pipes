@@ -95,6 +95,9 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.1 =
+~ Fixed RSS Destination to force create RSS in any file extension.
+
 = 1.0 =
 * The first version
 

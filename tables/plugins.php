@@ -101,7 +101,7 @@ class PIPES_Plugins_List_Table extends WP_List_Table {
 		//Build row actions
 		$actions = array(
 //			'addconnection' => sprintf( '<a href="?page=%s&action=%s&addon=%s">Add Connection</a>', 'obsocialsubmit_filter', 'add', $item['addon'] ),
-			'uninstall' => sprintf( '<a href="?page=%s&action=%s&addon=%s&element=%s">Uninstall</a>', $_REQUEST['page'], 'uninstall', $item['addon'], $item['element'] ),
+			'uninstall' => sprintf( '<a href="?page=%s&action=%s&addon=%s">Uninstall</a>', $_REQUEST['page'], 'uninstall', $item['addon']. '-' .$item['element'] ),
 		);
 		switch ( $item['addon'] ) {
 			case 'engine':
@@ -156,7 +156,7 @@ class PIPES_Plugins_List_Table extends WP_List_Table {
 			/*$1%s*/
 			$this->_args['singular'], //Let's simply repurpose the table's singular label ("movie")
 			/*$2%s*/
-			$item['addon'] //The value of the checkbox should be the record's id
+			$item['addon'].'-'.$item['element'] //The value of the checkbox should be the record's id
 		);
 	}
 

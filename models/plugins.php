@@ -19,16 +19,28 @@ class PIPESModelPlugins extends Model {
 		return $itemsListTable;
 	}
 
-	public function uninstall( $addon, $element ) {
-		$path = OBGRAB_ADDONS . $addon . 's' . DS . $element;
-		if (! is_dir($path)) {
-			return "$path must be a directory";
+	public function uninstall( $addons ) {
+		$addons   = ( is_array( $addons ) ) ? $addons : array( $addons );
+		$message = array();
+		foreach ($addons as $addon) {
+			$name_and_type = explode("-", $addon);
+			$name = $name_and_type[1];
+			$type = $name_and_type[0];
+			$path = OBGRAB_ADDONS . $type . 's' . DS . $name;
+			if (! is_dir($path)) {
+				$message[] = "$path must be a directory";
+				continue;
+			}
+			if( self::check_addon_in_used($name) ){
+				$message[] = "$name was in used, can not remove it!";
+				continue;
+			}
+			self::deleteDir($path);
+			$message[] = $name . ' uninstalled successful!';
 		}
-		if( self::check_addon_in_used($element) ){
-			return "$element was in used, can not remove it!";
-		}
-		self::deleteDir($path);
-		return $element . ' uninstalled successful!';
+		$message = implode("</br>", $message);
+
+		return $message;
 	}
 
 	public function check_addon_in_used($code){

@@ -58,17 +58,12 @@ class WPPipesAdapter_rss
 	 */
 	static function store($data,$params) {
 		
-		#TODO: get path of rss file
-//		echo '<pre>'.print_r($params, true).'</pre>';
 		$file_path = ABSPATH.$params->folder.DS.$params->filename;
-//		var_dump($file_path);
-		$rows = array();
-		$url = get_site_url();
-		$feed_url = get_site_url().'/'.$params->folder.'/'.$params->filename;
+		$rows		= array();
+		$feed_url	= get_site_url().'/'.$params->folder.'/'.$params->filename;
 		if( is_file($file_path) ) {
 			$rows = self::get_items_feed($feed_url);
 		}
-//		var_dump($rows);
 		
 		$item_exists = false;
 		if( $rows && count($rows)){
@@ -78,6 +73,7 @@ class WPPipesAdapter_rss
 				}
 			}
 		}
+
 		if(!$item_exists){
 			$items = array_merge(array($data),$rows);
 			$items_number = $params->items_number;
@@ -90,7 +86,7 @@ class WPPipesAdapter_rss
 			if(count($items)){
 				$feed_title = $params->feed_title;
 				if(!trim($feed_title)){
-					$title = get_bloginfo('title');
+					$feed_title = get_bloginfo('title');
 				}
 				$feed_desc = $params->feed_description;
 				if(!trim($feed_desc)){
@@ -171,7 +167,7 @@ class WPPipesAdapter_rss
 			$feed_item->enclosure->type='audio/x-mpeg';
 			
 			 */
-			$date = $item->date;
+			$date = isset($item->date)?$item->date:'';
 			if(!$date){
 				$date = '';
 			}
@@ -203,6 +199,7 @@ class WPPipesAdapter_rss
 		$feed->set_stupidly_fast( true );
 		$feed->enable_order_by_date( false ); // we don't want to do anything to the feed
 		$feed->set_url_replacements( array() );
+		$feed->force_feed(true);
 		$result = $feed->init();
 		if ( isset( $_GET['x'] ) ) {
 			echo "\n\n<br /><i><b>File:</b>" . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br />\n\n";
@@ -210,7 +207,7 @@ class WPPipesAdapter_rss
 			echo "<p>Error: [{$feed->error}]</p>";
 		}
 		$items   = $feed->get_items();
-//		var_dump($items);
+
 		$c_items = count( $items );
 		if ( $c_items == 0 ) {
 			echo "<p>Error: [{$feed->error}]</p>";
