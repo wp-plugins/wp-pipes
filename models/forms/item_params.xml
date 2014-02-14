@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0" type="plugin" group="obss_intern" method="upgrade">
+	<name>obSS - Intern - Content</name>
+	<author>Phong Lo</author>
+	<creationDate>August 2012</creationDate>
+	<copyright>wppipes.com</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>phonglq@wppipes.com</authorEmail>
+	<authorUrl>www.wppipes.com</authorUrl>
+	<version>3.0.2</version>
+	<description>PLG_OBSS_INTERN_CONTENT_XML_DESC</description>
+	<files>
+		<filename plugin="content">content.php</filename>
+		<filename>index.html</filename>
+		<filename>content.xml</filename>
+		<filename>content.png</filename>
+		<folder>fields</folder>
+		<folder>language</folder>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_obss_intern_content.ini</language>
+	</languages>
+	<config>
+		<fields name="params">
+			<fieldset name="setting">
+				<field type="spacer"
+					   label="Place Hoders: [title], [shorturl], [url], [author], [username],[introtext:x](with x is number)"/>
+				<field type="textarea" cols="50" rows="3" name="template"
+					   default="New article: [title] read more at here [shorturl]" label="TEMPLATE"
+					   description="TEMPLATE_DESC"/>
+				<field type="textarea" cols="50" rows="3" name="desc_template" default="[introtext] [fulltext]"
+					   label="DESC_TEMPLATE" description="DESC_TEMPLATE_DESC"/>
+				<!--<field type="mcategory" name="category" size="10" label="COM_OBSOCIALSUBMIT_ADDON_CONTENT_CATEGORIES" description="COM_OBSOCIALSUBMIT_ADDON_CONTENT_CATEGORIES_DESC" />
+				-->
+				<field name="category" type="category"
+					   description="CATEGORIES"
+					   extension="com_content"
+					   label="CATEGORIES"
+					   show_root="true"
+					   multiple="multiple"
+						/>
+				<field type="radio" class="btn-group" name="action" default="all" label="ACTION"
+					   description="COM_OBSOCIALSUBMIT_ADDON_CONTENT_ACTION_DESC">
+					<option value="all">ALL</option>
+					<option value="edit">EDIT</option>
+					<option value="new">NEW</option>
+				</field>
+				<field type="radio" class="btn-group" name="post_option" default="0" label="POST OPTION"
+					   description="POST_OPTION_DESCRIPTION">
+					<option value="0">IMEDIATELY</option>
+					<option value="1">ADD TO QUEUE</option>
+				</field>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
