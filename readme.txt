@@ -16,8 +16,8 @@ Yahoo Pipes & Zapier are powerful online services for making pipeline of data, W
 You can create many Pipes, give your Pipes input and get output as your needs.
 
 See:<br />
-http://pipes.yahoo.com<br />
-http://zapier.com
+http://pipes.yahoo.com - Yahoo Pipes<br />
+http://zapier.com - Zapier
 
 <h4>Here are things you can do with WP Pipes (just like Yahoo Pipes):</h4>
 
