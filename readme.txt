@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: thongta
 Donate link: http://wppipes.com/
-Tags: yahoo pipes, pipes, rss, xml sitemap, posts, itunes, podcast, itunes podcast
+Tags: yahoo pipes, pipes, rss, xml sitemap, posts, itunes, podcast, itunes podcast, cronjob, schedule, auto, automatic, pipeline
 Requires at least: 3.8
 Tested up to: 3.8
 Stable tag: trunk
