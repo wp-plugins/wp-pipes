@@ -113,18 +113,18 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 == Changelog ==
 
 = 1.3 =
-~ Fix error when choose only 1 category in Post destination.
-~ Only display pipes with both source and destination selected.
-+ Added missing jQuery in cronjob pages.
+* Fix error when choose only 1 category in Post destination.
+* Only display pipes with both source and destination selected.
+* Added missing jQuery in cronjob pages.
 
 = 1.2 =
-~ Improved PHP code to work with PHP 5.3. It used to requires PHP 5.4 or higher.
-~ Allowed user to choose the number of pipes to be displayed on the Pipes Listing.
-~ Fixed minor bugs on Pipe form.
-~ Improved RSS Creator Destination addon.
+* Improved PHP code to work with PHP 5.3. It used to requires PHP 5.4 or higher.
+* Allowed user to choose the number of pipes to be displayed on the Pipes Listing.
+* Fixed minor bugs on Pipe form.
+* Improved RSS Creator Destination addon.
 
 = 1.1 =
-~ Fixed RSS Destination to force create RSS in any file extension.
+* Fixed RSS Destination to force create RSS in any file extension.
 
 = 1.0 =
 * The first version
