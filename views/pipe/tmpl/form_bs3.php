@@ -405,8 +405,8 @@ if ( $item->inherit > 0 ) {
 
 		<div class="clearfix"></div>
 		<div class="row">
-			<div style="position: absolute; left: 16%;top:84px;"><i class="fa fa-chevron-right fa-2x"></i></div>
-			<div style="position: absolute; left: 74.3%;top:84px;"><i class="fa fa-chevron-right fa-2x"></i></div>
+			<div style="position: absolute; left: 16%;top:;55px;"><i class="fa fa-chevron-right fa-2x"></i></div>
+			<div style="position: absolute; left: 74.3%;top:55px;"><i class="fa fa-chevron-right fa-2x"></i></div>
 			<div class="col-md-2">
 				<div class="panel panel-success">
 					<div class="panel-heading">
