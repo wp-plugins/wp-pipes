@@ -20,7 +20,7 @@ http://pipes.yahoo.com - Yahoo Pipes<br />
 http://zapier.com - Zapier
 
 <h4>Here are things you can do with WP Pipes (just like Yahoo Pipes):</h4>
-<br />
+
 * Get Posts from Wordpress Posts > Export as RSS Feed
 * Get Posts from Wordpress Posts > Export as iTunes Podcast
 * Get Posts from Wordpress Posts > Export as Google XML Sitemap
