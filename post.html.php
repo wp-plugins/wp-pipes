@@ -38,6 +38,8 @@ $host = '';
 <html>
 <head>
 	<link rel='stylesheet' id='pipes-bootstrap-min-css' href='<?php echo plugin_dir_url( '' ) . basename( PIPES_PATH ); ?>/assets/css/bootstrap.min.css' type='text/css' media='all' />
+	<script type='text/javascript' src='<?php echo get_site_url(); ?>/wp-includes/js/jquery/jquery.js?ver=1.10.2'></script>
+	<script type='text/javascript' src='<?php echo get_site_url(); ?>/wp-includes/js/jquery/jquery-migrate.js?ver=1.2.1'></script>
 	<script src="<?php echo plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/ogb-lib.js'; ?>"></script>
 	<script src="<?php echo plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/post.js'; ?>"></script>
 	<script type="text/javascript">

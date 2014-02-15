@@ -112,6 +112,11 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.3 =
+~ Fix error when choose only 1 category in Post destination.
+~ Only display pipes with both source and destination selected.
++ Added missing jQuery in cronjob pages.
+
 = 1.2 =
 ~ Improved PHP code to work with PHP 5.3. It used to requires PHP 5.4 or higher.
 ~ Allowed user to choose the number of pipes to be displayed on the Pipes Listing.
