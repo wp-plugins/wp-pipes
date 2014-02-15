@@ -315,6 +315,7 @@ class Lo_Items_List_Table extends WP_List_Table {
 	public function buildquery_condition() {
 		global $status;
 		$where = array();
+		$where[] = "`engine` <> '' AND `adapter` <> ''";
 		if ( $status != 'all' ) {
 			$where[] = ' `published` = 1';
 		}
@@ -328,7 +329,6 @@ class Lo_Items_List_Table extends WP_List_Table {
 			$where[] = ' `engine` LIKE "' . $_REQUEST['engine'] . '"';
 		}
 		$where_str = ( count( $where ) > 0 ) ? 'WHERE ' . implode( ' AND ', $where ) : '';
-
 		return $where_str;
 	}
 
@@ -352,12 +352,13 @@ class Lo_Items_List_Table extends WP_List_Table {
 	public function getTotal( $condition = '', $status = null ) {
 		global $wpdb;
 		$status = empty( $status ) ? 'all' : $status;
-		$where  = '';
+		$where = array();
+		$where[]  = "`engine` <> '' AND `adapter` <> ''";
 		if ( $status != 'all' ) {
-			$where .= 'WHERE `published` = 1';
+			$where[] = "`published` = 1";
 		}
 		if ( '' == $condition ) {
-			$condition = $where;
+			$condition = 'WHERE ' . implode( ' AND ', $where );
 		}
 		$sql = "SELECT count(*)
 				FROM `" . $wpdb->prefix . "wppipes_items` $condition";

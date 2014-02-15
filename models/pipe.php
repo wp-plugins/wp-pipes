@@ -954,7 +954,7 @@ class PIPESModelPipe extends Model {
 
 	function remove_if_no_ip() {
 		global $wpdb;
-		$sql       = "SELECT `id` FROM `{$wpdb->prefix}wppipes_items` WHERE `engine`='' AND `adapter`=''";
+		$sql       = "SELECT `id` FROM `{$wpdb->prefix}wppipes_items` WHERE `engine`='' OR `adapter`=''";
 		$list_pipe = $wpdb->get_results( $sql );
 		if ( count( $list_pipe ) > 0 ) {
 			foreach ( $list_pipe as $pipe ) {
