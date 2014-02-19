@@ -1,11 +1,4 @@
 <?php
-/**
- * @package              WP Pipes plugin
- * @version              $Id: wpap.php 167 2014-01-26 03:05:32Z thongta $
- * @author               wppipes.com
- * @copyright            2014 wppipes.com. All rights reserved.
- * @license              GNU/GPL v3, see LICENSE
- */
 /*
 $Id: wpap.php 167 2014-01-26 03:05:32Z thongta $
 Plugin Name: WP Pipes

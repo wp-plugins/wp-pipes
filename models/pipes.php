@@ -112,6 +112,11 @@ class PIPESModelPipes extends Model
             if (!is_object($item)) {
                 $msg[] = "Can not find the pipe #$id";
             } else {
+				if($item->adapter == 'post'){
+					$adapter_params_array = json_decode($item->adapter_params);
+					$adapter_params_array->category = 1;
+					$item->adapter_params = json_encode($adapter_params_array);
+				}
                 unset($item->id);
                 $sql = "SELECT `code`, `name`, `params`, `ordering` from `{$wpdb->prefix}wppipes_pipes` WHERE `item_id` = $id";
                 $pipes = $wpdb->get_results($sql);

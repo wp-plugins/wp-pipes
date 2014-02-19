@@ -142,11 +142,14 @@ class WPPipesAdapter_post {
 		}
 		$metakey  = isset( $data->metakey ) ? $data->metakey : '';
 		$metadesc = isset( $data->metadesc ) ? $data->metadesc : '';
-		$images   = self::get_img_from_html( $data->images );
-		$matches  = array();
-		preg_match_all( '/src="(.+?)"/i', $images, $matches );
-		$img_url = $matches[1][0];
-
+		if(!is_array($data->images)){
+			$images   = self::get_img_from_html( $data->images );
+			$matches  = array();
+			preg_match_all( '/src="(.+?)"/i', $images, $matches );
+			$img_url = $matches[1][0];
+		}elseif($data->images[0]->src!=''){
+			$img_url = $data->images[0]->src;
+		}
 
 		$post = array();
 		if ( $uid > 0 ) {
