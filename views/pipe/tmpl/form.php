@@ -14,9 +14,6 @@ global $option;
 $item = $this->item;
 
 $pipes = @$item->pipes;
-//$input_fileds = $item->input_fileds;
-
-//$name	= JRequest::getCmd('n','processors');
 $name = filter_input( INPUT_GET, 'n' );
 if ( ! $name ) {
 //	$name = 'processors';

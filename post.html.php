@@ -8,16 +8,6 @@
  */
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
-//global $option;
-//$version 	= new JVersion();
-//$obJVer  	= $version->getShortVersion();
-//$isJ25 		= substr($obJVer, 0,3)=="2.5";
-//$document	= JFactory::getDocument();
-//$assets		= 'components/'.$option.'/assets/';
-//$document->addScript($assets.'js/ogb-lib.js', 'text/javascript');
-//$document->addScript($assets.'js/post.js', 'text/javascript');
-//$host		= JURI::root();
-//$id			= JRequest::getInt('id',0);
 $id = filter_input( INPUT_GET, 'id' );
 $params_pipes = ogb_common::get_param_pipe( $id, 'image' );
 foreach ( $params_pipes as $params_pipe ) {
@@ -27,12 +17,6 @@ foreach ( $params_pipes as $params_pipe ) {
 	}
 }
 
-//$js		= "ogbHost='{$host}';ogb_id={$id}".(isset($_GET['u'])?',ogb_ud=true':'').';';
-//$js		.= "window.addEventListener('load',function(){ogbPost.onload();},true);";
-
-//$document->addScriptDeclaration($js, 'text/javascript');
-//JHTML::_('behavior.tooltip');
-//JHTML::_('behavior.modal');
 $host = '';
 ?>
 <html>

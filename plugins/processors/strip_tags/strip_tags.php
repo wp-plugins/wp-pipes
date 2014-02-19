@@ -24,9 +24,9 @@ class WPPipesPro_strip_tags {
 		return $data;
 	}
 
-	public static function ogb_strip_tags( $html, $tags, $params ) {
+	/*public static function ogb_strip_tags( $html, $tags, $params ) {
 		$data->html = strip_tags( $data->html );
-	}
+	}*/
 
 	public static function getDataFields( $params = false ) {
 		$data         = new stdClass();

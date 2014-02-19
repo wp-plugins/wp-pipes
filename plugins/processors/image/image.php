@@ -3,16 +3,36 @@
  * @package          WP Pipes plugin
  * @version          $Id: image.php 170 2014-01-26 06:34:40Z thongta $
  * @author           wppipes.com
- * @copyright    2014 wppipes.com. All rights reserved.
+ * @copyright        2014 wppipes.com. All rights reserved.
  * @license          http://www.gnu.org/licenses/gpl-2.0.html
  */
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 jimport( 'joomla.filesystem.folder' );
+
 class WPPipesPro_image {
+	public static function check_params_df( $params ) {
+		$df              = new stdclass();
+		$df->get_image   = 1;
+		$df->clear_tiny  = '64x64';
+		$df->image_local = 'images/wppipes';
+		$df->origin_url  = '';
+		$df->makelist    = 1;
+		$df->number_imgs = 1;
+		$df->remove      = 0;
+
+		foreach ( $df as $key => $val ) {
+			if ( ! isset( $params->$key ) ) {
+				@$params->$key = $val;
+			}
+		}
+
+		return $params;
+	}
+
 	public static function process( $data, $params ) {
 		global $x;
-
+		$params = self::check_params_df( $params );
 		// Some debug variables
 		$x  = isset( $_GET['pim'] );
 		$x1 = isset( $_GET['pim1'] );
@@ -24,7 +44,7 @@ class WPPipesPro_image {
 			ogb_pr( $data, 'Data: ' );
 		}
 		$html = $data->html;
-		
+
 
 		$res         = new stdClass();
 		$res->html   = $html;
@@ -77,12 +97,13 @@ class WPPipesPro_image {
 			return $res;
 		}
 		$images      = array();
-		$host        = JURI::root();
+		$host        = get_site_url();
 		$number_imgs = (int) $params->number_imgs;
 		$fimgs       = count( $imgs[0] );
 		if ( $number_imgs > $fimgs ) {
 			$number_imgs = $fimgs;
 		}
+		$wp_root_path = str_replace('/wp-content/themes', '', get_theme_root());
 		for ( $i = 0; $i < $number_imgs; $i ++ ) {
 			$img = $imgs[0][$i];
 			preg_match( '#src\s*=\s*"(.*?)"#i', $img, $src );
@@ -94,7 +115,7 @@ class WPPipesPro_image {
 			if ( $params->get_image == 1 ) {
 				$src  = str_replace( $host, '', $image->src );
 				$src  = str_replace( '/', DS, $src );
-				$path = JPATH_SITE . DS . $src;
+				$path = $wp_root_path . $src;
 				if ( is_file( $path ) ) {
 					$image->path = $path;
 				}
@@ -112,6 +133,7 @@ class WPPipesPro_image {
 
 	public static function copyImage( $contents = '', $itemLink = '', $params ) {
 		$matches = array();
+		$upload_dir = wp_upload_dir();
 		preg_match_all( "#<img*[^\>]*>#i", $contents, $matches );
 		if ( ! isset( $matches[0][0] ) ) {
 			return $contents;
@@ -122,7 +144,8 @@ class WPPipesPro_image {
 		if ( substr( $local_dir, 0, 1 ) == '/' ) {
 			$local_dir = substr( $local_dir, 1 );
 		}
-		$url_path = JURI::root() . $local_dir;
+		$upload_path = $upload_dir['basedir'];
+		$url_path = $upload_dir['baseurl'] . DS . $local_dir;
 		$to       = array( 'host' => str_replace( "\\", "/", $url_path ), 'path' => $local_dir );
 
 		if ( isset( $params->origin_url ) && $params->origin_url != '' ) {
@@ -133,11 +156,11 @@ class WPPipesPro_image {
 		}
 		$dest_host = isset ( $to['host'] ) ? $to['host'] : '';
 		$more_path = date( 'Y-m' );
-		$dest_path = isset ( $to['path'] ) ? JPATH_ROOT . DS . $to['path'] . DS . $more_path : '';
+		$dest_path = isset ( $to['path'] ) ? $upload_path . DS . $to['path'] . DS . $more_path : '';
 
-		if ( ! preg_match( '!^https?://.+!i', $dest_host ) ) {
+		/*if ( ! preg_match( '!^https?://.+!i', $dest_host ) ) {
 			$dest_host = str_replace( "administrator/", "", JURI :: base() ) . $dest_host;
-		}
+		}*/
 		$dest_parts  = parse_url( $dest_host );
 		$source_urls = array();
 		$replaces    = $searches;
@@ -203,10 +226,10 @@ class WPPipesPro_image {
 				}
 
 				if ( ! $success ) {
-					$aa = JFolder::create( $dest_path );
+					$aa = ogbFolder::create( $dest_path );
 					if ( $aa ) {
 						$img_c = ogbFile::get_curl( $s );
-						$a     = JFile::write( $d, $img_c );
+						$a     = ogbFile::write( $d, $img_c );
 						//$a = copy($s, $d);
 						if ( is_file( $d ) ) {
 							$size = filesize( $d );

@@ -20,7 +20,7 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="words" type="text" default="30" label="Words"
+				<field name="words" type="text" default="30" label="Words" class="cut_introtext"
 					   description="Number word will be get as intro text"/>
 				<field name="finish_sentence" type="list" default="0" label="Finish Sentence"
 					   description="detect finish sentence">

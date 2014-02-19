@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: thongta
 Donate link: http://wppipes.com/
-Tags: yahoo pipes, pipes, rss, xml sitemap, posts, itunes, podcast, itunes podcast, cronjob, schedule, auto, automatic, pipeline
+Tags: pipes, rss, sitemap, posts, itunes, podcast, auto, aggregation, autoblog, import, export, migrate
 Requires at least: 3.8
 Tested up to: 3.8
 Stable tag: trunk
@@ -15,9 +15,8 @@ WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipe
 Yahoo Pipes & Zapier are powerful online services for making pipeline of data, WP Pipes comes available to the Wordpress community to bring such of powerful abilities to Wordpress site, works right inside your Wordpress site.
 You can create many Pipes, give your Pipes input and get output as your needs.
 
-See:<br />
-http://pipes.yahoo.com - Yahoo Pipes<br />
-http://zapier.com - Zapier
+<h4>Support Forum</h4>
+Please visit: http://foobla.com/forums
 
 <h4>Here are things you can do with WP Pipes (just like Yahoo Pipes):</h4>
 
@@ -112,8 +111,14 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.4 =
+* Added Import/Export feature in the "All Pipes" page.
+* Added Export feature in the "Add/Edit Pipe" page as a sub-menu of Save button.
+* Added Help box in the "All Pipes" page.
+* Added "Welcome" box in the "All Pipes" page as the Guideline for the first time usage.
+
 = 1.3 =
-* Fix error when choose only 1 category in Post destination.
+* Fixed error when choose only 1 category in Post destination.
 * Only display pipes with both source and destination selected.
 * Added missing jQuery in cronjob pages.
 

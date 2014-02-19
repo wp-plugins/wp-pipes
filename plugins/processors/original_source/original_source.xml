@@ -20,7 +20,7 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="text" type="text" size="35" default="Original Source" label="Text" description="Text"/>
+				<field name="text" class="fullwidth" type="text" size="35" default="Original Source" label="Text" description="Text"/>
 				<field name="note" type="hidden" default=""/>
 			</fieldset>
 		</fields>

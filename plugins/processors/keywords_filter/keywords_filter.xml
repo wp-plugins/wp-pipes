@@ -20,7 +20,7 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="keywords" type="textarea" rows="2" cols="30" default="" label="Keywords"
+				<field name="keywords" type="textarea" class="fullwidth" rows="2" cols="30" default="" label="Keywords"
 					   description="Keywords"/>
 				<field name="note" type="hidden" default=""/>
 			</fieldset>

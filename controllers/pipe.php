@@ -214,11 +214,12 @@ class PIPESControllerPipe extends Controller {
 	}
 
 	function remove_pipe() {
-		$pid  = filter_input( INPUT_GET, 'pid', FILTER_VALIDATE_INT );
-		$itid = filter_input( INPUT_GET, 'itid', FILTER_VALIDATE_INT );
-		$mod  = $this->getModel( 'pipe' );
-		$msg  = $mod->removePipe( $pid, $itid );
-		echo $msg;
+		$pid   = filter_input( INPUT_GET, 'pid', FILTER_VALIDATE_INT );
+		$itid  = filter_input( INPUT_GET, 'itid', FILTER_VALIDATE_INT );
+		$count = filter_input( INPUT_GET, 'count', FILTER_VALIDATE_INT );
+		$mod   = $this->getModel( 'pipe' );
+		$msg   = $mod->removePipe( $pid, $itid );
+		echo $count;
 		exit();
 	}
 

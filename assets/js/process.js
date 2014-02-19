@@ -97,17 +97,12 @@ function ogb_unable_get(st) {
 	return true;
 }
 function showListOp(el) {
-	//myPos = ogbFindPos(el);
-	myPos = jQuery(el).position();
-//	x = myPos[0] - 235;
-//	y = myPos[1] - 200;
-	console.log(jQuery(document).width()-jQuery(el).width());//.parrent().offsetWidth);
-	console.log(el.offsetWidth);
-	x = jQuery(document).width()-520;//myPos.left;
-	y = myPos.top-50;
+	myPos = ogbFindPos(el);
+	x = myPos.left - 200;
+	y = myPos.top - 50;
 
 	var a = ogb_gid('ogb-list-output');
-	a.style.left = (x - 10) + 'px';
+	a.style.left = (x) + 'px';
 	a.style.top = (y) + 'px';
 	a.style.display = 'inline';
 
@@ -122,16 +117,22 @@ function showListOp(el) {
 	}
 }
 function ogbFindPos(obj) {
-	var curleft = curtop = 0;
-	if (obj.offsetParent) {
-		curleft = obj.offsetLeft;
-		curtop = obj.offsetTop;
-		while (obj = obj.offsetParent) {
-			curleft += obj.offsetLeft;
-			curtop += obj.offsetTop;
+	var pos = jQuery(obj).position();
+	var x = parseInt(pos.left);
+	var y = parseInt(pos.top);
+	jQuery(obj).parents().each(function (index, par) {
+		if (jQuery(par).prop("id") === 'fields_matching' || jQuery(par).prop("tagName") === 'html') {
+			return false;
 		}
-	}
-	return [curleft, curtop];
+		if (jQuery(par).css('position') === 'relative') {
+			var tpost = jQuery(par).position();
+			x = x + parseInt(tpost.left);
+			y = y + parseInt(tpost.top);
+		}
+	});
+	x = parseInt(x);
+	y = parseInt(y);
+	return {'top': y, 'left': x};
 }
 
 function ogb_closeListOp() {
@@ -274,6 +275,8 @@ function addProcessor(code, order) {
 			call_chosen();
 		}
 	});
+	jQuery('#new_processor').val("").trigger("liszt:updated");
+	jQuery('#new_processor option:first-child').attr("selected", "selected");
 //	new Request({url:url,method:'get',onSuccess:function(txt,responseXML){updateProcess(code,txt);}}).send();
 }
 function updateProcess(code, txt) {
@@ -281,11 +284,13 @@ function updateProcess(code, txt) {
 	if (obj.error != '') {
 		return;
 	}
-	var tr = document.createElement('div');
+	var tr = document.createElement('li');
+	tr.setAttribute('class', 'list-group-item');
+	tr.setAttribute('id', 'pipes_processor-' + obj.pipe_id);
 //	tr.style.marginLeft	= '0';
 	var td = '<div class="col-md-4"><ul class="unstyled" id="ob-ip-' + obj.order + '">';
 	td += '<li><i>Loading...</i></li></ul></div>';
-	td += '<div class="col-md-5"><span style="float:left"><a href="javascript:void(0);" title="Options" onclick="showParams(this,' + obj.pipe_id + ');"><i class="fa fa-expand"></i></a></span>&nbsp<strong style="color:#006600;">' + obj.name + '</strong>';
+	td += '<div class="col-md-5"><span style="float:left"><a href="javascript:void(0);" title="Options" onclick="showParams(this,' + obj.pipe_id + ');"><i class="fa fa-expand"></i></a></span>&nbsp;<strong style="color:#006600;">' + obj.name + '</strong>';
 	td += '<span style="float: left;">&nbsp;<a href="javascript:void(0);" title="Help" onclick="showHelps(this,' + obj.pipe_id + ');"><i class="fa fa-question-circle"></i></a>&nbsp;</span>';
 	td += '<span style="float:right">';
 	td += '<a href="javascript:void(0);" title="Remove" onclick="remove_pipe(' + obj.pipe_id + ')"><i class="fa fa-trash-o" style="color:#b94a48"></i></a>';
@@ -294,22 +299,26 @@ function updateProcess(code, txt) {
 	td += '</div><div class="col-md-3"><ul class="unstyled" id="ob-op-' + obj.order + '"><li><i>Loading...</i></li></ul></div>';
 	td += '<div class="col-md-12 well well-small" style="display:none;" id="ob-param-' + obj.pipe_id + '"><i>Loading...</i></div>';
 	td += '<div class="col-md-12 well well-small" style="display:none;" id="ob-param-help-' + obj.pipe_id + '"><i>Loading...</i></div>';
+	td += '<div class="clearfix"></div>';
 	tr.innerHTML = td;
 	var list_pro = obgid('ogb_list_processor');
-	var trs = list_pro.getElementsByTagName('tr');
-
+//	var trs = list_pro.getElementsByTagName('li');
+	var trs = jQuery('#ogb_list_processor > li');
 	if (max_order == 0) {
-		list_pro.innerHTML = '<div class="row diff1">' + td + '<div>';
+		list_pro.insertBefore(tr, trs[trs.length - 1]);
+//		list_pro.innerHTML = '<li class="list-group-item">' + td + '<div>';
 	} else if (trs.length > obj.order) {
-		list_pro.insertBefore(tr, trs[obj.order]);
+		list_pro.insertBefore(tr, trs[trs.length - 1]);
 	} else {
 		var c = (max_order + 1) % 2;
-		tr.className = 'row diff' + c;
-		list_pro.appendChild(tr);
+		tr.className = 'list-group-item';
+		list_pro.insertBefore(tr, trs[trs.length - 1]);
+//		list_pro.appendChild(tr);
 	}
 	max_order++;
 	obgid('npp_order').value = max_order;
-	obgid('new_processor').value = '';
+
+;
 	//ogb_loadAddonParam('ob-param-'+obj.pipe_id,'processor',code,obj.pipe_id);
 	getIOaddon('processor', code, obj.order);
 
@@ -644,4 +653,38 @@ function display_form() {
 			});
 		}
 	};
+}
+function refresh_mapping(form) {
+	if (!confirm('Are you sure you want to reset fields_mapping')) {
+		return;
+	}
+	ogb_need_save = true;
+	var url = ogb_be_url + 'remove_pipe&itid=' + ogb_id + '&pid=';
+	var id_array = new Array();
+	jQuery('.obkey').each(function (i, obj) {
+		var ip = obj.parentNode.getElementsByTagName('input')[0];
+		var ipf = ip.value.split(',');
+		var list_obj = obj.parentNode.parentNode.parentNode.parentNode;
+		if (list_obj.className == 'list-group-item') {
+			var seperate = list_obj.id.split('-');
+			id_array[i] = seperate[1];
+			list_obj.remove();
+		}
+		ip.value = ',,' + ipf[2];
+		obj.innerHTML = '<i>Click me</i>';
+	});
+	for (var j = 0; j < id_array.length; j++) {
+		var url_each = url + id_array[j] + '&count=' + (j + 1);
+		jQuery.ajax({
+			url    : url_each,
+			type   : 'GET',
+			success: function (txt) {
+				if (txt == id_array.length) {
+					submitbutton(ogb_gid('adminForm'), 'apply');
+				}else{
+				//	alert('please wait in seconds!');
+				}
+			}
+		});
+	}
 }

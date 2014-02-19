@@ -19,9 +19,9 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="strip_tag" type="text" size="35" default="*" label="Strip tags"
+				<field name="strip_tag" type="text" size="35" default="*" label="Strip tags" class="strip_tag"
 					   description="Strip tags (a,div,span...,*)"/>
-				<field name="ignore" type="text" size="35" default="div,p,a,img" label="Ignore"
+				<field name="ignore" type="text" size="35" default="div,p,a,img" label="Ignore" class="ignore"
 					   description="ignore tags if Strip tags is *"/>
 				<field name="note" type="hidden" default=""/>
 			</fieldset>

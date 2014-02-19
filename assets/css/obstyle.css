@@ -337,3 +337,57 @@ a.ob-source:hover {
 .foobla .panel-warning .nav-pills>li.active>a:focus {
 	background-color: #F5DDAA;
 }
+
+/* Hide Getting Started Metabox on All Pipes page */
+#items_top-sortables .handlediv,
+#items_top-sortables h3.hndle
+{
+	display: none;
+}
+#pipes-items-helpbox-1 {
+	border: 0;
+}
+
+#items_top-sortables .inside {
+	margin: 0;
+	padding: 0;
+}
+#items_top-sortables .welcome-panel {
+	margin: 0;
+}
+#items_top-sortables .welcome-panel-content h3 {
+	border: 0;
+	cursor: text;
+}
+
+#import-panel {
+	position: relative;
+	overflow: auto;
+	margin: 16px 0;
+	padding: 23px 10px;
+	font-size: 13px;
+	line-height: 2.1em;
+	background: #FFF;
+	border: 1px solid #e5e5e5;
+	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+	box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+}
+
+#import-panel .import-content {
+	margin-left: 13px;
+	max-width: 1500px;
+}
+
+#import-panel .import-content .postbox-container {
+	width: 49.5%;
+}
+
+#import-panel .import-content .pipe-infobox {
+	margin-left: 20px;
+	border-left: 4px solid #7ad03a;
+	padding: 1px 12px;
+}
+
+.welcome-panel .welcome-panel-column li {
+	line-height: 20px;
+}

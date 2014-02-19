@@ -150,14 +150,18 @@ class PIPESModelPipe extends Model {
 		$io_obj = $wpdb->get_results( $sql );
 		$inputs = json_decode( $io_obj[0]->inputs );
 		unset( $inputs->ip[$obj->ordering] );
-		$inputs->ip = array_values( $inputs->ip );
-		$new_ip     = json_encode( $inputs );
+		if ( count( $inputs->ip ) > 0 ) {
+			$inputs->ip = array_values( $inputs->ip );
+		}
+		$new_ip = json_encode( $inputs );
 
 		$outputs = json_decode( $io_obj[0]->outputs );
 		unset( $outputs->op[$obj->ordering] );
-		$outputs->op = array_values( $outputs->op );
-		$new_op      = json_encode( $outputs );
-		$sql_up      = "UPDATE `{$wpdb->prefix}wppipes_items` SET `inputs` = '{$new_ip}', `outputs` = '{$new_op}' WHERE `id` = {$obj->item_id}";
+		if ( count( $outputs->op ) > 0 ) {
+			$outputs->op = array_values( $outputs->op );
+		}
+		$new_op = json_encode( $outputs );
+		$sql_up = "UPDATE `{$wpdb->prefix}wppipes_items` SET `inputs` = '{$new_ip}', `outputs` = '{$new_op}' WHERE `id` = {$obj->item_id}";
 
 		$wpdb->query( $sql_up );
 		if ( ! $wpdb->query( $sql_up ) ) {
@@ -603,7 +607,7 @@ class PIPESModelPipe extends Model {
 
 	function get_other_pipes( $id ) {
 		global $wpdb;
-		$sql  = 'SELECT `id`, `name` FROM ' . $wpdb->prefix . 'wppipes_items WHERE `id` <>' . $id;
+		$sql  = "SELECT `id`, `name` FROM " . $wpdb->prefix . "wppipes_items WHERE `adapter` <> '' AND `engine` <> '' AND `id` <>" . $id;
 		$data = $wpdb->get_results( $sql, ARRAY_A );
 
 		return $data;
@@ -678,7 +682,7 @@ class PIPESModelPipe extends Model {
 	 */
 	function getListProcessors() {
 		$rows   = $this->getAddons( 'processor', true );
-		$select = 'id="new_processor" name="new_processor" class="chosen-select form-control" onchange="addProcessor()"';
+		$select = 'id="new_processor" data-placeholder="- Add a Processor -" name="new_processor" class="chosen-select form-control" onchange="addProcessor()"';
 		$first  = __( '- Add a Processor -' );
 		$select = $this->getHtmlList( $select, $rows, '', $first );
 
@@ -724,7 +728,7 @@ class PIPESModelPipe extends Model {
 		$selected = 'selected="selected"';
 		$select   = '<select ' . $select . '>';
 		if ( $first != '' ) {
-			$select .= '<option value=""> ' . $first . ' </option>';
+			$select .= '<option value = ""> ' . $first . ' </option>';
 		}
 		for ( $i = 0; $i < count( $rows ); $i ++ ) {
 			$select .= '

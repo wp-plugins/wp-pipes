@@ -162,7 +162,7 @@ class WPPipesAdapter_post {
 		$post['post_excerpt'] = $data->excerpt;
 		$post['post_content'] = $data->content;
 
-		$post['post_status'] = $params->public;
+		$post['post_status']   = $params->public;
 		$post_cate             = is_array( $params->category ) ? $params->category : array( $params->category );
 		$post['post_category'] = $post_cate;
 		$post['post_date']     = $created;
@@ -189,19 +189,19 @@ class WPPipesAdapter_post {
 	public static function set_feature_image( $image_url, $post_id ) {
 		$upload_dir = wp_upload_dir(); // Set upload folder
 		$image_data = @file_get_contents( $image_url, true ); // Get image data
-		if ( false === $image_data ) {
-			echo '<pre>';
-			print_r( 'invalid url of image, could not get image' );
-			die;
-		}
+
 		$filename = basename( $image_url ); // Create image file name
 		if ( wp_mkdir_p( $upload_dir['path'] ) ) {
 			$file = $upload_dir['path'] . '/' . $filename;
 		} else {
 			$file = $upload_dir['basedir'] . '/' . $filename;
 		}
-
-		file_put_contents( $file, $image_data );
+		if ( false === $image_data ) {
+			echo '<pre>';
+			print_r( 'invalid url of image, could not get image from ' );
+		} else {
+			file_put_contents( $file, $image_data );
+		}
 		$wp_filetype = wp_check_filetype( $filename, null );
 		$attachment  = array(
 			'post_mime_type' => $wp_filetype['type'],

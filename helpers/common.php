@@ -93,6 +93,9 @@ class ogb_common {
 //			} else {
 //				$li_class .= ' pipes-right';
 //			}
+			if ( $field->hidden ) {
+				$li_class .= ' hidden';
+			}
 			$li[] = '<li class="' . $li_class . '"><div class="form-group">' . ( $field->hidden ? '' : $field->label ) . $field->input . '</div></li>';
 		}
 

@@ -117,7 +117,7 @@ class Lo_Items_List_Table extends WP_List_Table {
 				'selected'        => 'Adapter',
 				'name'            => 'adapter',
 				'taxonomy'        => 'link_category',
-				'show_option_all' => __( 'View all adapters' ),
+				'show_option_all' => __( 'View all destinations' ),
 				'hide_empty'      => true,
 				'hierarchical'    => 1,
 				'show_count'      => 0,
@@ -127,7 +127,7 @@ class Lo_Items_List_Table extends WP_List_Table {
 				'selected'        => 'Engine',
 				'name'            => 'engine',
 				'taxonomy'        => 'link_category',
-				'show_option_all' => __( 'View all engines' ),
+				'show_option_all' => __( 'View all sources' ),
 				'hide_empty'      => true,
 				'hierarchical'    => 1,
 				'show_count'      => 0,
@@ -172,8 +172,9 @@ class Lo_Items_List_Table extends WP_List_Table {
 	function get_bulk_actions() {
 		$actions = array();
 
-		$actions['copy']    = __( 'Copy' );
-		$actions['delete']  = __( 'Delete' );
+		$actions['copy']   = __( 'Copy' );
+		$actions['delete'] = __( 'Delete' );
+        $actions['export_to_share'] = __('Export');
 		//$actions['inherit'] = __( 'Inherit' );
 
 
@@ -209,8 +210,8 @@ class Lo_Items_List_Table extends WP_List_Table {
 		$columns = array(
 			'cb'      => '<input type="checkbox" />', //Render a checkbox instead of text
 			'name'    => 'Name',
-			'engine'  => 'Engine',
-			'adapter' => 'Adapter',
+			'engine'  => 'Source',
+			'adapter' => 'Destination',
 //				'created_time'	=> 'Created Time',
 //				'hits'			=> 'Hits',
 //				'published'		=> 'Published',
@@ -314,7 +315,7 @@ class Lo_Items_List_Table extends WP_List_Table {
 
 	public function buildquery_condition() {
 		global $status;
-		$where = array();
+		$where   = array();
 		$where[] = "`engine` <> '' AND `adapter` <> ''";
 		if ( $status != 'all' ) {
 			$where[] = ' `published` = 1';
@@ -329,6 +330,7 @@ class Lo_Items_List_Table extends WP_List_Table {
 			$where[] = ' `engine` LIKE "' . $_REQUEST['engine'] . '"';
 		}
 		$where_str = ( count( $where ) > 0 ) ? 'WHERE ' . implode( ' AND ', $where ) : '';
+
 		return $where_str;
 	}
 
@@ -351,9 +353,9 @@ class Lo_Items_List_Table extends WP_List_Table {
 
 	public function getTotal( $condition = '', $status = null ) {
 		global $wpdb;
-		$status = empty( $status ) ? 'all' : $status;
-		$where = array();
-		$where[]  = "`engine` <> '' AND `adapter` <> ''";
+		$status  = empty( $status ) ? 'all' : $status;
+		$where   = array();
+		$where[] = "`engine` <> '' AND `adapter` <> ''";
 		if ( $status != 'all' ) {
 			$where[] = "`published` = 1";
 		}
@@ -428,9 +430,11 @@ class Lo_Items_List_Table extends WP_List_Table {
 				echo "</span> | <span class='trash'>";
 				echo sprintf( '<a href="?page=%s&task=%s&id=%s">Delete</a>', $_REQUEST['page'], 'delete', $item['id'] );
 				echo "</span> | <span class='post'>";
-				echo sprintf( '<a data-id="%s" class="btn-pipes-post" href="?page=%s&task=%s&id=%s">Post</a>', $item['id'], PIPES::$__page_prefix . '.pipe', 'post', $item['id'] );
+				echo sprintf( '<a data-id="%s" class="btn-pipes-post" href="?page=%s&task=%s&id=%s">Test</a>', $item['id'], PIPES::$__page_prefix . '.pipe', 'post', $item['id'] );
 				echo "</span> | <span class='postupdate'>";
-				echo sprintf( '<a data-id="%s" class="btn-pipes-post" href="?page=%s&task=%s&id=%s&u=1">Post & Update</a>', $item['id'], PIPES::$__page_prefix . '.pipe', 'post', $item['id'] );
+				echo sprintf( '<a data-id="%s" class="btn-pipes-post" href="?page=%s&task=%s&id=%s&u=1">Test in Update mode</a>', $item['id'], PIPES::$__page_prefix . '.pipe', 'post', $item['id'] );
+                echo "</span> | <span class='export'>";
+                echo sprintf( '<a data-id="%s" class="btn-pipes-export" href="?page=%s&task=%s&id=%s">Export</a>', $item['id'], PIPES::$__page_prefix . '.pipes', 'export_to_share', $item['id'] );
 				echo "</span></div></td>";
 			} else {
 				echo "<td $attributes>";

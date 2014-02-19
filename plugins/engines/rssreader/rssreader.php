@@ -58,8 +58,9 @@ class WPPipesEngine_rssreader {
 	}
 
 	public static function get_cache( $path ) {
-		$rows = file_get_contents( $path );
-		$rows = unserialize( $rows );
+		if(!is_file($path)) {return array();}
+		$cache_conten = file_get_contents( $path );
+		$rows = unserialize( $cache_conten );
 
 		return $rows;
 	}

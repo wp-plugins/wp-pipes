@@ -21,22 +21,22 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="get_image" type="list" default="1" label="Get To local" description="Get image To local">
+				<field name="get_image" type="list" default="1" class="form-control" label="Get To local" description="Get image To local">
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
-				<field name="clear_tiny" type="text" size="30" default="64x64" label="Clear Tiny"
+				<field name="clear_tiny" type="text" size="30" class="form-control" default="64x64" label="Clear Tiny"
 					   description="clear tiny images size less than (width x hight)"/>
-				<field name="image_local" type="text" size="30" default="images/wppipes" label="Save to"
+				<field name="image_local" type="text" size="30" class="form-control" default="images/wppipes" label="Save to"
 					   description="Save to"/>
-				<field name="origin_url" type="text" size="30" default="" label="Origin Url" description="Origin Url"/>
-				<field name="makelist" type="list" default="1" label="Make list" description="Make list Images">
+				<field name="origin_url" type="text" size="30" class="form-control" default="" label="Origin Url" description="Origin Url"/>
+				<field name="makelist" type="list" default="1" class="form-control" label="Make list" description="Make list Images">
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
-				<field name="number_imgs" type="text" default="1" size="5" label="Number images"
+				<field name="number_imgs" type="text" default="1" class="form-control" size="5" label="Number images"
 					   description="Number images make list"/>
-				<field name="remove" type="list" default="0" label="Remove"
+				<field name="remove" type="list" default="0" class="form-control" label="Remove"
 					   description="Remove images make list out html">
 					<option value="0">No</option>
 					<option value="1">Yes</option>

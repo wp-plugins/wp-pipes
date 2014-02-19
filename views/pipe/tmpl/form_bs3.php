@@ -143,13 +143,14 @@ if ( ! $pipes_js ) {
 			location = value;
 		}
 	}
-	jQuery(document).ready(function(){
+	jQuery(document).ready(function () {
 		var config = {
-			".chosen-select"	: {}
-		};console.log(config);
+			".chosen-select": {}
+		};
 		for (var selector in config) {
 			jQuery(selector).chosen();
-		};
+		}
+		;
 	})
 </script>
 
@@ -169,7 +170,7 @@ if ( ! $pipes_js ) {
 		</select>
 		<?php echo __( '- or -' ); ?>
 		<?php
-		echo ' <a class="add-new-h2" href="admin.php?page=pipes.pipe">Add New</a>';
+		echo ' <a class="add-new-h2" href="admin.php?page=pipes.pipe">'. __( 'Add New', 'pipes' ) . '</a>';
 	}
 	?>
 </h2>
@@ -179,7 +180,7 @@ if ( ! $pipes_js ) {
 <div class="foobla" style="padding-top:15px;">
 	<div class="alert alert-info alert-dismissable hidden">
 		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-		<h3><?php echo __( 'The first time here?' ); ?></h3>
+		<h3><?php echo __( 'The first time here?', 'pipes' ); ?></h3>
 
 		<div class="row">
 			<div class="col-md-4">
@@ -240,21 +241,30 @@ if ( isset( $_SESSION['PIPES']['messages'] ) && count( $_SESSION['PIPES']['messa
 	<div class="col-md-6" style="position: inherit">
 		<div class="btn-toolbar pull-right" id="toolbar" data-spy="affix1" data-offset-top="60" data-offset-bottom="200">
 			<div class="btn-wrapper" id="toolbar-apply">
-				<button onclick="submitbutton(this.form,'apply')" class="btn btn-primary btn-lg">
-					<span class="fa fa-save"></span>
-					<?php echo __( 'Save' ); ?></button>
-			</div>
-			<div class="btn-wrapper" id="toolbar-cancel">
-				<button onclick="submitbutton(this.form,'cancel')" class="btn btn-default btn-lg">
-					<span class="fa fa-times"></span>
-					<?php echo __( 'Close' ); ?></button>
+				<div class="btn-group">
+					<button onclick="submitbutton(this.form,'apply')" class="btn btn-default btn-lg">
+						<span class="fa fa-save"></span>
+						<?php echo __( 'Save' ); ?>
+					</button>
+					<button type="button" class="btn btn-default  btn-lg dropdown-toggle" data-toggle="dropdown">
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" role="menu">
+						<li>
+							<a href="admin.php?page=<?php echo PIPES::$__page_prefix ?>.pipes&task=export_to_share&id=<?php echo $item->id; ?>" class="btn-pipes-export">
+								<span class="fa fa-download"></span>
+								<?php echo __( 'Export to .pipe file' ); ?>
+							</a>
+						</li>
+					</ul>
+				</div>
 			</div>
 			<div class="btn-wrapper" id="toolbar-postu">
 				<div class="btn-group">
-					<a id="openBtn" href="admin.php?page=<?php echo PIPES::$__page_prefix ?>.pipe&task=post&id=<?php echo $item->id; ?>" class="btn btn-primary btn-lg btn-pipes-post">
+					<button id="openBtn" href="admin.php?page=<?php echo PIPES::$__page_prefix ?>.pipe&task=post&id=<?php echo $item->id; ?>" class="btn btn-default btn-lg btn-pipes-post">
 						<i class="fa fa-flask" title=""></i> <?php echo __( 'Test this Pipe' ); ?>
-					</a>
-					<button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
+					</button>
+					<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown">
 						<span class="caret"></span>
 					</button>
 					<ul class="dropdown-menu" role="menu">
@@ -388,13 +398,13 @@ if ( $item->inherit > 0 ) {
 
 <!-- Fields Matching -->
 <div class="row">
-	<div class="col-md-12">
+	<div id="fields_matching" class="col-md-12">
 		<div class="text-center">
 			<h3 style="margin-top:0;">
 				<?php echo __( 'Fields Matching' ); ?>
 				<?php /* @TODO: Tung - because of this function is not really work for now, I have to hide it ?>
-				 * <fieldset style="visibility:<?php echo ( $item->engine == 'rssreader' AND ( $item->adapter == 'post' OR $item->adapter == 'content' ) ) ? 'visible' : 'hidden'; ?>;display: inline-block;" rel="tooltip" data-original-title="Default set of processors: alias, duplicate, get_fulltext, image, cut_introtext, get_meta" id="jform_set_default_obg" class="radio btn-group btn-group-yesno">
-				 * <input type="radio" id="jform_set_default_obg_<?php echo $item->id; ?>" name="jform[input_default]" value="alias-duplicate-get_fulltext-image-cut_introtext" />
+				 * <fieldset style="visibility:<?php echo ( $item->engine == 'rssreader' AND ( $item->adapter == 'post' OR $item->adapter == 'content' ) ) ? 'visible' : 'hidden'; ?>;display: inline-block;" rel="tooltip" data-original-title="Default set of processors: slug, duplicate, get_fulltext, image, cut_introtext, get_meta" id="jform_set_default_obg" class="radio btn-group btn-group-yesno">
+				 * <input type="radio" id="jform_set_default_obg_<?php echo $item->id; ?>" name="jform[input_default]" value="slug-duplicate-get_fulltext-image-cut_introtext" />
 				 * <label for="jform_set_default_obg_<?php echo $item->id; ?>" class="btn btn-info"><?php echo __( 'Pre-made SET#1' ); ?></label>
 				 * </fieldset>
 				 * <?php */
@@ -404,9 +414,11 @@ if ( $item->inherit > 0 ) {
 		</div>
 
 		<div class="clearfix"></div>
-		<div class="row">
-			<div style="position: absolute; left: 16%;top:;55px;"><i class="fa fa-chevron-right fa-2x"></i></div>
-			<div style="position: absolute; left: 74.3%;top:55px;"><i class="fa fa-chevron-right fa-2x"></i></div>
+		<div class="row" style="position:relative;">
+			<div style="position: absolute; left: 16%;top:18px;"><i class="fa fa-chevron-right fa-2x"></i></div>
+			<div style="position: absolute; left: 74.3%;top:18px;"><i class="fa fa-chevron-right fa-2x"></i></div>
+
+			<!-- Source Output Box -->
 			<div class="col-md-2">
 				<div class="panel panel-success">
 					<div class="panel-heading">
@@ -426,6 +438,8 @@ if ( $item->inherit > 0 ) {
 					</div>
 				</div>
 			</div>
+
+			<!-- Processors Box -->
 			<div class="col-md-7">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -434,71 +448,79 @@ if ( $item->inherit > 0 ) {
 							<small><?php echo __( 'Cooking fields with processors' ); ?>
 								<a href="http://wppipes.com/understanding-processors/" target="_blank" rel="tooltip" data-original-title="<?php echo __( 'Understanding processors' ); ?>"><i class="fa fa-question-circle"></i></a>
 							</small>
+							<p class="text-right pull-right">
+							<a onclick="refresh_mapping(this.form);" class="btn btn-danger btn-xs">
+								<span class="fa fa-refresh"></span>
+								<?php echo __( 'Clear added processors' ); ?>
+							</a>
+							</p>
 						</h4>
 					</div>
 
-					<div class="panel-body">
-						<div class="row">
+					<ul id="ogb_list_processor" class="list-group">
+						<!-- PROCESSORS LIST HEADER -->
+						<li class="list-group-item">
 							<div class="col-md-4"><span><strong><?php echo __( 'Input Fields' ); ?></strong></span>
 							</div>
 							<div class="col-md-5"><span><strong><?php echo __( 'Processor' ); ?></strong></span></div>
 							<div class="col-md-3"><span><strong><?php echo __( 'Output Fields' ); ?></strong></span>
 							</div>
-						</div>
+							<div class="clearfix"></div>
+						</li>
 
-						<div id="ogb_list_processor">
-							<?php $t = 0;
-							for ( $i = 0; $i < $cpp; $i ++ ) {
-								$pipe = $pipes[$i];
-								$t    = ( $t + 1 ) % 2;
-								?>
-								<div class="row diff<?php echo $t; ?>">
-									<div class="col-md-4">
-										<ul class="unstyled" id="ob-ip-<?php echo $i; ?>">
-											<li><i><? echo __( 'Loading' ); ?></i></li>
-										</ul>
-									</div>
-									<div class="col-md-5">
+						<!-- ADDED PROCESSORS LIST -->
+						<?php $t = 0;
+						for ( $i = 0; $i < $cpp; $i ++ ) {
+							$pipe = $pipes[$i];
+							$t    = ( $t + 1 ) % 2;
+							?>
+							<li class="list-group-item" id="pipes_processor-<?php echo $pipe->id; ?>">
+								<div class="col-md-4">
+									<ul class="unstyled" id="ob-ip-<?php echo $i; ?>">
+										<li><i><? echo __( 'Loading' ); ?></i></li>
+									</ul>
+								</div>
+								<div class="col-md-5">
 									<span style="float: left;"><a href="javascript:void(0);" title="Settings" onclick="showParams(this,<?php echo $pipe->id; ?>);"><i class="fa fa-expand"></i></a>
 									&nbsp;</span>
-										<strong style="color:#006600;"><?php echo $pipe->name; ?></strong>
+									<strong style="color:#006600;"><?php echo $pipe->name; ?></strong>
                                     <span style="float: left;">&nbsp;<a href="javascript:void(0);" title="Help" onclick="showHelps(this,<?php echo $pipe->id; ?>);"><i class="fa fa-question-circle"></i></a>
                                     &nbsp;</span>
 									<span style="float:right">
 									<a href="javascript:void(0);" title="Remove" onclick="remove_pipe(<?php echo $pipe->id; ?>)"><i class="fa fa-trash-o" style="color:#b94a48"></i></a>
 									</span>
-										</br>
-										<textarea class="form-control input-sm" name="note" rows="1" id="note_<?php echo $pipe->id; ?>" onblur="savenote(<?php echo $pipe->id; ?>)" placeholder="Write note here!"><?php echo $pipe->note; ?></textarea>
-									</div>
-									<div class="col-md-3">
-										<ul class="unstyled" id="ob-op-<?php echo $i; ?>">
-											<li><i><? echo __( 'Loading' ); ?></i></li>
-										</ul>
-									</div>
-									<div class="col-md-12 well well-small" style="display:none; margin-left:0;" id="ob-param-<?php echo $pipe->id; ?>">
-										<i><? echo __( 'Loading' ); ?></i>
-									</div>
-									<div class="col-md-12 well well-small" style="display:none; margin-left:0;" id="ob-param-help-<?php echo $pipe->id; ?>">
-										<i><? echo __( 'Loading' ); ?></i>
-									</div>
+									</br>
+									<textarea class="form-control input-sm" name="note" rows="1" id="note_<?php echo $pipe->id; ?>" onblur="savenote(<?php echo $pipe->id; ?>)" placeholder="Write note here!"><?php echo $pipe->note; ?></textarea>
 								</div>
-							<?php
-							}
-							?>
-						</div>
+								<div class="col-md-3">
+									<ul class="unstyled" id="ob-op-<?php echo $i; ?>">
+										<li><i><? echo __( 'Loading' ); ?></i></li>
+									</ul>
+								</div>
+								<div class="col-md-12 well well-small" style="display:none; margin-left:0;" id="ob-param-<?php echo $pipe->id; ?>">
+									<i><? echo __( 'Loading' ); ?></i>
+								</div>
+								<div class="col-md-12 well well-small" style="display:none; margin-left:0;" id="ob-param-help-<?php echo $pipe->id; ?>">
+									<i><? echo __( 'Loading' ); ?></i>
+								</div>
+								<div class="clearfix"></div>
+							</li>
+						<?php
+						}
+						?>
 
-						<hr />
-
-						<div>
+						<!-- NEW PROCESSOR DROPDOWN BOX -->
+						<li class="list-group-item">
 							<?php //echo $this->getPMode($item); ?>
 							<?php echo $item->processors; ?>
 							<span style="display:none;">
 								<b>Order:</b> <input type="text" id="npp_order" name="npp_order" size="3" value="<?php echo( $cpp > 0 ? $cpp : 0 ); ?>" style="float:none;" onfocus="this.select();" />
 								<a href="javascript:void(0);" title="Add new processor" onclick="addProcessor();">[ Add ]</a>
 							</span>
-						</div>
 
-					</div>
+							<div class="clearfix"></div>
+						</li>
+					</ul>
 
 					<div class="panel-footer">
 						<p>This area is for cooking more fields for the Destination Input in the case Source Output doesn't provide enough fields or exact fields for it.</p>
@@ -589,8 +611,8 @@ if ( $item->inherit > 0 ) {
 			$('#myModal').on('shown.bs.modal',function (e) {
 				$('#modal_iframe').attr("src", ahref);
 			}).on("show.bs.modal", function () {
-				$(this).find(".modal-dialog").css("height", '600px').css("width", '700px').css('margin-top', '100px');
-			});
+					$(this).find(".modal-dialog").css("height", '600px').css("width", '700px').css('margin-top', '100px');
+				});
 			$('#myModal').modal({show: true});
 		});
 	});
