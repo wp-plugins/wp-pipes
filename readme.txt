@@ -43,15 +43,36 @@ Please visit: http://foobla.com/forums
 * Smart schedule to execute pipes using cronjob.
 
 <h4>AVAILABLE SOURCES (more will come up later):</h4>
-* RSS Reader: to read RSS Feed
-* Post: to read Posts from Wordpress
+* RSS Reader: to read RSS Feed.
+* Post: to read Posts from Wordpress.
+* CSV: to read CSV files (coming soon)
+* WooCommerce: to deal with WooCommerce products (coming soon)
+* bbPress: to deal with bbPress topics (coming soon)
+* Email: to read mailbox (coming soon)
+* Facebook: get (coming soon)
+* Wordpress: deal with xmlrpc from Wordpress (hosted or wordpress.com) (coming soon)
 
 <h4>AVAILABLE DESTINATIONS (more will come up later):</h4>
-* RSS Creator: to create RSS Feed for Wordpress
-* Post: to create Posts for Wordpress
+* RSS Creator: to create RSS Feed for Wordpress.
+* Post: to create Posts for Wordpress.
+* WooCommerce: to create products in WooCommerce plugin. (coming soon)
+* bbPress: to create topics in bbPress plugin. (coming soon)
+* Email: to send a new email to a mailbox. (coming soon)
+* Wordpress.com: to create post on Wordpress.com blog. (coming soon)
+* Blogger: to create blog post on Blogger. (coming soon)
+* Twitter: to create Twitter tweets. (coming soon)
+* Facebook: to create message on Facebook personal wall. (coming soon)
+* Facebook Page: to create message on Facebook Page. (coming soon)
+* Facebook Group: to create message on Facebook Group. (coming soon)
+* LinkedIn: to create message on LinkedIn personal wall. (coming soon)
+* LinkedIn Group: to create message on LinkedIn Group wall. (coming soon)
+* LinkedIn Company: to create message on LinkedIn Company wall. (coming soon)
+* Vkontakle: to create message on Vkontakle (VK). (coming soon)
+* Google Plus (Google+ or G+): to create message on Google+ / G+ / Google Plus. (comming soon)
 
 <h4>AVAILABLE PROCESSORS (more will come up later):</h4>
 * Alias: create slug from text/title/subject.
+* Combine: combine fields together into one output field using shortcode. (new)
 * Duplicate: check and prevent duplicate data items from source, recommend to use right after alias.
 * Cut Introtext: cutting text into two parts.
 * Get Fulltext: getting fulltext from a link.
@@ -116,6 +137,7 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 = 1.5 =
 * Improved slug processor.
 * Cleaned source code.
+* Added combine processor to combine fields together.
 * Added sample source output for rssreader source.
 * Wordpress.com & Blogger destination addons will come up to public soon in the next release.
 
