@@ -131,7 +131,7 @@ ul.oblistfield li.obfield:hover {
 	/*overflow: auto;*/
 	position: absolute;
 	right:10px;
-	width:200px;
+	width:300px;
 	display:none;
 }
 #change-field {

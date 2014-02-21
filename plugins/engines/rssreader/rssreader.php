@@ -56,11 +56,11 @@ class WPPipesEngine_rssreader {
 		$default_oe    = $default->so;
 		foreach ( $data->output as $key => $value ) {
 			if ( is_array( $default_oe->$value ) ) {
-				$data->output[$key] = $value . '</br><small> Array</small>';
+				$data->output[$key] = $value . '<br /><p class="text-muted small">Array</p>';
 			} else {
 				$default_oe->$value = str_replace("'","",$default_oe->$value);
 				$default_oe->$value = str_replace('"','',$default_oe->$value);
-				$data->output[$key] = $value . '</br><small> ' . ( $default_oe->$value != '' ? strip_tags($default_oe->$value).'</small>' : 'null</small>' );
+				$data->output[$key] = $value . '<br /><p class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags($default_oe->$value).'</p>' : 'null</p>' );
 			}
 		}
 		return $data;

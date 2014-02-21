@@ -66,7 +66,6 @@ function ogb_update_field(st, of) {
 		alert('ogb_change_field None');
 		return;
 	}
-
 	var ip = el.parentNode.getElementsByTagName('input')[0];
 	var ipf = ip.value.split(',');
 	if (st == '') {
@@ -75,17 +74,6 @@ function ogb_update_field(st, of) {
 	} else {
 		ip.value = st + ',' + of + ',' + ipf[2];
 		el.innerHTML = (st == 'e' ? '[so]' : 'op[' + st + ']') + ' ' + of;
-		if(el.parentNode.parentNode.parentNode.parentNode.className=='list-group-item'){
-			var processor_id = el.parentNode.parentNode.parentNode.parentNode.id.split('-')[1];
-			var url = ogb_be_url + 'execaddonmethod&type=processor&method=create_default_value' + '&processor_id=' + processor_id + '&id=' + ogb_id;
-			jQuery.ajax({
-				url    : url,
-				type   : 'GET',
-				success: function (txt) {
-
-				}
-			});
-		}
 	}
 	ogb_gid('ogb-list-output').style.display = 'none';
 }
@@ -414,7 +402,7 @@ function updateOengine(oe) {
 	var litxt = '';
 	var oelist = '<b>[so]</b>';
 	for (var i = 0; i < oe.length; i++) {
-		var real_value = oe[i].split('</br>');
+		var real_value = oe[i].split('<br />');
 		litxt += '<li>[so] ' + oe[i];
 		litxt += '<input type="hidden" name="oe[' + i + ']" value="' + real_value[0] + '"></li>';
 		oelist += '<li class="obfield" onclick="ogb_update_field(\'e\',\'' + real_value[0] + '\');">&nbsp;&nbsp; - ' + oe[i] + '</li>';

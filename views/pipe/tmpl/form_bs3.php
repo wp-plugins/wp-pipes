@@ -565,10 +565,10 @@ if ( $item->inherit > 0 ) {
 					&nbsp;- or <?php echo __( 'Select a field to map with this field.' ); ?>
 				</div>
 				<div class="panel-body">
-					<div id="ob-oelist" style="float:left;">
+					<div id="ob-oelist" style="">
 						<i>None</i>
 					</div>
-					<div id="ob-oplist" style="float:left;">
+					<div id="ob-oplist" style="">
 						<i>&nbsp;&nbsp;None</i>
 					</div>
 				</div>

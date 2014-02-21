@@ -546,3 +546,8 @@ a.ob-source:hover {
 	top:        50%;
 	margin:     -25px 0 0 -25px;
 }
+
+ul.oblistfield li p.small {
+	white-space: nowrap;
+	overflow: hidden;
+}
