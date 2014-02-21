@@ -32,6 +32,7 @@
 					   class="fullwidth"
 					   default=""
 					   label="RSS Feed URL"
+					   onblur="call_function_from_addon('engine','rssreader','get_default_item',this.value)"
 					   description="Feed URL, multiple Feed support, each Feed per a new line"/>
 			</fieldset>
 			<fieldset name="advanced">

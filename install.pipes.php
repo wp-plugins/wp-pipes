@@ -12,6 +12,22 @@ global $wpdb;
 require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 #--------------------------------------------------
+# Add user_meta for all admins
+#--------------------------------------------------
+$users     = get_users();
+$user_meta = array( 'pipes_help_box' => 1, 'pipes_per_page' => 20, 'addons_per_page' => 20 );
+foreach ( $users as $user ) {
+	if ( is_super_admin( $user->ID ) ) {
+		foreach ( $user_meta as $meta_key => $value ) {
+			$meta_value = get_user_meta( $user->ID, $meta_key, true );
+			if ( $meta_value == '' ) {
+				update_user_meta( $user->ID, $meta_key, $value );
+			}
+		}
+	}
+}
+
+#--------------------------------------------------
 # Create Items table 
 #--------------------------------------------------
 

@@ -3,7 +3,7 @@
  * @package          WP Pipes plugin
  * @version          $Id: rssreader.php 170 2014-01-26 06:34:40Z thongta $
  * @author           wppipes.com
- * @copyright    2014 wppipes.com. All rights reserved.
+ * @copyright        2014 wppipes.com. All rights reserved.
  * @license          http://www.gnu.org/licenses/gpl-2.0.html
  */
 
@@ -11,7 +11,8 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 define( 'OGRAB_ECACHE', OGRAB_CACHE . 'ecache' . DS );
 # Call SimplePie library
-require_once dirname(__FILE__). DS . 'helpers' . DS . 'autoloader.php';
+require_once dirname( __FILE__ ) . DS . 'helpers' . DS . 'autoloader.php';
+
 class WPPipesEngine_rssreader {
 	public static function getData( $params ) {
 		if ( isset( $_GET['e'] ) ) {
@@ -44,7 +45,24 @@ class WPPipesEngine_rssreader {
 	public static function getDataFields() {
 		$data         = new stdClass();
 		$data->output = array( 'title', 'link', 'description', 'author', 'date', 'enclosures' );
+		$id      = filter_input( INPUT_GET, 'id' );
+		$path    = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+		if(! is_file( $path )){
+			return $data;
+		}
+		$default = file_get_contents( $path );
+		$default = unserialize( $default );
 
+		$default_oe    = $default->so;
+		foreach ( $data->output as $key => $value ) {
+			if ( is_array( $default_oe->$value ) ) {
+				$data->output[$key] = $value . '</br><small> Array</small>';
+			} else {
+				$default_oe->$value = str_replace("'","",$default_oe->$value);
+				$default_oe->$value = str_replace('"','',$default_oe->$value);
+				$data->output[$key] = $value . '</br><small> ' . ( $default_oe->$value != '' ? strip_tags($default_oe->$value).'</small>' : 'null</small>' );
+			}
+		}
 		return $data;
 	}
 
@@ -58,9 +76,11 @@ class WPPipesEngine_rssreader {
 	}
 
 	public static function get_cache( $path ) {
-		if(!is_file($path)) {return array();}
+		if ( ! is_file( $path ) ) {
+			return array();
+		}
 		$cache_conten = file_get_contents( $path );
-		$rows = unserialize( $cache_conten );
+		$rows         = unserialize( $cache_conten );
 
 		return $rows;
 	}
@@ -102,6 +122,7 @@ class WPPipesEngine_rssreader {
 		$cache_path = self::getPath( $url );
 		if ( ! self::need_update( $cache_path ) ) {
 			$rows = self::get_cache( $cache_path );
+
 			return $rows;
 		}
 //		jimport('simplepie.simplepie');
@@ -143,7 +164,7 @@ class WPPipesEngine_rssreader {
 			$rows[]           = $row;
 		}
 //		var_dump($rows);
-		
+
 		self::update_cache( $cache_path, $rows );
 
 		return $rows;
@@ -188,5 +209,49 @@ class WPPipesEngine_rssreader {
 
 		return date( 'Y-m-d H:i:s', $time );
 		//3600.24	= 86400
+	}
+
+	public static function get_default_item() {
+		$id            = filter_input( INPUT_GET, 'id' );
+		$value_default = filter_input( INPUT_GET, 'val_default' );
+		$feed          = new SimplePie();
+		$mode          = isset( $params->mode ) ? $params->mode : 0;
+		$feed->set_feed_url( $value_default );
+		$feed->set_autodiscovery_level( SIMPLEPIE_LOCATOR_NONE );
+		$feed->set_timeout( 20 );
+		$feed->enable_cache( false );
+		$feed->set_stupidly_fast( true );
+		$feed->enable_order_by_date( false ); // we don't want to do anything to the feed
+		$feed->set_url_replacements( array() );
+		$result = $feed->init();
+		if ( isset( $_GET['x'] ) ) {
+			echo "\n\n<br /><i><b>File:</b>" . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br />\n\n";
+			echo "<p>URL: [{$value_default}]</p>";
+			echo "<p>Error: [{$feed->error}]</p>";
+		}
+		$items   = $feed->get_items();
+		$c_items = count( $items );
+		if ( $c_items == 0 ) {
+			echo "<p>Error: [{$feed->error}]</p>";
+
+			return array();
+		}
+		$row              = new stdclass();
+		$row->title       = $items[0]->get_title(); # the title for the post
+		$row->link        = $items[0]->get_link(); # a single link for the post
+		$row->description = $items[0]->get_description(); # the content of the post (prefers summaries)
+		$row->author      = $items[0]->get_author(); # a single author for the post
+		$row->date        = $items[0]->get_date( 'Y-m-d H:i:s' );
+		$row->enclosures  = $items[0]->get_enclosures();
+		$source           = new stdClass();
+		$source->so       = $row;
+		$cache            = serialize( $source );
+		$path             = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+		if ( isset( $_GET['x2'] ) ) {
+			//echo "\n\n<br /><i><b>File:</b>".__FILE__.' <b>Line:</b>'.__LINE__."</i><br />\n\n";
+			echo '<br>Path: ' . $path;
+		}
+		ogbFile::write( $path, $cache );
+		exit();
 	}
 }

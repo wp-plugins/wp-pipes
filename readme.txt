@@ -1,19 +1,21 @@
 === Plugin Name ===
 Contributors: thongta
 Donate link: http://wppipes.com/
-Tags: pipes, rss, sitemap, posts, itunes, podcast, auto, aggregation, autoblog, import, export, migrate
+Tags: pipes, csv, woocommerce, rss, syndicate, syndication, posts, auto, aggregation, aggregate, aggregator, aggregation, autoblog, autoblogging, autoblogged, import, export, migrate, migrator, migration, wordpress, blogger, blogspot
 Requires at least: 3.8
 Tested up to: 3.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
+Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn
 
 == Description ==
 
 Yahoo Pipes & Zapier are powerful online services for making pipeline of data, WP Pipes comes available to the Wordpress community to bring such of powerful abilities to Wordpress site, works right inside your Wordpress site.
 You can create many Pipes, give your Pipes input and get output as your needs.
+
+Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
 
 <h4>Support Forum</h4>
 Please visit: http://foobla.com/forums
@@ -110,6 +112,12 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 4. Settings: where to configure cronjob.
 
 == Changelog ==
+
+= 1.5 =
+* Improved slug processor.
+* Cleaned source code.
+* Added sample source output for rssreader source.
+* Wordpress.com & Blogger destination addons will come up to public soon in the next release.
 
 = 1.4 =
 * Added Import/Export feature in the "All Pipes" page.

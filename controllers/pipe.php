@@ -364,4 +364,49 @@ class PIPESControllerPipe extends Controller {
 		}
 		exit();
 	}
+	
+	function execaddonmethod() {
+		$type	= filter_input( INPUT_GET, 'type' );
+		$name	= filter_input( INPUT_GET, 'name' );
+		$id		= filter_input( INPUT_GET, 'id' );
+		$ajax	= filter_input( INPUT_GET, 'ajax' );
+		$method = filter_input( INPUT_GET, 'method');
+		$path   = PIPES_PATH . DS . 'plugins' . DS . $type . 's' . DS . $name . DS . $name . '.php';
+		if ( ! is_file( $path ) ) {
+			$res->err = "File not found [{$type} {$name}]";
+			if($ajax){
+				exit();
+			}
+			return $res;
+		}
+		
+		include_once $path;
+		switch ( $type ) {
+			case 'engine':
+				$class = 'WPPipesEngine_';
+				break;
+			case 'processor':
+				$class = 'WPPipesPro_';
+				break;
+			case 'adapter':
+				$class = 'WPPipesAdapter_';
+				break;
+			default:
+				echo "Unknow addon type [{$type} {$name}]";
+				exit();
+		}
+		
+		$class .= $name;
+
+		if ( ! method_exists( $class, $method ) ) {
+			$res->err = "not found method ".$method."  [{$type} {$name}]";
+
+			return $res;
+		}
+		$data = call_user_func( array($class, $method) );
+		if($ajax){
+			exit();
+		}
+		return $data;
+	}
 }

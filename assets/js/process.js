@@ -66,6 +66,7 @@ function ogb_update_field(st, of) {
 		alert('ogb_change_field None');
 		return;
 	}
+
 	var ip = el.parentNode.getElementsByTagName('input')[0];
 	var ipf = ip.value.split(',');
 	if (st == '') {
@@ -74,6 +75,17 @@ function ogb_update_field(st, of) {
 	} else {
 		ip.value = st + ',' + of + ',' + ipf[2];
 		el.innerHTML = (st == 'e' ? '[so]' : 'op[' + st + ']') + ' ' + of;
+		if(el.parentNode.parentNode.parentNode.parentNode.className=='list-group-item'){
+			var processor_id = el.parentNode.parentNode.parentNode.parentNode.id.split('-')[1];
+			var url = ogb_be_url + 'execaddonmethod&type=processor&method=create_default_value' + '&processor_id=' + processor_id + '&id=' + ogb_id;
+			jQuery.ajax({
+				url    : url,
+				type   : 'GET',
+				success: function (txt) {
+
+				}
+			});
+		}
 	}
 	ogb_gid('ogb-list-output').style.display = 'none';
 }
@@ -318,16 +330,9 @@ function updateProcess(code, txt) {
 	max_order++;
 	obgid('npp_order').value = max_order;
 
-;
 	//ogb_loadAddonParam('ob-param-'+obj.pipe_id,'processor',code,obj.pipe_id);
 	getIOaddon('processor', code, obj.order);
 
-	//alert('done ');
-	/*
-	 pipe_id
-	 code
-	 name
-	 order*/
 }
 function remove_pipe(pid) {
 	if (!confirm('Are you sure you want to delete the Pipe[' + pid + ']?')) {
@@ -370,6 +375,7 @@ function getIOaddon(type, code, order) {
 			url += '&arg' + i + '=' + arguments[i];
 		}
 	}
+	url += '&id=' + ogb_id;
 
 	jQuery.ajax({
 		url    : url,
@@ -406,12 +412,12 @@ function updateIOaddon(txt, type, code, order) {
 }
 function updateOengine(oe) {
 	var litxt = '';
-
 	var oelist = '<b>[so]</b>';
 	for (var i = 0; i < oe.length; i++) {
+		var real_value = oe[i].split('</br>');
 		litxt += '<li>[so] ' + oe[i];
-		litxt += '<input type="hidden" name="oe[' + i + ']" value="' + oe[i] + '"></li>';
-		oelist += '<li class="obfield" onclick="ogb_update_field(\'e\',\'' + oe[i] + '\');">&nbsp;&nbsp; - ' + oe[i] + '</li>';
+		litxt += '<input type="hidden" name="oe[' + i + ']" value="' + real_value[0] + '"></li>';
+		oelist += '<li class="obfield" onclick="ogb_update_field(\'e\',\'' + real_value[0] + '\');">&nbsp;&nbsp; - ' + oe[i] + '</li>';
 	}
 	obgid('ob-oe').innerHTML = litxt;
 	obgid('ob-oelist').innerHTML = '<ul class="unstyled oblistfield">' + oelist + '</ul>';
@@ -457,7 +463,9 @@ function updateIprocessor(ip, order) {
 			key = '';
 		}
 		key = key == '' ? '<i>Click me</i>' : key + ' ' + ip[i].of;
-		litxt += '<li><span class="obkey" onclick="ogb_chose_field(this);">' + key + ' </span>&nbsp;';
+		var style = ip[i].if == '' ? ' style="display:none;"' : '';
+		var onclick = ip[i].if == '' ? '' : 'onclick="ogb_chose_field(this);"';
+		litxt += '<li' + style + '><span class="obkey" ' + onclick + '>' + key + ' </span>&nbsp;';
 		litxt += '<span class="obval hasTip">pi[' + order + '] ' + ip[i].if + '</span>';
 		litxt += '<input type="hidden" value="' + st + ',' + ip[i].of + ',' + ip[i].if + '" name="ip[' + order + '][' + i + ']"></li>';
 	}
@@ -654,7 +662,7 @@ function display_form() {
 		}
 	};
 }
-function refresh_mapping(form) {
+function refresh_mapping() {
 	if (!confirm('Are you sure you want to reset fields_mapping')) {
 		return;
 	}
@@ -681,10 +689,24 @@ function refresh_mapping(form) {
 			success: function (txt) {
 				if (txt == id_array.length) {
 					submitbutton(ogb_gid('adminForm'), 'apply');
-				}else{
-				//	alert('please wait in seconds!');
+				} else {
+					//	alert('please wait in seconds!');
 				}
 			}
 		});
 	}
+	if (id_array.length == 0)
+		submitbutton(ogb_gid('adminForm'), 'apply');
+}
+function call_function_from_addon(type, name, callback, value){
+	jQuery('#dvLoading').show();
+	var url = ogb_be_url + 'execaddonmethod&type=' + type + '&name=' + name + '&method=' + callback + '&val_default=' + value + '&id=' + ogb_id;
+	jQuery.ajax({
+		url    : url,
+		type   : 'GET',
+		success: function (txt) {
+			getIOaddon(type, name);
+			jQuery('#dvLoading').hide();
+		}
+	});
 }

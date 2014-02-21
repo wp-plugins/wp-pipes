@@ -1,190 +1,237 @@
 html {
-     overflow-y: scroll;
+	overflow-y: scroll;
 }
-body #element-box {padding-top:0px;}
-body div#element-box div.m {padding: 0 10px;}
 
-#sbox-btn-close {display: none;}
-
-.progress_status{
-	background-image:url(images/pbar-ani.gif);
-	background-repeat:repeat-x;
+body #element-box {
+	padding-top: 0px;
 }
-.progress_status.stop{
-	background-image:url(images/pbar.jpg);
-	background-repeat:repeat-x;
+
+body div#element-box div.m {
+	padding: 0 10px;
+}
+
+#sbox-btn-close {
+	display: none;
+}
+
+.progress_status {
+	background-image:  url(images/pbar-ani.gif);
+	background-repeat: repeat-x;
+}
+
+.progress_status.stop {
+	background-image:  url(images/pbar.jpg);
+	background-repeat: repeat-x;
 }
 
 #obsupport {
-	padding-left: 60px!important;
-	background: #F9F9F9 url(images/foobla-channel_48.png) no-repeat bottom left;
+	padding-left: 60px !important;
+	background:   #F9F9F9 url(images/foobla-channel_48.png) no-repeat bottom left;
 }
+
 div.jform {
 	/*background:#F9F9F9;*/
 	/*border:2px solid #CCCCCC;*/
-	overflow:hidden;
+	overflow: hidden;
 }
+
 div.jform.obsupport {
 	/*background: url(images/foobla-channel.gif) no-repeat bottom left;*/
 }
+
 div.jform.obsuggest {
 	/*background: url(images/foobla-channel.gif) no-repeat bottom left;*/
 }
-div.jform input.summary{
-	width:388px;
-}
-div.jform input.e-mail{
-	width:200px;
-	background-color:#EFEFEF;
-}
-div.jform textarea.description{
-	width:388px;
-	height:165px;
-	border:1px solid #CCCCCC;
+
+div.jform input.summary {
+	width: 388px;
 }
 
-div.jform span.message{
+div.jform input.e-mail {
+	width:            200px;
+	background-color: #EFEFEF;
+}
+
+div.jform textarea.description {
+	width:  388px;
+	height: 165px;
+	border: 1px solid #CCCCCC;
+}
+
+div.jform span.message {
 	color: #0099d9;
 }
 
-div.jform span.title{
-	font-size:14px;
-	color:#0099d9;
-	font-weight:bold;
+div.jform span.title {
+	font-size:   14px;
+	color:       #0099d9;
+	font-weight: bold;
 }
 
 p.obDesc {
 	font-style: italic;
 	background: #F0F0F0;
-	padding: 5px;
+	padding:    5px;
 }
+
 span.obTitle {
 	font-weight: bold;
 }
+
 div.jform a {
 	color: #0099d9;
 }
 
-.icon-32-cleancache{ background-image: url(images/icons/icon-32-cleancache.png); }
-.icon-32-cronlogs{ background-image: url(images/icons/icon-32-cron.png); }
+.icon-32-cleancache {
+	background-image: url(images/icons/icon-32-cleancache.png);
+}
 
-div.strip-tags-table{
-	color:#666666;
+.icon-32-cronlogs {
+	background-image: url(images/icons/icon-32-cron.png);
 }
-div.strip-tags-table div.button{
-	border:1px solid #CCCCCC;
-	background-color:#CCCCCC;
-	cursor:pointer;
-	padding:2px;
+
+div.strip-tags-table {
+	color: #666666;
 }
-div.strip-tags-table div.items-container{
-	position:absolute;
-	z-index:1000;
-	background:#FFFFFF;
-	border:1px solid #CCCCCC;
-	padding:1px;
+
+div.strip-tags-table div.button {
+	border:           1px solid #CCCCCC;
+	background-color: #CCCCCC;
+	cursor:           pointer;
+	padding:          2px;
 }
-div.strip-tags-table div.items-container.hide{
-	display:none;
+
+div.strip-tags-table div.items-container {
+	position:   absolute;
+	z-index:    1000;
+	background: #FFFFFF;
+	border:     1px solid #CCCCCC;
+	padding:    1px;
+}
+
+div.strip-tags-table div.items-container.hide {
+	display: none;
 	opacity: 0;
 }
-div.strip-tags-table div.items-container div.close{
-	float:right;
-	cursor:pointer;
-}
-div.strip-tags-table div.items-container div.close:hover{
-	color:#FF0000;
-}
-div.strip-tags-table div.items-container div.item{
-	border:1px solid transparent;
-	clear:both;
-}
-div.strip-tags-table div.items-container div.item:hover{
-	border:1px solid #CCCCCC;
-	background:#FFFFCC;
-}
-div.strip-tags-table div.items-container div.item span{
-	display:table-cell;
-	cursor:pointer;
-}
-div.strip-tags-table div.items-container div.item span:hover{
-	color:#3366FF;
-}
-div.strip-tags-table div.items-container div.item span.tag{
-	width:30px;
-}
-div#option-toggle.open{
-	background-image:url(../../../templates/khepri/images/j_arrow_down.png);
-}
-div#option-toggle{
-	background-image:url(../../../templates/khepri/images/j_arrow.png);
-	background-position:center center;
-	background-repeat:no-repeat;
+
+div.strip-tags-table div.items-container div.close {
+	float:  right;
+	cursor: pointer;
 }
 
-div.tips{
-	border:1px solid #999999;margin-bottom:10px;
-	background-color:#FFFFFF;
-	width:400px;
-	position:fixed;
-	
-	opacity: 0.6;
-	filter: alpha(opacity = 60);
-	height:110px;
+div.strip-tags-table div.items-container div.close:hover {
+	color: #FF0000;
 }
-div.tips div.title{
-	background-color:#E5E5E5;padding:3px;
-	cursor:move;
-	font-weight: bold;
+
+div.strip-tags-table div.items-container div.item {
+	border: 1px solid transparent;
+	clear:  both;
 }
-div.tips div.image{
-	display:table-cell;
-	width:50px;
-	background-image:url(images/tips.png);
-	background-repeat:no-repeat;
-	background-position:center 30px;
-	height:85px;
+
+div.strip-tags-table div.items-container div.item:hover {
+	border:     1px solid #CCCCCC;
+	background: #FFFFCC;
+}
+
+div.strip-tags-table div.items-container div.item span {
+	display: table-cell;
+	cursor:  pointer;
+}
+
+div.strip-tags-table div.items-container div.item span:hover {
+	color: #3366FF;
+}
+
+div.strip-tags-table div.items-container div.item span.tag {
+	width: 30px;
+}
+
+div#option-toggle.open {
+	background-image: url(../../../templates/khepri/images/j_arrow_down.png);
+}
+
+div#option-toggle {
+	background-image:    url(../../../templates/khepri/images/j_arrow.png);
+	background-position: center center;
+	background-repeat:   no-repeat;
+}
+
+div.tips {
+	border:           1px solid #999999;
+	margin-bottom:    10px;
+	background-color: #FFFFFF;
+	width:            400px;
+	position:         fixed;
+
+	opacity:          0.6;
+	filter:           alpha(opacity=60);
+	height:           110px;
+}
+
+div.tips div.title {
+	background-color: #E5E5E5;
+	padding:          3px;
+	cursor:           move;
+	font-weight:      bold;
+}
+
+div.tips div.image {
+	display:             table-cell;
+	width:               50px;
+	background-image:    url(images/tips.png);
+	background-repeat:   no-repeat;
+	background-position: center 30px;
+	height:              85px;
 	/*padding:70px 3px 0px 3px;*/
 }
-div.tips div.description{
-	display:table-cell;
-	vertical-align:middle;
-	cursor:default;
+
+div.tips div.description {
+	display:        table-cell;
+	vertical-align: middle;
+	cursor:         default;
 }
-div.tips div.command{
-	margin:3px 3px;
-	text-align:center;
+
+div.tips div.command {
+	margin:     3px 3px;
+	text-align: center;
 }
-div.tips div.button{
-	width:20px;
-	height:16px;
-	display:table-cell;
-	background-repeat:no-repeat;
-	background-position:center;
-	padding:0px 2px;
-	cursor:pointer;
+
+div.tips div.button {
+	width:               20px;
+	height:              16px;
+	display:             table-cell;
+	background-repeat:   no-repeat;
+	background-position: center;
+	padding:             0px 2px;
+	cursor:              pointer;
 }
-div.tips div.button.close{
-	cursor:pointer;
-	float:right;
-	border:1px solid transparent;
+
+div.tips div.button.close {
+	cursor: pointer;
+	float:  right;
+	border: 1px solid transparent;
 }
-div.tips div.button.close:hover{
-	color:#0000FF;
+
+div.tips div.button.close:hover {
+	color: #0000FF;
 }
-div.tips div.button.prev{
-	background-image:url(images/rewindtostart.png);
+
+div.tips div.button.prev {
+	background-image: url(images/rewindtostart.png);
 }
-div.tips div.button.next{
-	background-image:url(images/forwardtoend.png);
+
+div.tips div.button.next {
+	background-image: url(images/forwardtoend.png);
 }
-div.tips div.button.randomize{
-	background-image:url(images/random.png);
+
+div.tips div.button.randomize {
+	background-image: url(images/random.png);
 }
+
 #obNoticeBox {
-	border: 5px solid orange;
-	margin: 0 200px 10px 200px;
-	padding: 10px;
+	border:     5px solid orange;
+	margin:     0 200px 10px 200px;
+	padding:    10px;
 	background: lightgrey;
 }
 
@@ -193,189 +240,287 @@ div.tips div.button.randomize{
 }
 
 .obgrabber-jed {
-	padding: 10px 10px 10px 50px;
-	border: 1px solid #CCCCCC;
-	overflow: hidden;
+	padding:    10px 10px 10px 50px;
+	border:     1px solid #CCCCCC;
+	overflow:   hidden;
 	background: url(./images/foobla-channel_48.png) no-repeat bottom left;
-	font-size: medium;
+	font-size:  medium;
 	text-align: right;
 }
 
-img.disabled {opacity:0.2; filter:alpha(opacity=20);}
-
-div.quickcommand a{
-	opacity: 0.4;
-	margin-top:3px;
+img.disabled {
+	opacity: 0.2;
+	filter:  alpha(opacity=20);
 }
-div.quickcommand a:hover{
+
+div.quickcommand a {
+	opacity:    0.4;
+	margin-top: 3px;
+}
+
+div.quickcommand a:hover {
 	opacity: 0.9;
 }
-ul li{
-	padding:1px;
+
+ul li {
+	padding: 1px;
 }
+
 a.ob-source {
 	opacity: 0.8;
-	color:#555555;
+	color:   #555555;
 }
+
 a.ob-source:hover {
 	font-weight: bold;
-	opacity: 1;
+	opacity:     1;
 }
 
 #foobla ul.thumbnails li.col-md-2:first-child {
 	margin-left: 2.127659574468085%;
 }
+
 #foobla ul.thumbnails li.col-md-2 {
 	height: 90px;
 }
+
 #ogb_res {
 	margin: 10px auto;
 }
 
-#toolbar-iwant {position: absolute; top: 0;right:0;}
-#foobla #iwant-close {position:absolute; top:14px; right:10px;color:#da4f49}
-#foobla .dropdown-iwant h4 {margin-top:0;}
+#toolbar-iwant {
+	position: absolute;
+	top:      0;
+	right:    0;
+}
 
-.dropdown-iwant{position:absolute;top:100%;right:0;z-index:100;background-color:#fff;border:1px solid #ddd;border-radius:4px;padding:10px;}
+#foobla #iwant-close {
+	position: absolute;
+	top:      14px;
+	right:    10px;
+	color:    #da4f49
+}
 
-#foobla table .container {width:auto}
+#foobla .dropdown-iwant h4 {
+	margin-top: 0;
+}
 
-#foobla .btn-group>.btn.btn-micro {font-size:10px;}
-#foobla a.btn i {margin-top:0;margin-right:0px;}
-#foobla a.btn i.icon-unpublish:before {color: #bd362f;}
-#foobla a.btn i.icon-publish:before {color: #51a351;}
+.dropdown-iwant {
+	position:         absolute;
+	top:              100%;
+	right:            0;
+	z-index:          100;
+	background-color: #fff;
+	border:           1px solid #ddd;
+	border-radius:    4px;
+	padding:          10px;
+}
+
+#foobla table .container {
+	width: auto
+}
+
+#foobla .btn-group > .btn.btn-micro {
+	font-size: 10px;
+}
+
+#foobla a.btn i {
+	margin-top:   0;
+	margin-right: 0px;
+}
+
+#foobla a.btn i.icon-unpublish:before {
+	color: #bd362f;
+}
+
+#foobla a.btn i.icon-publish:before {
+	color: #51a351;
+}
+
 #foobla .btn.btn-micro .caret {
 	margin-bottom: 5px;
-	margin-top: 5px;
+	margin-top:    5px;
 }
+
 #ogb_list_processor .row:first-child {
 	padding-bottom: 10px;
 }
+
 #ogb_list_processor .row:not(:first-child) {
-	border-top: 1px solid #DDD;
+	border-top:  1px solid #DDD;
 	padding-top: 15px;
 }
-#foobla .nav-tabs > li {margin-bottom: -2px}
-#foobla .input-append input {width:168px!important}
-#foobla .controls fieldset#jform_published {padding-top:0;}
-#foobla .form-inline-header .control-group, .form-inline-header .control-label, .form-inline-header .controls {display: inline-block;}
-#foobla div.success li,#foobla div.success div{font-weight: normal}
+
+#foobla .nav-tabs > li {
+	margin-bottom: -2px
+}
+
+#foobla .input-append input {
+	width: 168px !important
+}
+
+#foobla .controls fieldset#jform_published {
+	padding-top: 0;
+}
+
+#foobla .form-inline-header .control-group, .form-inline-header .control-label, .form-inline-header .controls {
+	display: inline-block;
+}
+
+#foobla div.success li, #foobla div.success div {
+	font-weight: normal
+}
+
 .icon-back:before {
 	content: "\e008";
 }
+
 /* Fix margin bottom on Options button on toolbar */
 #toolbar #toolbar-options {
 	margin-bottom: 10px;
 }
+
 #foobla .btn.btn-xlarge {
-	padding: 26px 38px;
+	padding:   26px 38px;
 	font-size: 32px;
 }
-#foobla .nav-pills i {line-height: 20px;}
+
+#foobla .nav-pills i {
+	line-height: 20px;
+}
+
 .foobla .row ul.config-option-list [class*=col-md-] {
 	margin-left: 0;
-	display: inline-block;
-	clear: none;
-	padding: 0 10px;
+	display:     inline-block;
+	clear:       none;
+	padding:     0 10px;
 }
+
 .foobla .row ul.config-option-list {
 	overflow: auto;
-	margin: 0 -10px;
+	margin:   0 -10px;
 }
 
 /* Wordpress */
-#foobla div input[type=text] {height: inherit;}
-.foobla .btn-wrapper {display: inline;}
-#foobla .btn-toolbar.affix {top: 0px;right: 200px;z-index:99999;margin-top:3px;margin-bottom:0;}
-.foobla .btn-toolbar .btn-wrapper .btn-group {float:none;}
-.foobla .panel .nav-pills li {margin-bottom:0;}
-.foobla div.input-group {display:inline-table;}
+#foobla div input[type=text] {
+	height: inherit;
+}
+
+.foobla .btn-wrapper {
+	display: inline;
+}
+
+#foobla .btn-toolbar.affix {
+	top:           0px;
+	right:         200px;
+	z-index:       99999;
+	margin-top:    3px;
+	margin-bottom: 0;
+}
+
+.foobla .btn-toolbar .btn-wrapper .btn-group {
+	float: none;
+}
+
+.foobla .panel .nav-pills li {
+	margin-bottom: 0;
+}
+
+.foobla div.input-group {
+	display: inline-table;
+}
+
 .foobla button.close {
-	padding: 0;
-	cursor: pointer;
-	background: transparent;
-	border: 0;
+	padding:            0;
+	cursor:             pointer;
+	background:         transparent;
+	border:             0;
 	-webkit-appearance: none;
 }
-.foobla textarea.form-control {height:auto;}
+
+.foobla textarea.form-control {
+	height: auto;
+}
 
 /* Wordpress - I Want button */
 #iwant-link-wrap {
-	border: 1px solid #ddd;
-	border-top: 0;
-	background: #fff;
-	-webkit-box-shadow: 0 1px 1px -1px rgba(0,0,0,.1);
-	box-shadow: 0 1px 1px -1px rgba(0,0,0,.1);
-	float: right;
-	height: 28px;
-	margin: 0 0 0 6px;
+	border:             1px solid #ddd;
+	border-top:         0;
+	background:         #fff;
+	-webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, .1);
+	box-shadow:         0 1px 1px -1px rgba(0, 0, 0, .1);
+	float:              right;
+	height:             28px;
+	margin:             0 0 0 6px;
 }
 
 #iwant-link-wrap a.show-settings {
-	display: block;
-	font-size: 13px;
-	height: 22px;
-	line-height: 22px;
+	display:         block;
+	font-size:       13px;
+	height:          22px;
+	line-height:     22px;
 	text-decoration: none;
-	z-index: 1;
+	z-index:         1;
 }
 
 .foobla .row ul.config-option-list li.col-md-6:nth-child(2n+3) {
-	clear: both!important;
+	clear: both !important;
 }
 
-.foobla .panel-success .nav-pills>li.active>a,
-.foobla .panel-success .nav-pills>li.active>a,
-.foobla .panel-success .nav-pills>li.active>a:hover,
-.foobla .panel-success .nav-pills>li.active>a:focus {
+.foobla .panel-success .nav-pills > li.active > a,
+.foobla .panel-success .nav-pills > li.active > a,
+.foobla .panel-success .nav-pills > li.active > a:hover,
+.foobla .panel-success .nav-pills > li.active > a:focus {
 	background-color: #B8D69F;
 }
 
-.foobla .panel-warning .nav-pills>li.active>a,
-.foobla .panel-warning .nav-pills>li.active>a,
-.foobla .panel-warning .nav-pills>li.active>a:hover,
-.foobla .panel-warning .nav-pills>li.active>a:focus {
+.foobla .panel-warning .nav-pills > li.active > a,
+.foobla .panel-warning .nav-pills > li.active > a,
+.foobla .panel-warning .nav-pills > li.active > a:hover,
+.foobla .panel-warning .nav-pills > li.active > a:focus {
 	background-color: #F5DDAA;
 }
 
 /* Hide Getting Started Metabox on All Pipes page */
 #items_top-sortables .handlediv,
-#items_top-sortables h3.hndle
-{
+#items_top-sortables h3.hndle {
 	display: none;
 }
+
 #pipes-items-helpbox-1 {
 	border: 0;
 }
 
 #items_top-sortables .inside {
-	margin: 0;
+	margin:  0;
 	padding: 0;
 }
+
 #items_top-sortables .welcome-panel {
 	margin: 0;
 }
+
 #items_top-sortables .welcome-panel-content h3 {
 	border: 0;
 	cursor: text;
 }
 
 #import-panel {
-	position: relative;
-	overflow: auto;
-	margin: 16px 0;
-	padding: 23px 10px;
-	font-size: 13px;
-	line-height: 2.1em;
-	background: #FFF;
-	border: 1px solid #e5e5e5;
-	-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.04);
-	box-shadow: 0 1px 1px rgba(0,0,0,0.04);
+	position:           relative;
+	overflow:           auto;
+	margin:             16px 0;
+	padding:            23px 10px;
+	font-size:          13px;
+	line-height:        2.1em;
+	background:         #FFF;
+	border:             1px solid #e5e5e5;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+	box-shadow:         0 1px 1px rgba(0, 0, 0, 0.04);
 }
 
 #import-panel .import-content {
 	margin-left: 13px;
-	max-width: 1500px;
+	max-width:   1500px;
 }
 
 #import-panel .import-content .postbox-container {
@@ -385,9 +530,19 @@ a.ob-source:hover {
 #import-panel .import-content .pipe-infobox {
 	margin-left: 20px;
 	border-left: 4px solid #7ad03a;
-	padding: 1px 12px;
+	padding:     1px 12px;
 }
 
 .welcome-panel .welcome-panel-column li {
 	line-height: 20px;
+}
+
+#dvLoading {
+	height:     100px;
+	width:      100px;
+	position:   fixed;
+	z-index:    1000;
+	left:       50%;
+	top:        50%;
+	margin:     -25px 0 0 -25px;
 }

@@ -449,7 +449,7 @@ if ( $item->inherit > 0 ) {
 								<a href="http://wppipes.com/understanding-processors/" target="_blank" rel="tooltip" data-original-title="<?php echo __( 'Understanding processors' ); ?>"><i class="fa fa-question-circle"></i></a>
 							</small>
 							<p class="text-right pull-right">
-							<a onclick="refresh_mapping(this.form);" class="btn btn-danger btn-xs">
+							<a onclick="refresh_mapping();" class="btn btn-danger btn-xs">
 								<span class="fa fa-refresh"></span>
 								<?php echo __( 'Clear added processors' ); ?>
 							</a>
@@ -600,6 +600,7 @@ if ( $item->inherit > 0 ) {
 </div>
 <!-- /.modal -->
 </div>
+<div id="dvLoading" style="display: none;"></div>
 
 <script type="text/javascript">
 	/* modal buttons: Manual Post & update and Manual Post*/

@@ -672,8 +672,33 @@ class PIPESModelPipe extends Model {
 			$data->aParams = '';
 		}
 		$data->aParams = str_replace( 'data-toggle=', 'rel=', $data->aParams );
+		$default_oe    = $this->get_default_data( 'so', $id );
+		if(!$default_oe){
+			return $data;
+		}
+		foreach ( $data->outputs->oe as $key => $value ) {
+			if ( is_array( $default_oe->$value ) ) {
+				$data->outputs->oe[$key] = $value . '</br><small> Array</small>';
+			} else {
+				$default_oe->$value = str_replace("'","",$default_oe->$value);
+				$default_oe->$value = str_replace('"','',$default_oe->$value);
+				$data->outputs->oe[$key] = $value . '</br><small> ' . ( $default_oe->$value != '' ? strip_tags($default_oe->$value).'</small>' : 'null</small>' );
+			}
+		}
 
 		return $data;
+	}
+
+	public static function get_default_data( $type = 'so', $id ) {
+		$id      = filter_input( INPUT_GET, 'id' );
+		$path    = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+		if(! is_file( $path )){
+			return null;
+		}
+		$default = file_get_contents( $path );
+		$default = unserialize( $default );
+
+		return $default->$type;
 	}
 
 	/**

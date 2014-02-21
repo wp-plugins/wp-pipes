@@ -473,7 +473,7 @@ class obGrab {
 		for ( $i = 0; $i < count( @$ip ); $i ++ ) {
 			$obj = $ip[$i];
 			$st  = $obj->st == 'e' ? 'oe' : $obj->st;
-			$if  = $obj->if;
+			$if  = $obj->if == '' ? 'no_need' : $obj->if;
 			$of  = $obj->of;
 			if ( $st == 'oe' ) {
 				$input->$if = $data['oe']->$of;
@@ -481,6 +481,9 @@ class obGrab {
 				$input->$if = '';
 			} else {
 				$input->$if = @$data['op'][$st]->$of;
+			}
+			if($if == 'no_need'){
+				$input->$if = $data;
 			}
 		}
 

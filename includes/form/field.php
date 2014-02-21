@@ -289,6 +289,14 @@ abstract class JFormField
 	protected $onclick;
 
 	/**
+	 * The javascript onblur of the form field.
+	 *
+	 * @var    string
+	 * @since  3.2
+	 */
+	protected $onblur;
+
+	/**
 	 * The count value for generated name field
 	 *
 	 * @var    integer
@@ -365,6 +373,7 @@ abstract class JFormField
 			case 'size':
 			case 'onchange':
 			case 'onclick':
+			case 'onblur':
 			case 'fieldname':
 			case 'group':
 			case 'disabled':
@@ -423,6 +432,7 @@ abstract class JFormField
 			case 'labelclass':
 			case 'onchange':
 			case 'onclick':
+			case 'onblur':
 			case 'validate':
 			case 'pattern':
 			case 'group':
@@ -537,7 +547,7 @@ abstract class JFormField
 
 		$attributes = array(
 			'multiple', 'name', 'id', 'hint', 'class', 'description', 'labelclass', 'onchange',
-			'onclick', 'validate', 'pattern', 'default', 'required',
+			'onclick', 'onblur', 'validate', 'pattern', 'default', 'required',
 			'disabled', 'readonly', 'autofocus', 'hidden', 'autocomplete', 'spellcheck',
 			'translateHint', 'translateLabel', 'translateDescription', 'size');
 

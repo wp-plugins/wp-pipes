@@ -137,6 +137,7 @@ class JFormFieldTextarea extends JFormField {
 		// Initialize JavaScript field attributes.
 		$onchange = $this->onchange ? ' onchange="' . $this->onchange . '"' : '';
 		$onclick  = $this->onclick ? ' onclick="' . $this->onclick . '"' : '';
+		$onblur  = $this->onblur ? ' onblur="' . $this->onblur . '"' : '';
 
 		// Including fallback code for HTML5 non supported browsers.
 		JHtml::_( 'jquery.framework' );
@@ -144,7 +145,7 @@ class JFormFieldTextarea extends JFormField {
 
 		return '
 			<textarea name="' . $this->name . '" id="' . $this->id . '"' . $columns . $rows . $class
-		. $hint . $disabled . $readonly . $onchange . $onclick . $required . $autocomplete . $autofocus . $spellcheck . ' >'
+		. $hint . $disabled . $readonly . $onchange . $onclick . $onblur . $required . $autocomplete . $autofocus . $spellcheck . ' >'
 		. htmlspecialchars( $this->value, ENT_COMPAT, 'UTF-8' ) . '</textarea>
 			<span class="help-block">' . $this->description . '</span>
 		';

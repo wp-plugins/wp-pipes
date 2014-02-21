@@ -20,8 +20,10 @@ require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 #--------------------------------------------------
 # Drop Items table
 #--------------------------------------------------
-// $table_items = $wpdb->prefix.'lo_mvc_items';
 
+$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "wppipes_items" );
+$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->prefix . "wppipes_pipes" );
+$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '%pipes_%';" );
 
 #--------------------------------------------------
 # setup Cronjob
