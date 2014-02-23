@@ -237,7 +237,7 @@ class Lo_Items_List_Table extends WP_List_Table {
 
 	function prepare_items() {
 		global $mode, $status; //This is used only if making any database queries
-		$mode      = empty( $_REQUEST['mode'] ) ? 'list' : $_REQUEST['mode'];
+		$mode      = empty( $_REQUEST['mode'] ) ? 'excerpt' : $_REQUEST['mode'];
 		$status    = empty( $_REQUEST['post_status'] ) ? 'all' : $_REQUEST['post_status'];
 		$condition = $this->buildquery_condition();
 
