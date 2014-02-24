@@ -1,0 +1,10 @@
+# obGrabber :: Static Value processor
+# Website: http://foobla.com
+# Author: foobla.com
+
+INSTALLATION
+- Go to Wordpress Backend > Plugins > click Install button > browse the addon file and Submit.
+
+UPGRADE
+- Uninstall the previous version.
+- Install the new one.

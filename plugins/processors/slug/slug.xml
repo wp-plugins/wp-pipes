@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="wppipes-processor" method="upgrade">
+	<name>Slug</name>
+	<author>wppipes.com</author>
+	<creationDate>Mar 2013</creationDate>
+	<copyright>© 2007-2012 wppipes.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<authorEmail>info@wppipes.com</authorEmail>
+	<authorUrl>http://wppipes.com</authorUrl>
+	<version>2.2</version>
+	<description>Slug Processor for WPPipes</description>
+	<files>
+		<filename plugin="slug">slug.php</filename>
+		<filename plugin="slug">slug.xml</filename>
+		<filename>chars.txt</filename>
+		<filename>slug.png</filename>
+		<filename>help.xml</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="replace_chars" class="fullwidth" type="textarea" rows="2" cols="30" default="" label="Chars"
+					   description="Characters Replacement"/>
+				<field name="note" type="hidden" default=""/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>

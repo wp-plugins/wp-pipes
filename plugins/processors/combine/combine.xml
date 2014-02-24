@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5" type="plugin" group="wppipes-processor" method="upgrade">
+	<name>Combine</name>
+	<author>foobla.com</author>
+	<creationDate>Feb 2014</creationDate>
+	<copyright>© 2007-2012 foobla.com. All rights reserved.</copyright>
+	<license>GNU/GPL, see LICENSE</license>
+	<authorEmail>info@foobla.com</authorEmail>
+	<authorUrl>http://www.foobla.com</authorUrl>
+	<version>1.0</version>
+	<description>Combine all input fields Processor for WPPipes</description>
+	<files>
+		<filename plugin="combine">combine.php</filename>
+		<filename plugin="combine">combine.xml</filename>
+		<filename>CHANGELOG</filename>
+		<filename>LICENSE</filename>
+		<filename>README</filename>
+		<filename>index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="combine" type="textarea" class="fullwidth" rows="2" cols="30" label="Value" description="Combine input fields you want to import"/>
+				<field name="note" type="hidden" default="" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
