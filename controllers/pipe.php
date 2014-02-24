@@ -364,22 +364,61 @@ class PIPESControllerPipe extends Controller {
 		}
 		exit();
 	}
-	
+
+	function write_down_input_processor() {
+		$mod          = $this->getModel( 'pipe' );
+		$id           = filter_input( INPUT_GET, 'id' );
+		$processor_id = filter_input( INPUT_GET, 'process_id' );
+		$ordering 		= filter_input( INPUT_GET, 'ordering' );
+		$input_type   = filter_input( INPUT_GET, 'input_type' );
+		$input_value  = filter_input( INPUT_GET, 'input_value' );
+		$input_name   = filter_input( INPUT_GET, 'input_name' );
+		$current_default = ogb_common::get_default_data( '', $id );
+		if ($input_type=='e'){
+			$input_type = 'so';
+		}else{
+			$stt = $input_type;
+			$input_type = 'po';
+		}
+		if(! is_array($current_default->pi)){
+			$current_default->pi = array();
+		}
+		if(! is_object($current_default->pi[$ordering])){
+			$current_default->pi[$ordering] = new stdClass();
+		}
+		$current_default->pi[$ordering]->$input_name = $input_type . ',' . $input_value . ',' . $processor_id;
+
+		if(isset($stt)){
+			$current_default->pi[$ordering]->$input_name .= ',' . $stt;
+		}
+		$cache            = serialize( $current_default );
+		$path             = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+		ogbFile::write( $path, $cache );
+		exit();
+		/*echo '<pre>';print_r( $current_default );die;
+		$pipe   = $mod->get_one_pipe( $processor_id );
+		$name   = $pipe->code;
+		$params = json_decode( $pipe->params );
+		$class  = 'WPPipesPro_' . $name;
+		$datas  = ogbLib::call_method( $class, 'process', array( $pipe->params ) );*/
+	}
+
 	function execaddonmethod() {
-		$type	= filter_input( INPUT_GET, 'type' );
-		$name	= filter_input( INPUT_GET, 'name' );
-		$id		= filter_input( INPUT_GET, 'id' );
-		$ajax	= filter_input( INPUT_GET, 'ajax' );
-		$method = filter_input( INPUT_GET, 'method');
+		$type   = filter_input( INPUT_GET, 'type' );
+		$name   = filter_input( INPUT_GET, 'name' );
+		$id     = filter_input( INPUT_GET, 'id' );
+		$ajax   = filter_input( INPUT_GET, 'ajax' );
+		$method = filter_input( INPUT_GET, 'method' );
 		$path   = PIPES_PATH . DS . 'plugins' . DS . $type . 's' . DS . $name . DS . $name . '.php';
 		if ( ! is_file( $path ) ) {
 			$res->err = "File not found [{$type} {$name}]";
-			if($ajax){
+			if ( $ajax ) {
 				exit();
 			}
+
 			return $res;
 		}
-		
+
 		include_once $path;
 		switch ( $type ) {
 			case 'engine':
@@ -395,18 +434,19 @@ class PIPESControllerPipe extends Controller {
 				echo "Unknow addon type [{$type} {$name}]";
 				exit();
 		}
-		
+
 		$class .= $name;
 
 		if ( ! method_exists( $class, $method ) ) {
-			$res->err = "not found method ".$method."  [{$type} {$name}]";
+			$res->err = "not found method " . $method . "  [{$type} {$name}]";
 
 			return $res;
 		}
-		$data = call_user_func( array($class, $method) );
-		if($ajax){
+		$data = call_user_func( array( $class, $method ) );
+		if ( $ajax ) {
 			exit();
 		}
+
 		return $data;
 	}
 }

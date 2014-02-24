@@ -75,6 +75,17 @@ function ogb_update_field(st, of) {
 		ip.value = st + ',' + of + ',' + ipf[2];
 		el.innerHTML = (st == 'e' ? '[so]' : 'op[' + st + ']') + ' ' + of;
 	}
+	if (el.parentNode.parentNode.parentNode.parentNode.className == 'list-group-item') {
+		var ordering = el.parentNode.parentNode.id.split('-')[2];
+		var process_id = el.parentNode.parentNode.parentNode.parentNode.id.split('-')[1];
+		var url = ogb_be_url + 'write_down_input_processor&input_type=' + st + '&input_value=' + of + '&input_name=' + ipf[2] + '&process_id=' + process_id + '&ordering=' + ordering + '&id=' + ogb_id;
+		jQuery.ajax({
+			url    : url,
+			type   : 'GET',
+			success: function (txt) {
+			}
+		});
+	}
 	ogb_gid('ogb-list-output').style.display = 'none';
 }
 function ogb_getOrder(el) {
@@ -686,7 +697,7 @@ function refresh_mapping() {
 	if (id_array.length == 0)
 		submitbutton(ogb_gid('adminForm'), 'apply');
 }
-function call_function_from_addon(type, name, callback, value){
+function call_function_from_addon(type, name, callback, value) {
 	jQuery('#dvLoading').show();
 	var url = ogb_be_url + 'execaddonmethod&type=' + type + '&name=' + name + '&method=' + callback + '&val_default=' + value + '&id=' + ogb_id;
 	jQuery.ajax({

@@ -181,6 +181,21 @@ class ogb_common {
 		return $pipes;
 	}
 
+	public static function get_default_data( $type = '', $id ) {
+		$id   = filter_input( INPUT_GET, 'id' );
+		$path = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+		if ( ! is_file( $path ) ) {
+			return null;
+		}
+		$default = file_get_contents( $path );
+		$default = unserialize( $default );
+		if ( $type == '' ) {
+			return $default;
+		} else {
+			return $default->$type;
+		}
+	}
+
 	public static function empty_folder( $path ) {
 		if ( substr( $path, 0, 1 ) == '/' ) {
 			$path = substr( $path, 1 );
