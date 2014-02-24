@@ -600,7 +600,7 @@ if ( $item->inherit > 0 ) {
 </div>
 <!-- /.modal -->
 </div>
-<div id="dvLoading" style="display: none;"></div>
+<div id="dvLoading" style="display: none;"><i class="fa fa-spinner fa-spin fa-5x"></i></div>
 
 <script type="text/javascript">
 	/* modal buttons: Manual Post & update and Manual Post*/
