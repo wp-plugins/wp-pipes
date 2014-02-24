@@ -134,6 +134,10 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.6 =
+* Fixed error with Import feature.
+* Set "excerpt" as default view mode for the Pipes listing.
+
 = 1.5 =
 * Improved slug processor.
 * Cleaned source code.
@@ -165,5 +169,8 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 * The first version
 
 == Upgrade Notice ==
+
+= 1.6 =
+* Fixed error with Import feature. Highly recommended to upgrade to this version.
 
 = 1.0 =

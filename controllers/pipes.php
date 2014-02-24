@@ -96,7 +96,7 @@ class PIPESControllerPipes extends Controller
     {
         $mod = $this->getModel('pipes');
         if (isset ($_FILES["file_import"]["name"])) {
-            $filename = $_FILES["file_import"]["name"];
+            $filename = $_FILES["file_import"]["tmp_name"];
             $file_content = file_get_contents($filename);
             $items = explode("\n", $file_content);
             $new_pipes = array();
