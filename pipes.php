@@ -1,12 +1,11 @@
 <?php
 /*
-$Id: wpap.php 167 2014-01-26 03:05:32Z thongta $
 Plugin Name: WP Pipes
-Plugin URI: http://wppipes.com
+Plugin URI: http://wpbriz.com
 Description: WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
 Version: 1.7
-Author: WPPipes
-Author URI: http://wppipes.com
+Author: WPBriz
+Author URI: http://wpbriz.com
 */
 define( '_JEXEC', 1 );
 @session_start();

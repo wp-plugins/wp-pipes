@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: thongta
-Donate link: http://wppipes.com/
+Donate link: http://wpbriz.com/
 Tags: pipes, csv, woocommerce, rss, syndicate, syndication, posts, auto, aggregation, aggregate, aggregator, aggregation, autoblog, autoblogging, autoblogged, import, export, migrate, migrator, migration, wordpress, blogger, blogspot
 Requires at least: 3.8
 Tested up to: 3.8
@@ -18,7 +18,7 @@ You can create many Pipes, give your Pipes input and get output as your needs.
 Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
 
 <h4>Support Forum</h4>
-Please visit: http://foobla.com/forums
+Please visit: http://wpbriz.com/forum/pipes/
 
 <h4>Here are things you can do with WP Pipes (just like Yahoo Pipes):</h4>
 
