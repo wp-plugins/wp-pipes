@@ -134,6 +134,9 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.8 =
+* Updated condition to check type of output data in default-item file.
+
 = 1.7 =
 * Fixed missing slug processor.
 * Fixed missing combine processor.
