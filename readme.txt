@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: thongta
 Donate link: http://wpbriz.com/
-Tags: pipes, csv, woocommerce, rss, syndicate, syndication, posts, auto, aggregation, aggregate, aggregator, aggregation, autoblog, autoblogging, autoblogged, import, export, migrate, migrator, migration, wordpress, blogger, blogspot
+Tags: pipes, csv, woocommerce, rss, syndicate, syndication, posts, auto, aggregation, aggregate, aggregator, aggregation, autoblog, autoblogging, autoblogged, import, export, migrate, migrator, migration, wordpress, blogger, blogspot, feed to post, rss to post
 Requires at least: 3.8
 Tested up to: 3.8
 Stable tag: trunk
@@ -18,15 +18,16 @@ You can create many Pipes, give your Pipes input and get output as your needs.
 Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
 
 <h4>Support Forum</h4>
-Please visit: http://wpbriz.com/forum/pipes/
+Please visit: http://wpbriz.com/forums/
 
 <h4>Here are things you can do with WP Pipes (just like Yahoo Pipes):</h4>
 
-* Get Posts from Wordpress Posts > Export as RSS Feed
-* Get Posts from Wordpress Posts > Export as iTunes Podcast
-* Get Posts from Wordpress Posts > Export as Google XML Sitemap
-* Get Documents from Wordpress > Export to Google Drive
-* Get WooCommerce Products > Export as RSS Feed or Google XML Sitemap
+* **Feed to post**: get Posts from Wordpress Posts > Export as RSS Feed, .
+* **iTunes Podcast creator**: get Posts from Wordpress Posts > Export as iTunes Podcast, 
+* **Google XML Sitemap generator**: get Posts from Wordpress Posts > Export as Google XML Sitemap
+* **WooCommerce RSS Feed creator**: get WooCommerce Products > Export as RSS Feed or Google XML Sitemap
+* **CSV Importer for WooCommerce**: upload CSV files and import to WooCommerce.
+* **Auto Social Poster**: post from Posts, WooCommerce Products, bbPress topics / comments to Twitter, Facebook, LinkedIn, Google+ Moments, Pinterest, Vkontakle, ...
 ... It's your plugin, freebie, we provide you a tools to make pipelines, just like Yahoo Pipes, do what ever you needs. This Yahoo Pipes style plugin will empower the Wordpress CMS to a new high.
 
 <h4>FEATURES</h4>

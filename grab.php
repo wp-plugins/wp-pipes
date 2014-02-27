@@ -18,6 +18,7 @@ if ( isset( $_GET['x1'] ) ) {
 	echo '<meta http-equiv="content-type" content="text/html; charset=' . $c . '"/>';
 }
 require_once OBGRAB_HELPERS . 'common.php';
+
 class obGrab {
 	var $_aclass = null;
 	var $_item = null;
@@ -482,7 +483,7 @@ class obGrab {
 			} else {
 				$input->$if = @$data['op'][$st]->$of;
 			}
-			if($if == 'no_need'){
+			if ( $if == 'no_need' ) {
 				$input->$if = $data;
 			}
 		}

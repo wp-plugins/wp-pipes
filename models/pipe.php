@@ -677,7 +677,7 @@ class PIPESModelPipe extends Model {
 			return $data;
 		}
 		foreach ( $data->outputs->oe as $key => $value ) {
-			if ( is_array( $default_oe->$value ) ) {
+			if ( is_array( $default_oe->$value ) || ! is_string( $default_oe->$value ) ) {
 				$data->outputs->oe[$key] = $value . '<br /><p class="text-muted small">Array</p>';
 			} else {
 				$default_oe->$value      = str_replace( "'", "", $default_oe->$value );
