@@ -366,34 +366,36 @@ class PIPESControllerPipe extends Controller {
 	}
 
 	function write_down_input_processor() {
-		$mod          = $this->getModel( 'pipe' );
-		$id           = filter_input( INPUT_GET, 'id' );
-		$processor_id = filter_input( INPUT_GET, 'process_id' );
-		$ordering 		= filter_input( INPUT_GET, 'ordering' );
-		$input_type   = filter_input( INPUT_GET, 'input_type' );
-		$input_value  = filter_input( INPUT_GET, 'input_value' );
-		$input_name   = filter_input( INPUT_GET, 'input_name' );
+		$mod             = $this->getModel( 'pipe' );
+		$id              = filter_input( INPUT_GET, 'id' );
+		$processor_id    = filter_input( INPUT_GET, 'process_id' );
+		$ordering        = filter_input( INPUT_GET, 'ordering' );
+		$input_type      = filter_input( INPUT_GET, 'input_type' );
+		$input_value     = filter_input( INPUT_GET, 'input_value' );
+		$input_name      = filter_input( INPUT_GET, 'input_name' );
 		$current_default = ogb_common::get_default_data( '', $id );
-		if ($input_type=='e'){
+		if ( $input_type == 'e' ) {
 			$input_type = 'so';
-		}else{
-			$stt = $input_type;
+		} else {
+			$stt        = $input_type;
 			$input_type = 'po';
 		}
-		if(! is_array($current_default->pi)){
+		if ( ! is_array( $current_default->pi ) ) {
 			$current_default->pi = array();
 		}
-		if(! is_object($current_default->pi[$ordering])){
+		if ( ! is_object( $current_default->pi[$ordering] ) ) {
 			$current_default->pi[$ordering] = new stdClass();
 		}
 		$current_default->pi[$ordering]->$input_name = $input_type . ',' . $input_value . ',' . $processor_id;
 
-		if(isset($stt)){
+		if ( isset( $stt ) ) {
 			$current_default->pi[$ordering]->$input_name .= ',' . $stt;
 		}
-		$cache            = serialize( $current_default );
-		$path             = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+		$current_default = $mod->get_first_output_processor( $current_default, $ordering, $processor_id );
+		$cache           = serialize( $current_default );
+		$path            = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
 		ogbFile::write( $path, $cache );
+		echo json_encode( $current_default->po[$ordering] );
 		exit();
 		/*echo '<pre>';print_r( $current_default );die;
 		$pipe   = $mod->get_one_pipe( $processor_id );
@@ -404,22 +406,14 @@ class PIPESControllerPipe extends Controller {
 	}
 
 	function execaddonmethod() {
-		$type   = filter_input( INPUT_GET, 'type' );
-		$name   = filter_input( INPUT_GET, 'name' );
-		$id     = filter_input( INPUT_GET, 'id' );
-		$ajax   = filter_input( INPUT_GET, 'ajax' );
-		$method = filter_input( INPUT_GET, 'method' );
-		$path   = PIPES_PATH . DS . 'plugins' . DS . $type . 's' . DS . $name . DS . $name . '.php';
-		if ( ! is_file( $path ) ) {
-			$res->err = "File not found [{$type} {$name}]";
-			if ( $ajax ) {
-				exit();
-			}
-
-			return $res;
-		}
-
-		include_once $path;
+		$type        = filter_input( INPUT_GET, 'type' );
+		$name        = filter_input( INPUT_GET, 'name' );
+		$id          = filter_input( INPUT_GET, 'id' );
+		$ajax        = filter_input( INPUT_GET, 'ajax' );
+		$method      = filter_input( INPUT_GET, 'method' );
+		$res         = new stdClass();
+		$path        = PIPES_PATH . DS . 'plugins' . DS . $type . 's' . DS . $name . DS . $name . '.php';
+		$path_plugin = OB_PATH_PLUGIN . $name . DS . $name . '.php';
 		switch ( $type ) {
 			case 'engine':
 				$class = 'WPPipesEngine_';
@@ -433,6 +427,18 @@ class PIPESControllerPipe extends Controller {
 			default:
 				echo "Unknow addon type [{$type} {$name}]";
 				exit();
+		}
+		if ( is_file( $path ) ) {
+			include_once $path;
+		} elseif ( ! is_file( $path_plugin ) ) {
+			$res->err = "File not found [{$type} {$name}]";
+			if ( $ajax ) {
+				exit();
+			}
+
+			return $res;
+		} else {
+			include_once $path_plugin;
 		}
 
 		$class .= $name;

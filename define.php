@@ -28,3 +28,5 @@ define( 'OGRAB_EDATA'			, OGRAB_CACHE.'edata'.DS);
 define( 'OGRAB_CACHE_SAVED'		, OGRAB_CACHE.'saved'.DS);
 
 define( 'OGRAB_MEDATA'			, OGRAB_EDATA.'maxid'.DS);
+
+define( 'OB_PATH_PLUGIN'			, dirname( getcwd() ) . DS . 'wp-content' . DS . 'plugins' . DS);

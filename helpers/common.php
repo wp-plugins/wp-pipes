@@ -12,6 +12,12 @@ class ogb_common {
 	static function get_params_render( $dir, $file, $values, $xpath = '//config', $control = 'jform', $type = 'plugins', $show_group = false ) {
 		$xml_dir = PIPES_PATH . DS . $dir;
 
+		if ( ! is_file( $xml_dir . DS . $file . '.xml' ) ) {
+			$xml_dir = OB_PATH_PLUGIN . $file;
+		}
+		if ( ! is_file( $xml_dir . DS . $file . '.xml' ) ) {
+			return false;
+		}
 		jimport( 'includes.form.form' );
 		jimport( 'includes.form.field' );
 		jimport( 'includes.html.html' );
@@ -30,9 +36,6 @@ class ogb_common {
 			'load_data' => true
 		);
 
-		if ( ! is_file( $xml_dir . DS . $file . '.xml' ) ) {
-			return false;
-		}
 		jimport( 'filesystem.folder' );
 		if ( JFolder::exists( $xml_dir . DS . 'elements' ) ) {
 			JForm::addFieldPath( $xml_dir . DS . 'elements' );

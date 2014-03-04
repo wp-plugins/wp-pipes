@@ -298,7 +298,7 @@ class PIPESModelPipe extends Model {
 		$qry      = "UPDATE `{$wpdb->prefix}wppipes_pipes` SET `params` = '" . addslashes( $paramStr ) . "' WHERE `id` ={$id}";
 		if ( ! $wpdb->query( $qry ) ) {
 			$wpdb->print_error();
-			exit( '' . __FILE__ . ' - ' . __LINE__ );
+			//exit( '' . __FILE__ . ' - ' . __LINE__ );
 		}
 	}
 
@@ -413,10 +413,12 @@ class PIPESModelPipe extends Model {
 
 		$jdata['adapter_params'] = $this->arrToStr( $temp_arr );
 		unset( $temp_arr );
-		foreach ( $post['ip'] as $val_ip ) {
-			$ip_ar                                      = explode( '||', $val_ip );
-			$index_ar                                   = explode( '_', $ip_ar[0] );
-			$temp_arr['ip'][$index_ar[0]][$index_ar[1]] = $ip_ar[1];
+		if ( isset( $post['ip'] ) ) {
+			foreach ( $post['ip'] as $val_ip ) {
+				$ip_ar                                      = explode( '||', $val_ip );
+				$index_ar                                   = explode( '_', $ip_ar[0] );
+				$temp_arr['ip'][$index_ar[0]][$index_ar[1]] = $ip_ar[1];
+			}
 		}
 		foreach ( $post['ia'] as $val_ia ) {
 			$ia_ar                     = explode( '||', $val_ia );
@@ -424,10 +426,12 @@ class PIPESModelPipe extends Model {
 		}
 		$jdata['inputs'] = $this->makeIPS( $temp_arr );
 		unset( $temp_arr );
-		foreach ( $post['op'] as $val_op ) {
-			$op_ar                                      = explode( '||', $val_op );
-			$index_ar                                   = explode( '_', $op_ar[0] );
-			$temp_arr['op'][$index_ar[0]][$index_ar[1]] = $op_ar[1];
+		if ( isset( $post['op'] ) ) {
+			foreach ( $post['op'] as $val_op ) {
+				$op_ar                                      = explode( '||', $val_op );
+				$index_ar                                   = explode( '_', $op_ar[0] );
+				$temp_arr['op'][$index_ar[0]][$index_ar[1]] = $op_ar[1];
+			}
 		}
 		foreach ( $post['oe'] as $val_oe ) {
 			$oe_ar                     = explode( '||', $val_oe );
@@ -562,15 +566,10 @@ class PIPESModelPipe extends Model {
 	}
 
 	function getIOaddon( $type, $name, $params = array() ) {
-		$res      = new stdClass();
-		$res->err = '';
-		$path     = PIPES_PATH . DS . 'plugins' . DS . $type . 's' . DS . $name . DS . $name . '.php';
-		if ( ! is_file( $path ) ) {
-			$res->err = "File not found [{$type} {$name}]";
-
-			return $res;
-		}
-		include_once $path;
+		$res         = new stdClass();
+		$res->err    = '';
+		$path        = PIPES_PATH . DS . 'plugins' . DS . $type . 's' . DS . $name . DS . $name . '.php';
+		$path_plugin = OB_PATH_PLUGIN . $name . DS . $name . '.php';
 		switch ( $type ) {
 			case 'engine':
 				$class = 'WPPipesEngine_';
@@ -586,6 +585,18 @@ class PIPESModelPipe extends Model {
 
 				return $res;
 		}
+		if ( is_file( $path ) ) {
+			include_once $path;
+		} elseif ( ! is_file( $path_plugin ) ) {
+			$res->err = "File not found [{$type} {$name}]";
+
+			return $res;
+		} else {
+			include_once $path_plugin;
+			$addon_name = explode( '-', $name );
+			$name       = end( $addon_name );
+		}
+
 		$class .= $name;
 
 		if ( ! method_exists( $class, 'getDataFields' ) ) {
@@ -685,6 +696,25 @@ class PIPESModelPipe extends Model {
 				$data->outputs->oe[$key] = $value . '<br /><p class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) . '</p>' : 'null</p>' );
 			}
 		}
+		$default_op = ogb_common::get_default_data( 'po', $id );
+		if ( ! $default_op ) {
+			return $data;
+		}
+		foreach ( $data->outputs->op as $key => $values ) {
+			foreach ( $values as $index => $value ) {
+				if ( ! isset( $default_op[$key]->$value ) ) {
+					continue;
+				}
+				if ( is_array( $default_op[$key]->$value ) || ! is_string( $default_op[$key]->$value ) ) {
+					$values[$index] = $value . '<br /><p class="text-muted small">Array</p>';
+				} else {
+					$default_op[$key]->$value = str_replace( "'", "", $default_op[$key]->$value );
+					$default_op[$key]->$value = str_replace( '"', '', $default_op[$key]->$value );
+					$values[$index]           = $value . '<br /><p class="text-muted small">' . ( $default_op[$key]->$value != '' ? strip_tags( $default_op[$key]->$value ) . '</p>' : 'null</p>' );
+				}
+			}
+			$data->outputs->op[$key] = $values;
+		}
 
 		return $data;
 	}
@@ -767,12 +797,13 @@ class PIPESModelPipe extends Model {
 		foreach ( $addons AS $addon ) {
 			$You        = new stdClass();
 			$You->value = $addon['element'];
-			if ( isset( $addon['description'] ) && $show_desc ) {
+			/*if ( isset( $addon['description'] ) && $show_desc ) {
 				$You->text = $addon['name'] . ' (' . $addon['description'] . ')';
 			} else {
 				$You->text = $addon['name'];
-			}
-			$ILove[] = $You;
+			}*/
+			$You->text = $addon['name'];
+			$ILove[]   = $You;
 		}
 
 		if ( isset( $_GET['x'] ) ) {
@@ -1018,5 +1049,56 @@ class PIPESModelPipe extends Model {
 		) );
 
 		return $data;
+	}
+
+	public static function get_first_output_processor( $current_data, $ordering, $proc_id ) {
+		global $wpdb;
+		$sql  = "SELECT * FROM `{$wpdb->prefix}wppipes_pipes` WHERE `id`={$proc_id}";
+		$pipe = $wpdb->get_row( $sql );
+
+		$path        = PIPES_PATH . DS . 'plugins' . DS . 'processors' . DS . $pipe->code . DS . $pipe->code . '.php';
+		$path_plugin = OB_PATH_PLUGIN . $pipe->code . DS . $pipe->code . '.php';
+		if ( is_file( $path ) ) {
+			include_once $path;
+			$class = 'WPPipesPro_' . $pipe->code;
+		} elseif ( ! is_file( $path_plugin ) ) {
+			$res->err = "File not found [processor {$pipe->code}]";
+
+			return $res;
+		} else {
+			include_once $path_plugin;
+			$real_name = explode( '-', $pipe->code );
+			$class     = 'WPPipesPro_' . end( $real_name );
+		}
+		$pInput = new stdClass();
+		foreach ( $current_data->pi[$ordering] as $key => $value ) {
+			$val_array  = explode( ',', $value );
+			$type_input = $val_array[0];
+			$name_input = $val_array[1];
+			$data_value = $current_data->$type_input;
+			if ( ! isset( $data_value ) ) {
+				continue;
+			}
+			if ( count( $val_array ) > 3 && $val_array[3] != '' ) {
+				$pInput->$key = $data_value[$val_array[3]]->$name_input;
+			} else {
+				$pInput->$key = $data_value->$name_input;
+			}
+		}
+		$pOutput = ogbLib::call_method( $class, 'process', array( $pInput, $pipe->params ) );
+		foreach ( $pOutput as $out_key => $out_value ) {
+			if ( is_string( $out_value ) ) {
+				$pOutput->$out_key = strip_tags( $out_value );
+			}
+		}
+
+		if ( ! is_array( $current_data->po[$ordering] ) ) {
+			$current_data->po[$ordering] = array();
+		}
+		if ( isset( $pOutput ) ) {
+			$current_data->po[$ordering] = $pOutput;
+		}
+
+		return $current_data;
 	}
 }

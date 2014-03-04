@@ -8,7 +8,7 @@
  */
 defined( 'PIPES_CORE' ) or die( 'Restricted access' );
 
-if ( isset ( $_FILES["file_zip"]["name"] ) ) {
+/*if ( isset ( $_FILES["file_zip"]["name"] ) ) {
 	$filename = $_FILES["file_zip"]["name"];
 	$source   = $_FILES["file_zip"]["tmp_name"];
 	$type     = $_FILES["file_zip"]["type"];
@@ -55,7 +55,7 @@ if ( isset ( $_FILES["file_zip"]["name"] ) ) {
 	} else {
 		$message = "There was a problem with the upload. Please try again.";
 	}
-}
+}*/
 ?>
 <!-- toolbar icon -->
 <div class="icon32 icon32-posts-page" id="icon-edit-pages"><br></div>
@@ -64,37 +64,38 @@ if ( isset ( $_FILES["file_zip"]["name"] ) ) {
 	<!-- toolbar -->
 	<h2>
 		<!-- toolbar title -->
-		<?php echo __( 'Addons Manager' ); ?>
+		<?php
+			echo __( 'Addons Manager' );
+			echo ' <a class="add-new-h2" href="plugin-install.php">'. __( 'Add New', 'pipes' ) . '</a>';
+		?>
 		<!-- buttons -->
 	</h2>
 
 	<div id="col-container">
-		<div id="col-right">
-			<form id="items-filter" method="get">
-				<?php
-				$this->itemsTable->display();
-				?>
-				<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
-			</form>
-		</div>
-		<div id="col-left">
+		<form id="items-filter" method="get">
+			<?php
+			$this->itemsTable->display();
+			?>
+			<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
+		</form>
+		<!--<div id="col-left">
 			<div class="col-wrap">
 				<div class="form-wrap">
-					<h3><?php echo __( 'Add New Addon' ); ?></h3>
+					<h3><?php /*echo __( 'Add New Addon' ); */?></h3>
 					<?php
-					if ( isset ( $message ) ) {
+/*					if ( isset ( $message ) ) {
 						echo "<p>$message</p>";
 					}
 					echo PIPES::show_message();
-					?>
+					*/?>
 					<form method="post" enctype="multipart/form-data" class="wp-upload-form" action="">
 						<label class="screen-reader-text" for="file_zip">Addon zip file</label>
 						<input type="file" id="file_zip" name="file_zip" />
-						<input type="submit" name="install-plugin-submit" id="install-plugin-submit" class="button" value="<?php echo __( 'Install Now' ); ?>" disabled="" />
+						<input type="submit" name="install-plugin-submit" id="install-plugin-submit" class="button" value="<?php /*echo __( 'Install Now' ); */?>" disabled="" />
 					</form>
 				</div>
 
 			</div>
-		</div>
+		</div>-->
 	</div>
 </div>

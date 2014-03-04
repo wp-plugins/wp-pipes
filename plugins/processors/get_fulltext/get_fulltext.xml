@@ -45,7 +45,7 @@
 					   description="Clear Tags"/>
 				<field name="origin_site" type="text" size="30" default="" label="Origin Site" class="fullwidth"
 					   description="Origin Site"/>
-				<field name="code" type="textarea" rows="5" cols="50" class="fullwidth" default="" label="Parser Code"
+				<field name="code" type="htmlparse" rows="5" cols="50" class="fullwidth" default="" label="Parser Code"
 					   description="Parser Code"/>
 				<field name="auto_fulltext" type="list" default="1" label="Auto Fulltext"
 					   description="Auto Get Fulltext">

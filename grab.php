@@ -244,6 +244,14 @@ class obGrab {
 		return $params;
 	}
 
+	function get_real_class( $class ) {
+		$class_separate = explode( '_', $class );
+		$real_name      = explode( '-', $class_separate[1] );
+		$class          = $class_separate[0] . '_' . end( $real_name );
+
+		return $class;
+	}
+
 	function getEngineData( $name, $strParams ) {
 		$eclass = 'WPPipesEngine_' . $name;
 		$error  = $this->importAddon( $name, OBGRAB_ENGINES, $eclass );
@@ -251,6 +259,9 @@ class obGrab {
 			echo "<h3>ERROR Engine: {$error}</h3>";
 
 			return array();
+		}
+		if ( ! class_exists( $eclass ) ) {
+			$eclass = $this->get_real_class( $eclass );
 		}
 		$eParams = $this->getObjParam( $strParams );
 
@@ -287,6 +298,12 @@ class obGrab {
 
 	function importAddon( $name, $path, $class ) {
 		$file = $path . $name . DS . $name . '.php';
+		if ( ! is_file( $file ) ) {
+			$file           = OB_PATH_PLUGIN . $name . DS . $name . '.php';
+			$class_separate = explode( '_', $class );
+			$real_name      = explode( '-', $class_separate[1] );
+			$class          = $class_separate[0] . '_' . end( $real_name );
+		}
 		if ( ! is_file( $file ) ) {
 			return 'FILE_NOT_EXIST : ' . $file;
 		}
@@ -404,6 +421,9 @@ class obGrab {
 	function store( $data ) {
 		$ia     = $this->getInputs( $data, 'ia' );
 		$aclass = $this->_aclass;
+		if ( ! class_exists( $aclass ) ) {
+			$aclass = $this->get_real_class( $aclass );
+		}
 
 		if ( isset( $_GET['x3'] ) ) {
 			echo '<br /><br /><i><b>File</b> ' . __FILE__ . ' <b>Line</b> ' . __LINE__ . "</i><br />\n";
@@ -448,6 +468,9 @@ class obGrab {
 
 	function callProcessors( &$data, $pipe ) {
 		$pInput  = $this->getInputs( $data, $pipe->ordering );
+		if ( ! class_exists( $pipe->classn ) ) {
+			$pipe->classn = $this->get_real_class( $pipe->classn );
+		}
 		$pOutput = ogbLib::call_method( $pipe->classn, 'process', array( $pInput, $pipe->params ) );
 		if ( isset( $pOutput->stop ) && $pOutput->stop->state ) {
 			$data['stop'] = $pOutput->stop;

@@ -45,24 +45,25 @@ class WPPipesEngine_rssreader {
 	public static function getDataFields() {
 		$data         = new stdClass();
 		$data->output = array( 'title', 'link', 'description', 'author', 'date', 'enclosures' );
-		$id      = filter_input( INPUT_GET, 'id' );
-		$path    = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
-		if(! is_file( $path )){
+		$id           = filter_input( INPUT_GET, 'id' );
+		$path         = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+		if ( ! is_file( $path ) ) {
 			return $data;
 		}
 		$default = file_get_contents( $path );
 		$default = unserialize( $default );
 
-		$default_oe    = $default->so;
+		$default_oe = $default->so;
 		foreach ( $data->output as $key => $value ) {
 			if ( is_array( $default_oe->$value ) ) {
 				$data->output[$key] = $value . '<br /><p class="text-muted small">Array</p>';
 			} else {
-				$default_oe->$value = str_replace("'","",$default_oe->$value);
-				$default_oe->$value = str_replace('"','',$default_oe->$value);
-				$data->output[$key] = $value . '<br /><p class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags($default_oe->$value).'</p>' : 'null</p>' );
+				$default_oe->$value = str_replace( "'", "", $default_oe->$value );
+				$default_oe->$value = str_replace( '"', '', $default_oe->$value );
+				$data->output[$key] = $value . '<br /><p class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) . '</p>' : 'null</p>' );
 			}
 		}
+
 		return $data;
 	}
 
@@ -215,7 +216,7 @@ class WPPipesEngine_rssreader {
 		$id            = filter_input( INPUT_GET, 'id' );
 		$value_default = filter_input( INPUT_GET, 'val_default' );
 		$feed          = new SimplePie();
-		$mode          = isset( $params->mode ) ? $params->mode : 0;
+		$path          = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
 		$feed->set_feed_url( $value_default );
 		$feed->set_autodiscovery_level( SIMPLEPIE_LOCATOR_NONE );
 		$feed->set_timeout( 20 );
@@ -243,10 +244,14 @@ class WPPipesEngine_rssreader {
 		$row->author      = $items[0]->get_author(); # a single author for the post
 		$row->date        = $items[0]->get_date( 'Y-m-d H:i:s' );
 		$row->enclosures  = $items[0]->get_enclosures();
-		$source           = new stdClass();
-		$source->so       = $row;
-		$cache            = serialize( $source );
-		$path             = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+		if ( ! is_file( $path ) ) {
+			$source     = new stdClass();
+		} else {
+			$source     = ogb_common::get_default_data( '', $id );
+		}
+		$source->so = $row;
+		$cache      = serialize( $source );
+
 		if ( isset( $_GET['x2'] ) ) {
 			//echo "\n\n<br /><i><b>File:</b>".__FILE__.' <b>Line:</b>'.__LINE__."</i><br />\n\n";
 			echo '<br>Path: ' . $path;

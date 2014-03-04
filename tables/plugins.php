@@ -100,10 +100,10 @@ class PIPES_Plugins_List_Table extends WP_List_Table {
 
 	function column_name( $item ) {
 		//Build row actions
-		$actions = array(
+		/*$actions = array(
 //			'addconnection' => sprintf( '<a href="?page=%s&action=%s&addon=%s">Add Connection</a>', 'obsocialsubmit_filter', 'add', $item['addon'] ),
 			'uninstall' => sprintf( '<a href="?page=%s&action=%s&addon=%s">Uninstall</a>', $_REQUEST['page'], 'uninstall', $item['addon']. '-' .$item['element'] ),
-		);
+		);*/
 		switch ( $item['addon'] ) {
 			case 'engine':
 				$addon = 'source';
@@ -116,13 +116,13 @@ class PIPES_Plugins_List_Table extends WP_List_Table {
 				break;
 		}
 		//Return the title contents
-		$name_addon = sprintf( '<b>%1$s</b> <span style="color:silver">(type: %2$s)</span>%3$s',
+		$name_addon = sprintf( '<b>%1$s</b> <span style="color:silver">(type: %2$s)</span>',
 			/*$1%s*/
 			$item['name'],
 			/*$2%s*/
-			$addon,
+			$addon
 			/*$3%s*/
-			$this->row_actions( $actions )
+			//$this->row_actions( $actions )
 		);
 
 		return $name_addon;
@@ -151,15 +151,15 @@ class PIPES_Plugins_List_Table extends WP_List_Table {
 	 *
 	 * @return string Text to be placed inside the column <td> (movie title only)
 	 **************************************************************************/
-	function column_cb( $item ) {
-		return sprintf(
-			'<input type="checkbox" name="%1$s[]" value="%2$s" />',
-			/*$1%s*/
-			$this->_args['singular'], //Let's simply repurpose the table's singular label ("movie")
-			/*$2%s*/
-			$item['addon'].'-'.$item['element'] //The value of the checkbox should be the record's id
-		);
-	}
+//	function column_cb( $item ) {
+//		return sprintf(
+//			'<input type="checkbox" name="%1$s[]" value="%2$s" />',
+//			/*$1%s*/
+//			$this->_args['singular'], //Let's simply repurpose the table's singular label ("movie")
+//			/*$2%s*/
+//			$item['addon'].'-'.$item['element'] //The value of the checkbox should be the record's id
+//		);
+//	}
 
 
 	/** ************************************************************************
@@ -177,7 +177,7 @@ class PIPES_Plugins_List_Table extends WP_List_Table {
 	 **************************************************************************/
 	function get_columns() {
 		$columns = array(
-			'cb'          => '<input type="checkbox" />', //Render a checkbox instead of text
+			//'cb'          => '<input type="checkbox" />', //Render a checkbox instead of text
 			'name'        => 'Addon',
 			'description' => 'Description'
 		);
@@ -221,13 +221,13 @@ class PIPES_Plugins_List_Table extends WP_List_Table {
 	 *
 	 * @return array An associative array containing all the bulk actions: 'slugs'=>'Visible Titles'
 	 **************************************************************************/
-	function get_bulk_actions() {
+	/*function get_bulk_actions() {
 		$actions = array(
 			'uninstall' => 'uninstall'
 		);
 
 		return $actions;
-	}
+	}*/
 
 
 	/** ************************************************************************
@@ -294,7 +294,7 @@ class PIPES_Plugins_List_Table extends WP_List_Table {
 		 * Optional. You can handle your bulk actions however you see fit. In this
 		 * case, we'll handle them within our package just to keep things clean.
 		 */
-		$this->process_bulk_action();
+		//$this->process_bulk_action();
 
 
 		/**

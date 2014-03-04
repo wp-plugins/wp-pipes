@@ -80,9 +80,23 @@ function ogb_update_field(st, of) {
 		var process_id = el.parentNode.parentNode.parentNode.parentNode.id.split('-')[1];
 		var url = ogb_be_url + 'write_down_input_processor&input_type=' + st + '&input_value=' + of + '&input_name=' + ipf[2] + '&process_id=' + process_id + '&ordering=' + ordering + '&id=' + ogb_id;
 		jQuery.ajax({
-			url    : url,
-			type   : 'GET',
-			success: function (txt) {
+			url       : url,
+			type      : 'GET',
+			beforeSend: function () {
+				jQuery('#dvLoading').show()
+			},
+			success   : function (txt) {
+				var result = JSON.parse(txt);
+				var current_process = new Array();
+				for (var key in result) {
+					if (typeof(result[key]) == 'string' && result[key] != '') {
+						current_process.push(key + '<br /><p class="text-muted small">' + result[key] + '</p>');
+					} else {
+						current_process.push(key);
+					}
+				}
+				updateOprocessor(current_process, ordering);
+				jQuery('#dvLoading').hide();
 			}
 		});
 	}
@@ -199,12 +213,20 @@ function ogb_loadAddonParam(idud, type, name, id) {
 	var url = ogb_be_url + 'gaparam&type=' + type + '&name=' + name;
 	url += id > 0 ? '&id=' + id : '';
 	jQuery.ajax({
-		url    : url,
-		type   : 'GET',
-		success: function (txt) {
+		url        : url,
+		type       : 'GET',
+		evalscripts: true,
+		success    : function (txt) {
 			updateAddonParam(txt, idud);
 			call_chosen();
+			call_taginput();
+			parseScript(txt);
 		}
+	});
+}
+
+function call_taginput() {
+	jQuery('input[data-role="tagsinput"]').tagsinput({
 	});
 }
 
@@ -369,7 +391,7 @@ function ogb_load_process_params() {
 }
 function getIOaddon(type, code, order) {
 	var url = ogb_be_url + 'getioaddon&type=' + type + '&name=' + code;
-	if (type == 'adapter' && arguments.length > 2) {
+	if ((type == 'adapter' && arguments.length > 2) || (type == 'engine' && arguments.length > 2)) {
 		for (i = 2; i < arguments.length; i++) {
 			url += '&arg' + i + '=' + arguments[i];
 		}
@@ -377,9 +399,10 @@ function getIOaddon(type, code, order) {
 	url += '&id=' + ogb_id;
 
 	jQuery.ajax({
-		url    : url,
-		type   : 'GET',
-		success: function (txt) {
+		url        : url,
+		type       : 'GET',
+		evalscripts: true,
+		success    : function (txt) {
 			updateIOaddon(txt, type, code, order);
 		}
 	});
@@ -428,9 +451,10 @@ function updateOprocessor(op, order) {
 	var li = '<b>po[' + order + ']</b>';
 
 	for (var i = 0; i < op.length; i++) {
+		var real_value = op[i].split('<br />');
 		litxt += '<li>po[' + order + '] ' + op[i];
-		litxt += '<input type="hidden" name="op[' + order + '][' + i + ']" value="' + op[i] + '"></li>';
-		li += '<li class="obfield hasTip" onclick="ogb_update_field(\'' + order + '\',\'' + op[i] + '\');">&nbsp;&nbsp; - ' + op[i] + '</li>';
+		litxt += '<input type="hidden" name="op[' + order + '][' + i + ']" value="' + real_value[0] + '"></li>';
+		li += '<li class="obfield hasTip" onclick="ogb_update_field(\'' + order + '\',\'' + real_value[0] + '\');">&nbsp;&nbsp; - ' + op[i] + '</li>';
 	}
 	//obgid('ob-op-'+order).innerHTML = litxt;
 	var tg = obgid('ob-op-' + order);
@@ -705,7 +729,46 @@ function call_function_from_addon(type, name, callback, value) {
 		type   : 'GET',
 		success: function (txt) {
 			getIOaddon(type, name);
+			update_all_processor_output();
 			jQuery('#dvLoading').hide();
 		}
 	});
+}
+
+function update_all_processor_output() {
+	var list_in_page = document.getElementsByClassName('obkey');
+	for (var i = 0; i < list_in_page.length; i++) {
+		var el = list_in_page[i];
+		if (el.parentNode.parentNode.parentNode.parentNode.className == 'list-group-item') {
+			var ip = el.parentNode.getElementsByTagName('input')[0];
+			var ipf = ip.value.split(',');
+			ogb_change_field = el;
+			//if (ipf[0] != '' && ipf[1] != '')
+			ogb_update_field(ipf[0], ipf[1]);
+		}
+	}
+}
+
+function parseScript(strcode) {
+	var scripts = new Array();         // Array which will store the script's code
+
+	// Strip out tags
+	while (strcode.indexOf("<script") > -1 || strcode.indexOf("</script") > -1) {
+		var s = strcode.indexOf("<script");
+		var s_e = strcode.indexOf(">", s);
+		var e = strcode.indexOf("</script", s);
+		var e_e = strcode.indexOf(">", e);
+
+		// Add to scripts array
+		scripts.push(strcode.substring(s_e + 1, e));
+		// Strip from strcode
+		strcode = strcode.substring(0, s) + strcode.substring(e_e + 1);
+	}
+
+	// Loop through every script collected and eval it
+	for (var i = 0; i < scripts.length; i++) {
+		var scrpt = document.createElement('script');
+		scrpt.text = scripts[i];
+		document.head.appendChild(scrpt);
+	}
 }

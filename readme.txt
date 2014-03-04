@@ -135,6 +135,12 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.9 =
+* Moved extra addons to Wordpress plugin structure, keepin the core addons at the current place.
+* Added Test button to HTML Parser feature inside Get Fulltext processor.
+* Added "Display the first output from Source to Source Output and Processors Output Fields".
+* Removed description from Processors drop down list.
+
 = 1.8 =
 * Updated condition to check type of output data in default-item file.
 
