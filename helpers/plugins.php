@@ -135,7 +135,7 @@ class PIPES_Helper_Plugins {
 
 			if ( ! is_file( $path_xml ) ) {
 				$data = null;
-			} elseif(in_array('wp-content',$path_elements) && ! is_plugin_active($folder . '/' . $folder . '.php')){
+			} elseif( end( $path_elements ) == '' && ! is_plugin_active($folder . '/' . $folder . '.php')){
 				$data = null;
 			}else {
 				$data = self::parseXMLInstallFile( $path_xml );

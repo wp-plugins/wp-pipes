@@ -135,6 +135,9 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.10 =
+* Emergency fix for wrong condition to get addons (sources, engines and processors) for Pipes.
+
 = 1.9 =
 * Moved extra addons to Wordpress plugin structure, keepin the core addons at the current place.
 * Added Test button to HTML Parser feature inside Get Fulltext processor.
@@ -184,6 +187,9 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 * The first version
 
 == Upgrade Notice ==
+
+= 1.10 =
+* Emergency fix for wrong condition to get addons (sources, engines and processors) for Pipes.
 
 = 1.7 =
 * Upgrade to this version is required to use Import feature.
