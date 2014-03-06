@@ -150,8 +150,7 @@ class JFormFieldPassword extends JFormField
 		// Initialize some field attributes.
 		$size         = !empty($this->size) ? ' size="' . $this->size . '"' : '';
 		$maxLength    = !empty($this->maxLength) ? ' maxlength="' . $this->maxLength . '"' : '';
-//		$class        = !empty($this->class) ? ' class="' . $this->class . '"' : '';
-		$class        = !empty($this->class) ? ' class="' . $this->class . ' form-control"' : ' form-control';
+		$class        = !empty($this->class) ? ' class="' . $this->class . '"' : '';
 		$readonly     = $this->readonly ? ' readonly' : '';
 		$disabled     = $this->disabled ? ' disabled' : '';
 		$required     = $this->required ? ' required aria-required="true"' : '';

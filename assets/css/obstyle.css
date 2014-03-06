@@ -538,18 +538,25 @@ a.ob-source:hover {
 }
 
 #dvLoading {
-	height:     100px;
-	width:      100px;
-	position:   fixed;
-	z-index:    1000;
-	left:       50%;
-	top:        50%;
-	margin:     -25px 0 0 -25px;
+	height:   100px;
+	width:    100px;
+	position: fixed;
+	z-index:  1000;
+	left:     50%;
+	top:      50%;
+	margin:   -25px 0 0 -25px;
 }
 
-ul.oblistfield li p.small {
+ul.oblistfield li p.small, ul.unstyled li p.small {
 	white-space: nowrap;
-	overflow: hidden;
+	overflow:    hidden;
 }
 
-.ob-list-output {z-index:100;}
+.ob-list-output {
+	z-index: 100;
+}
+
+.foobla .col-md-2 .affix {
+	top:   0;
+	width: 16.666666666666664%;
+}

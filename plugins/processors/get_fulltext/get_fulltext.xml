@@ -21,7 +21,7 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="input" type="list" default="0" label="Input" description="Choice Input">
+				<field name="input" type="list" default="0" label="Input" description="Where to get input from?">
 					<option value="0">URL</option>
 					<option value="1">HTML</option>
 				</field>

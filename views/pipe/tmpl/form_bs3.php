@@ -151,6 +151,7 @@ if ( ! $pipes_js ) {
 			jQuery(selector).chosen();
 		}
 		;
+		jQuery('.text-muted').tooltip();
 	})
 </script>
 
@@ -170,7 +171,7 @@ if ( ! $pipes_js ) {
 		</select>
 		<?php echo __( '- or -' ); ?>
 		<?php
-		echo ' <a class="add-new-h2" href="admin.php?page=pipes.pipe">'. __( 'Add New', 'pipes' ) . '</a>';
+		echo ' <a class="add-new-h2" href="admin.php?page=pipes.pipe">' . __( 'Add New', 'pipes' ) . '</a>';
 	}
 	?>
 </h2>
@@ -449,10 +450,10 @@ if ( $item->inherit > 0 ) {
 								<a href="http://wppipes.com/understanding-processors/" target="_blank" rel="tooltip" data-original-title="<?php echo __( 'Understanding processors' ); ?>"><i class="fa fa-question-circle"></i></a>
 							</small>
 							<p class="text-right pull-right">
-							<a onclick="refresh_mapping();" class="btn btn-danger btn-xs">
-								<span class="fa fa-refresh"></span>
-								<?php echo __( 'Clear added processors' ); ?>
-							</a>
+								<a onclick="refresh_mapping();" class="btn btn-danger btn-xs">
+									<span class="fa fa-refresh"></span>
+									<?php echo __( 'Clear added processors' ); ?>
+								</a>
 							</p>
 						</h4>
 					</div>
@@ -612,8 +613,8 @@ if ( $item->inherit > 0 ) {
 			$('#myModal').on('shown.bs.modal',function (e) {
 				$('#modal_iframe').attr("src", ahref);
 			}).on("show.bs.modal", function () {
-					$(this).find(".modal-dialog").css("height", '600px').css("width", '700px').css('margin-top', '100px');
-				});
+				$(this).find(".modal-dialog").css("height", '600px').css("width", '700px').css('margin-top', '100px');
+			});
 			$('#myModal').modal({show: true});
 		});
 	});

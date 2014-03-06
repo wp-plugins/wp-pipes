@@ -106,15 +106,15 @@ class PIPESViewPipes extends View {
 						<a href="admin.php?page=pipes.pipe" class="button button-primary button-hero">Create a new Pipe</a>
 
 						<p class="hide-if-no-customize">
-							or,
-							<a href="admin.php?page=pipes.settings">control cronjob/schedule</a>
+							or
 						</p>
+						<a href="admin.php?page=pipes.pipes&task=import_from_file&url=http://wpbriz.com/wp-content/uploads/2014/03/afamily-doi-song.pipe" class="button button-primary button-default">Import Sample Pipe</a>
 					</div>
 					<div class="welcome-panel-column">
 						<h4>Next Steps</h4>
 						<ul>
 							<li>
-								<i class="fa fa-flash fa-fw fa-lg"></i> <a href="javascript:void();" onclick="jQuery('#import-btn').click();">Import some Pipes</a>
+								<i class="fa fa-flash fa-fw fa-lg"></i> <a href="admin.php?page=pipes.settings">control cronjob/schedule</a>
 							</li>
 							<li>
 								<i class="fa fa-download fa-fw fa-lg"></i> <a href="javascript:void();" onclick="jQuery('#contextual-help-link').click();jQuery('#tab-link-my_help_tab1 a').click();">Export your Pipes to share or sell</a>

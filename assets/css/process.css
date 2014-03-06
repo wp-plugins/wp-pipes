@@ -152,3 +152,6 @@ p.ogb-addon-error{
 	font-weight: bold;
 	padding: 20px 15px;
 }
+.drag_drop{
+	cursor: move;
+}

@@ -684,7 +684,7 @@ class PIPESModelPipe extends Model {
 		}
 		$data->aParams = str_replace( 'data-toggle=', 'rel=', $data->aParams );
 		$default_oe    = ogb_common::get_default_data( 'so', $id );
-		if ( ! $default_oe ) {
+		if ( ! $default_oe || ! isset( $data->outputs->oe ) ) {
 			return $data;
 		}
 		foreach ( $data->outputs->oe as $key => $value ) {
@@ -693,7 +693,7 @@ class PIPESModelPipe extends Model {
 			} else {
 				$default_oe->$value      = str_replace( "'", "", $default_oe->$value );
 				$default_oe->$value      = str_replace( '"', '', $default_oe->$value );
-				$data->outputs->oe[$key] = $value . '<br /><p class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) . '</p>' : 'null</p>' );
+				$data->outputs->oe[$key] = $value . '<br /><p title="' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) : 'null' ) . '" class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) . '</p>' : 'null</p>' );
 			}
 		}
 		$default_op = ogb_common::get_default_data( 'po', $id );
@@ -710,7 +710,7 @@ class PIPESModelPipe extends Model {
 				} else {
 					$default_op[$key]->$value = str_replace( "'", "", $default_op[$key]->$value );
 					$default_op[$key]->$value = str_replace( '"', '', $default_op[$key]->$value );
-					$values[$index]           = $value . '<br /><p class="text-muted small">' . ( $default_op[$key]->$value != '' ? strip_tags( $default_op[$key]->$value ) . '</p>' : 'null</p>' );
+					$values[$index]           = $value . '<br /><p data-placement="bottom" title="' . ( $default_op[$key]->$value != '' ? ( strlen( $default_op[$key]->$value ) > 200 ? substr( strip_tags( $default_op[$key]->$value ), 0, 200 ) . '...' : strip_tags( $default_op[$key]->$value ) ) : 'null' ) . '" class="text-muted small">' . ( $default_op[$key]->$value != '' ? strip_tags( $default_op[$key]->$value ) . '</p>' : 'null</p>' );
 				}
 			}
 			$data->outputs->op[$key] = $values;
@@ -1085,9 +1085,10 @@ class PIPESModelPipe extends Model {
 				$pInput->$key = $data_value->$name_input;
 			}
 		}
-		$pOutput = ogbLib::call_method( $class, 'process', array( $pInput, $pipe->params ) );
+		$pOutput = ogbLib::call_method( $class, 'process', array( $pInput, json_decode( $pipe->params ) ) );
 		foreach ( $pOutput as $out_key => $out_value ) {
 			if ( is_string( $out_value ) ) {
+				$out_value         = preg_replace( '#<script(.*?)>(.*?)</script>#is', '', $out_value );
 				$pOutput->$out_key = strip_tags( $out_value );
 			}
 		}

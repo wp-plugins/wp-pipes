@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Powerful Data Migration Wordpress plugin: CSV importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn
+Powerful Data Migration WordPress plugin: CSV importing for Posts/WooCommerce, RSS Feed Creator, RSS Feed to Post, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
 
 == Description ==
 
@@ -22,7 +22,8 @@ Please visit: http://wpbriz.com/forums/
 
 <h4>Here are things you can do with WP Pipes (just like Yahoo Pipes):</h4>
 
-* **Feed to post**: get Posts from Wordpress Posts > Export as RSS Feed, .
+* **RSS Feed to post**: a powerful RSS Feed to Post solution, get newsfeed from RSS Feed source and store into your Wordpress as posts.
+* **RSS Feed Creator**: getting Posts from Wordpress Posts > Export as RSS Feed.
 * **iTunes Podcast creator**: get Posts from Wordpress Posts > Export as iTunes Podcast, 
 * **Google XML Sitemap generator**: get Posts from Wordpress Posts > Export as Google XML Sitemap
 * **WooCommerce RSS Feed creator**: get WooCommerce Products > Export as RSS Feed or Google XML Sitemap
@@ -44,18 +45,19 @@ Please visit: http://wpbriz.com/forums/
 * Smart schedule to execute pipes using cronjob.
 
 <h4>AVAILABLE SOURCES (more will come up later):</h4>
-* RSS Reader: to read RSS Feed.
+* RSS Reader: to read RSS Feed, to offer RSS Feed to Post functionality.
 * Post: to read Posts from Wordpress.
 * CSV: to read CSV files (coming soon)
 * WooCommerce: to deal with WooCommerce products (coming soon)
 * bbPress: to deal with bbPress topics (coming soon)
 * Email: to read mailbox (coming soon)
-* Facebook: get (coming soon)
+* Facebook (coming soon)
+* Wordpress.com: using oauth to connect to your blogs on wordpress.com.
 * Wordpress: deal with xmlrpc from Wordpress (hosted or wordpress.com) (coming soon)
 
 <h4>AVAILABLE DESTINATIONS (more will come up later):</h4>
 * RSS Creator: to create RSS Feed for Wordpress.
-* Post: to create Posts for Wordpress.
+* Post: to create Posts for Wordpress. Can works with RSSReader source to offer RSS Feed to post functionality.
 * WooCommerce: to create products in WooCommerce plugin. (coming soon)
 * bbPress: to create topics in bbPress plugin. (coming soon)
 * Email: to send a new email to a mailbox. (coming soon)
@@ -93,8 +95,9 @@ Please visit: http://wpbriz.com/forums/
 
 This section describes how to install the plugin and get it working.
 
-1. Upload `wppipes` to the `/wp-content/plugins/` directory
+1. Upload `wp-pipes` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
+3. A new menu item "Pipes" created right after Posts on the admin sidebar.
 
 == Frequently Asked Questions ==
 
@@ -135,11 +138,15 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.11 =
+* Added drag & drop feature for fields matching area.
+* Improved fields matching UI/UX.
+
 = 1.10 =
 * Emergency fix for wrong condition to get addons (sources, engines and processors) for Pipes.
 
 = 1.9 =
-* Moved extra addons to Wordpress plugin structure, keepin the core addons at the current place.
+* Moved extra addons to WordPress plugin structure, keepin the core addons at the current place.
 * Added Test button to HTML Parser feature inside Get Fulltext processor.
 * Added "Display the first output from Source to Source Output and Processors Output Fields".
 * Removed description from Processors drop down list.
@@ -187,9 +194,6 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 * The first version
 
 == Upgrade Notice ==
-
-= 1.10 =
-* Emergency fix for wrong condition to get addons (sources, engines and processors) for Pipes.
 
 = 1.7 =
 * Upgrade to this version is required to use Import feature.

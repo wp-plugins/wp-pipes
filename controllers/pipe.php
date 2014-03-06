@@ -392,8 +392,9 @@ class PIPESControllerPipe extends Controller {
 			$current_default->pi[$ordering]->$input_name .= ',' . $stt;
 		}
 		$current_default = $mod->get_first_output_processor( $current_default, $ordering, $processor_id );
-		$cache           = serialize( $current_default );
-		$path            = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+
+		$cache = serialize( $current_default );
+		$path  = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
 		ogbFile::write( $path, $cache );
 		echo json_encode( $current_default->po[$ordering] );
 		exit();

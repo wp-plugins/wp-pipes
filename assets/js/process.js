@@ -70,7 +70,7 @@ function ogb_update_field(st, of) {
 	var ipf = ip.value.split(',');
 	if (st == '') {
 		ip.value = ',,' + ipf[2];
-		el.innerHTML = '<i>Click me</i>';
+		el.innerHTML = 'Click me';
 	} else {
 		ip.value = st + ',' + of + ',' + ipf[2];
 		el.innerHTML = (st == 'e' ? '[so]' : 'op[' + st + ']') + ' ' + of;
@@ -90,7 +90,9 @@ function ogb_update_field(st, of) {
 				var current_process = new Array();
 				for (var key in result) {
 					if (typeof(result[key]) == 'string' && result[key] != '') {
-						current_process.push(key + '<br /><p class="text-muted small">' + result[key] + '</p>');
+						if (result[key].length > 200)
+							result[key] = result[key].substring(0, 200) + "...";
+						current_process.push(key + '<br /><p data-placement="bottom" title="' + result[key] + '" class="text-muted small">' + result[key] + '</p>');
 					} else {
 						current_process.push(key);
 					}
@@ -100,6 +102,7 @@ function ogb_update_field(st, of) {
 			}
 		});
 	}
+	call_tooltip();
 	ogb_gid('ogb-list-output').style.display = 'none';
 }
 function ogb_getOrder(el) {
@@ -219,7 +222,7 @@ function ogb_loadAddonParam(idud, type, name, id) {
 		success    : function (txt) {
 			updateAddonParam(txt, idud);
 			call_chosen();
-			call_taginput();
+			//call_taginput();
 			parseScript(txt);
 		}
 	});
@@ -437,12 +440,13 @@ function updateOengine(oe) {
 	var oelist = '<b>[so]</b>';
 	for (var i = 0; i < oe.length; i++) {
 		var real_value = oe[i].split('<br />');
-		litxt += '<li>[so] ' + oe[i];
+		litxt += '<li><text class="drag_drop" draggable="true" ondragstart="drag(event)" >[so] ' + real_value[0] + '</text><br />' + real_value[1];
 		litxt += '<input type="hidden" name="oe[' + i + ']" value="' + real_value[0] + '"></li>';
 		oelist += '<li class="obfield" onclick="ogb_update_field(\'e\',\'' + real_value[0] + '\');">&nbsp;&nbsp; - ' + oe[i] + '</li>';
 	}
 	obgid('ob-oe').innerHTML = litxt;
 	obgid('ob-oelist').innerHTML = '<ul class="unstyled oblistfield">' + oelist + '</ul>';
+	call_tooltip();
 }
 function updateOprocessor(op, order) {
 	var litxt = '';
@@ -452,7 +456,7 @@ function updateOprocessor(op, order) {
 
 	for (var i = 0; i < op.length; i++) {
 		var real_value = op[i].split('<br />');
-		litxt += '<li>po[' + order + '] ' + op[i];
+		litxt += '<li><text class="drag_drop" draggable="true" ondragstart="drag(event)" >po[' + order + '] ' + real_value[0] + '</text><br />' + real_value[1];
 		litxt += '<input type="hidden" name="op[' + order + '][' + i + ']" value="' + real_value[0] + '"></li>';
 		li += '<li class="obfield hasTip" onclick="ogb_update_field(\'' + order + '\',\'' + real_value[0] + '\');">&nbsp;&nbsp; - ' + op[i] + '</li>';
 	}
@@ -466,15 +470,21 @@ function updateOprocessor(op, order) {
 
 	var list_op = obgid('ob-oplist');
 	var uls = list_op.getElementsByTagName('ul');
-
-	if (order == 0) {
+	if (order == 0 && uls.length == 0) {
 		list_op.innerHTML = '<ul class="unstyled oblistfield">' + li + '</ul>';
 	} else if (uls.length > order) {
-		list_op.insertBefore(ul, uls[order]);
+		//list_op.insertBefore(ul, uls[order]);
+		uls[order].text = ul;
 	} else {
 		list_op.appendChild(ul);
 	}
+	call_tooltip();
 }
+
+function call_tooltip(){
+	jQuery('.text-muted').tooltip();
+}
+
 function updateIprocessor(ip, order) {
 	var litxt = '';
 	for (var i = 0; i < ip.length; i++) {
@@ -485,10 +495,10 @@ function updateIprocessor(ip, order) {
 		} else {
 			key = '';
 		}
-		key = key == '' ? '<i>Click me</i>' : key + ' ' + ip[i].of;
+		key = key == '' ? 'Click me' : key + ' ' + ip[i].of;
 		var style = ip[i].if == '' ? ' style="display:none;"' : '';
 		var onclick = ip[i].if == '' ? '' : 'onclick="ogb_chose_field(this);"';
-		litxt += '<li' + style + '><span class="obkey" ' + onclick + '>' + key + ' </span>&nbsp;';
+		litxt += '<li' + style + '><span ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)" class="obkey" ' + onclick + '>' + key + ' </span>&nbsp;';
 		litxt += '<span class="obval hasTip">pi[' + order + '] ' + ip[i].if + '</span>';
 		litxt += '<input type="hidden" value="' + st + ',' + ip[i].of + ',' + ip[i].if + '" name="ip[' + order + '][' + i + ']"></li>';
 	}
@@ -518,8 +528,8 @@ function updateIadapter(ia) {
 		} else {
 			key = '';
 		}
-		key = key == '' ? '<i>Click me</i>' : key + ' ' + ia[i].of;
-		litxt += '<li><span class="obkey" onclick="ogb_chose_field(this);">' + key + ' </span>&nbsp;';
+		key = key == '' ? 'Click me' : key + ' ' + ia[i].of;
+		litxt += '<li><span ondrop="drop(event)" ondragover="allowDrop(event)" ondragstart="drag(event)" class="obkey" onclick="ogb_chose_field(this);">' + key + ' </span>&nbsp;';
 		litxt += '<span class="obval hasTip">[di] ' + ia[i].if + '</span>';
 		litxt += '<input type="hidden" value="' + st + ',' + ia[i].of + ',' + ia[i].if + '" name="ia[' + i + ']"><div class="clearfix"></div></li>';
 	}
@@ -702,7 +712,7 @@ function refresh_mapping() {
 			list_obj.remove();
 		}
 		ip.value = ',,' + ipf[2];
-		obj.innerHTML = '<i>Click me</i>';
+		obj.innerHTML = 'Click me';
 	});
 	for (var j = 0; j < id_array.length; j++) {
 		var url_each = url + id_array[j] + '&count=' + (j + 1);
@@ -731,6 +741,7 @@ function call_function_from_addon(type, name, callback, value) {
 			getIOaddon(type, name);
 			update_all_processor_output();
 			jQuery('#dvLoading').hide();
+			call_tooltip();
 		}
 	});
 }
@@ -747,6 +758,7 @@ function update_all_processor_output() {
 			ogb_update_field(ipf[0], ipf[1]);
 		}
 	}
+	call_tooltip();
 }
 
 function parseScript(strcode) {
@@ -771,4 +783,35 @@ function parseScript(strcode) {
 		scrpt.text = scripts[i];
 		document.head.appendChild(scrpt);
 	}
+}
+
+function allowDrop(ev) {
+	ev.preventDefault();
+}
+
+function drag(ev) {
+	ev.dataTransfer.setData("Text", ev.target.innerHTML);
+}
+
+function drop(ev) {
+	ev.preventDefault();
+	var data = ev.dataTransfer.getData("Text");
+	var el = ev.target;
+	var input = el.parentNode.getElementsByTagName('input')[0];
+	if (typeof(input) == 'undefined') {
+		return false;
+	}
+	var data_seperate = data.split(' ');
+	var of = data_seperate[1];
+	if (data_seperate[0] == '[so]') {
+		var st = 'e';
+	} else {
+		var st = data_seperate[0].match(/\[(.+)\]/i);
+		st = st[1];
+	}
+	var ipf = input.value.split(',');
+//	input.value = st + ',' + of + ',' + ipf[2];
+	ev.target.innerHTML = data;
+	ogb_change_field = el;
+	ogb_update_field(st, of);
 }

@@ -60,7 +60,7 @@ class WPPipesEngine_rssreader {
 			} else {
 				$default_oe->$value = str_replace( "'", "", $default_oe->$value );
 				$default_oe->$value = str_replace( '"', '', $default_oe->$value );
-				$data->output[$key] = $value . '<br /><p class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) . '</p>' : 'null</p>' );
+				$data->output[$key] = $value . '<br /><p data-toggle="tooltip" data-original-title="'. ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ): 'null') .'" class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) . '</p>' : 'null</p>' );
 			}
 		}
 
