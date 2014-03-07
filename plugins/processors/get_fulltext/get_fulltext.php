@@ -20,6 +20,7 @@ class WPPipesPro_get_fulltext extends ogb_parser_code {
 
 	/**
 	 * Get Input & Out fields for the processor
+	 *
 	 * @param bool $params
 	 *
 	 * @return stdClass
@@ -124,6 +125,9 @@ class WPPipesPro_get_fulltext extends ogb_parser_code {
 			$html = self::clear_space( $html );
 		}
 		$res->fulltext = $html;
+		if ( $params->code != '' ) {
+			$params->auto_fulltext = 0;
+		}
 		if ( $params->auto_fulltext == 1 ) {
 			self::get_auto_fulltext( $res, $html );
 			if ( isset( $res->stop ) ) {

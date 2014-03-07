@@ -25,11 +25,10 @@
 					<option value="0">URL</option>
 					<option value="1">HTML</option>
 				</field>
-				<field name="curl" type="list" default="1" label="get CURL" description="get CURL">
-					<option value="1">Level 1</option>
-					<option value="2">Level 2</option>
-					<option value="3">Level 3</option>
-					<option value="4">Level 4</option>
+				<field name="auto_fulltext" type="list" default="1" label="Auto Fulltext"
+					   description="Auto Get Fulltext">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
 				</field>
 				<field name="clear_space" type="list" default="1" label="Clear Space" description="Clear Space">
 					<option value="0">No</option>
@@ -46,11 +45,12 @@
 				<field name="origin_site" type="text" size="30" default="" label="Origin Site" class="fullwidth"
 					   description="Origin Site"/>
 				<field name="code" type="htmlparse" rows="5" cols="50" class="fullwidth" default="" label="Parser Code"
-					   description="Parser Code"/>
-				<field name="auto_fulltext" type="list" default="1" label="Auto Fulltext"
-					   description="Auto Get Fulltext">
-					<option value="0">No</option>
-					<option value="1">Yes</option>
+					   description="Parser Code" onblur="change_auto_fulltext(this)"/>
+				<field name="curl" type="list" default="1" label="get CURL" description="get CURL">
+					<option value="1">Level 1</option>
+					<option value="2">Level 2</option>
+					<option value="3">Level 3</option>
+					<option value="4">Level 4</option>
 				</field>
 				<field name="clear_html_comment" type="list" default="1" label="clear HTML comment"
 					   description="clear HTML comment">

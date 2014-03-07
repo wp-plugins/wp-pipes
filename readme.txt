@@ -141,6 +141,8 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 = 1.11 =
 * Added drag & drop feature for fields matching area.
 * Improved fields matching UI/UX.
+* Improved Get Fulltext processor UX.
+* Improved Import feature UX.
 
 = 1.10 =
 * Emergency fix for wrong condition to get addons (sources, engines and processors) for Pipes.

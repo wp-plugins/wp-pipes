@@ -72,6 +72,13 @@ class JFormFieldHtmlparse extends JFormFieldTextarea {
 
 							jQuery(\'#myModal\').modal({show: true});*/
 					}
+					function change_auto_fulltext(el){
+						var list_li = el.parentNode.parentNode.parentNode.getElementsByClassName("col-md-6")[1];
+						var select = list_li.getElementsByTagName("select")[0];
+						if(select.value == 1 && el.value != ""){
+							select.value = 0;
+						}
+					}
 					</script>';
 
 		return $html . $script;
