@@ -115,13 +115,15 @@ class PIPESViewPipes extends View {
 					<div class="welcome-panel-column">
 						<h4>Next Steps</h4>
 						<ul>
+							<?php if ( is_array($requirements->checkRequirements()) ):?>
+								<li style="color:red;">
+									<i class="fa fa-wrench fa-fw fa-lg"></i>
+									<a href="admin.php?page=pipes.settings" style="color:red;">Check requirements</a>
+								</li>
+							<?php endif; ?>
 							<li>
 								<i class="fa fa-flash fa-fw fa-lg"></i>
-								<a href="admin.php?page=pipes.settings">
-									Control cronjob/schedule<?php if ( is_array($requirements->checkRequirements()) ):?>
-										<small style="color: red;"> (Check requirements)</small>
-									<?php endif; ?>
-								</a>
+								<a href="admin.php?page=pipes.settings">Control cronjob/schedule</a>
 							</li>
 							<li>
 								<i class="fa fa-download fa-fw fa-lg"></i>
