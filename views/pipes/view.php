@@ -71,7 +71,7 @@ class PIPESViewPipes extends View {
 
 		// Add meta box
 		add_meta_box( 'pipes-items-helpbox-1',
-			__('Check this if you are new to Pipes'),
+			__( 'Check this if you are new to Pipes' ),
 			array( $this, 'metabox_help' ),
 			$screen,
 			'items_top'
@@ -90,6 +90,8 @@ class PIPESViewPipes extends View {
 	}
 
 	function metabox_help( $data = '' ) {
+		require_once( OBGRAB_HELPERS . 'requirements.php' );
+		$requirements = new AppRequirements;
 		?>
 		<div class="welcome-panel" id="welcome-panel">
 			<input type="hidden" value="d497f3bcac" name="welcomepanelnonce" id="welcomepanelnonce">
@@ -108,22 +110,30 @@ class PIPESViewPipes extends View {
 						<p class="hide-if-no-customize">
 							or
 						</p>
-						<a href="admin.php?page=pipes.pipes&task=import_from_file&url=http://wpbriz.com/wp-content/uploads/2014/03/afamily-doi-song.pipe" class="button button-primary button-default">Import Sample Pipe</a>
+						<a href="admin.php?page=pipes.pipes&task=import_from_file&url=http://wpbriz.com/wp-content/uploads/pipes/sample-with-techcrunch.pipe" class="button button-primary button-default">Import Sample Pipe</a>
 					</div>
 					<div class="welcome-panel-column">
 						<h4>Next Steps</h4>
 						<ul>
 							<li>
-								<i class="fa fa-flash fa-fw fa-lg"></i> <a href="admin.php?page=pipes.settings">control cronjob/schedule</a>
+								<i class="fa fa-flash fa-fw fa-lg"></i>
+								<a href="admin.php?page=pipes.settings">
+									Control cronjob/schedule<?php if ( is_array($requirements->checkRequirements()) ):?>
+										<small style="color: red;"> (Check requirements)</small>
+									<?php endif; ?>
+								</a>
 							</li>
 							<li>
-								<i class="fa fa-download fa-fw fa-lg"></i> <a href="javascript:void();" onclick="jQuery('#contextual-help-link').click();jQuery('#tab-link-my_help_tab1 a').click();">Export your Pipes to share or sell</a>
+								<i class="fa fa-download fa-fw fa-lg"></i>
+								<a href="javascript:void();" onclick="jQuery('#contextual-help-link').click();jQuery('#tab-link-my_help_tab1 a').click();">Export your Pipes to share or sell</a>
 							</li>
 							<li>
-								<i class="fa fa-puzzle-piece fa-fw fa-lg"></i> <a href="admin.php?page=pipes.plugins">Empower me by adding more addons.</a>
+								<i class="fa fa-puzzle-piece fa-fw fa-lg"></i>
+								<a href="admin.php?page=pipes.plugins">Empower me by adding more addons.</a>
 							</li>
 							<li>
-								<i class="fa fa-shopping-cart fa-fw fa-lg"></i> <a href="http://foob.la/pipestore" target="_blank">Checkout Pipes Marketplace</a>
+								<i class="fa fa-shopping-cart fa-fw fa-lg"></i>
+								<a href="http://foob.la/pipestore" target="_blank">Checkout Pipes Marketplace</a>
 							</li>
 						</ul>
 					</div>
@@ -143,7 +153,8 @@ class PIPESViewPipes extends View {
 
 							</li>
 						</ul>
-						<p>Find out <a href="http://foob.la/pipepower" target="_blank">more things you can do with me</a></p>
+						<p>Find out
+							<a href="http://foob.la/pipepower" target="_blank">more things you can do with me</a></p>
 					</div>
 				</div>
 			</div>

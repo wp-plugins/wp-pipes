@@ -17,6 +17,8 @@ You can create many Pipes, give your Pipes input and get output as your needs.
 
 Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
 
+[youtube https://www.youtube.com/watch?v=zLHFqAHQj2A&hd=1&&cc_load_policy=1]
+
 <h4>Support Forum</h4>
 Please visit: http://wpbriz.com/forums/
 
