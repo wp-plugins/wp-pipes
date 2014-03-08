@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: thongta
 Donate link: http://wpbriz.com/
-Tags: pipes, csv, woocommerce, rss, syndicate, syndication, posts, auto, aggregation, aggregate, aggregator, aggregation, autoblog, autoblogging, autoblogged, import, export, migrate, migrator, migration, wordpress, blogger, blogspot, feed to post, rss to post
+Tags: pipes, csv, woocommerce, rss, syndicate, syndication, auto post, aggregation, aggregate, aggregator, aggregation, autoblog, autoblogging, autoblogged, autopost, posts, seo, automation, automatic, import, export, migrate, migrator, migration, wordpress, blogger, blogspot, feed to post, rss to post
 Requires at least: 3.8
 Tested up to: 3.8
 Stable tag: trunk
