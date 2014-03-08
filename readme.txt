@@ -19,9 +19,6 @@ Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, R
 
 [youtube https://www.youtube.com/watch?v=zLHFqAHQj2A&hd=1&&cc_load_policy=1]
 
-<h4>Support Forum</h4>
-Please visit: http://wpbriz.com/forums/
-
 <h4>Here are things you can do with WP Pipes (just like Yahoo Pipes):</h4>
 
 * **RSS Feed to post**: a powerful RSS Feed to Post solution, get newsfeed from RSS Feed source and store into your Wordpress as posts.
