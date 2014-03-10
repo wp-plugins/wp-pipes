@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Powerful Data Migration WordPress plugin: CSV importing for Posts/WooCommerce, RSS Feed Creator, RSS Feed to Post, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
+RSS Feed to Post/bbPress, AutoBlogging, auto post to Twitter/Facebook/LinkedIn, CSV importing for Posts/WooCommerce/bbPress, RSS Feed Creator.
 
 == Description ==
 
@@ -16,6 +16,8 @@ Yahoo Pipes & Zapier are powerful online services for making pipeline of data, W
 You can create many Pipes, give your Pipes input and get output as your needs.
 
 Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
+
+Support: [Forum](http://wordpress.org/support/plugin/wp-pipes), [Twitter](https://twitter.com/wpbriz "wpBriz Twitter"), [Facebook](https://www.facebook.com/wpbriz "wpBriz Facebook"), [Google+](https://plus.google.com/+Wpbriz/posts "wpBriz Google+")
 
 [youtube https://www.youtube.com/watch?v=zLHFqAHQj2A&hd=1&&cc_load_policy=1]
 
