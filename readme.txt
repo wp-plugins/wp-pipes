@@ -106,10 +106,6 @@ This section describes how to install the plugin and get it working.
 
 NO, there is no limitation when using WP Pipes plugin. It's GNU/GPL, you can download & use it for free forever.
 
-= How do I get support if I have problems with the WP Pipes plugin? =
-
-You can raise your support request at http://wppipes.com/forums
-
 = What is a Pipe? =
 
 Let's imagine it as a pipeline of data from one place (Source) to another place (Destination).
