@@ -139,6 +139,10 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.12 =
+* Fixed minor bugs.
+* Improved Pipes UI/UX.
+
 = 1.11 =
 * Added drag & drop feature for fields matching area.
 * Improved fields matching UI/UX.
