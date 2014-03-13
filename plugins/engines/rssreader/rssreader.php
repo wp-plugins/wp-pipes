@@ -215,6 +215,9 @@ class WPPipesEngine_rssreader {
 	public static function get_default_item() {
 		$id            = filter_input( INPUT_GET, 'id' );
 		$value_default = filter_input( INPUT_GET, 'val_default' );
+		if($value_default == ''){
+			return 'Do nothing!';
+		}
 		$feed          = new SimplePie();
 		$path          = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
 		$feed->set_feed_url( $value_default );

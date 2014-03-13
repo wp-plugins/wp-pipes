@@ -38,6 +38,11 @@ class AppRequirements {
 		return ! version_compare( PHP_VERSION, '5.3', '<' );
 	}
 
+	function checkWP(){
+		global $wp_version;
+		return ! version_compare( $wp_version, '3.8', '<');
+	}
+
 	function checkSafeMode() {
 		return ! ini_get( 'safe_mode' );
 	}
@@ -91,8 +96,12 @@ class AppRequirements {
 
 		// check php
 		$status = $this->checkPHP();
-		$info   = __( 'WPPipes requires PHP 5.3+. Please upgrade your PHP version (http://www.php.net).' );
+		$info   = __( 'WPPipes requires PHP 5.3+. Please upgrade your PHP version (<a href="http://www.php.net" target="_blank">php.net</a>).' );
 		$this->_addRequiredResult( 'PHP 5.3+', $status, $info );
+
+		$status = $this->checkWP();
+		$info   = __( 'WPPipes requires WP 3.8+. Please upgrade your Wordpress version (<a href="http://www.wordpress.org" target="_blank">wordpress.org</a>).' );
+		$this->_addRequiredResult( 'WP 3.8+', $status, $info );
 
 		foreach ( $this->_required_extensions as $extension ) {
 			$status = extension_loaded( $extension['extension'] );

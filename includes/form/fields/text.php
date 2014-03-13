@@ -186,6 +186,7 @@ class JFormFieldText extends JFormField
 
 		// Initialize JavaScript field attributes.
 		$onchange = !empty($this->onchange) ? ' onchange="' . $this->onchange . '"' : '';
+		$onblur  = $this->onblur ? ' onblur="' . $this->onblur . '"' : '';
 
 		// Including fallback code for HTML5 non supported browsers.
 		JHtml::_('jquery.framework');
@@ -202,7 +203,7 @@ class JFormFieldText extends JFormField
 
 		$html[] = '<input type="text" name="' . $this->name . '" id="' . $this->id . '"' . $dirname . ' value="'
 			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly . $list
-			. $hint . $onchange . $maxLength . $required . $autocomplete . $autofocus . $spellcheck . $inputmode . $pattern . ' />';
+			. $hint . $onchange . $onblur . $maxLength . $required . $autocomplete . $autofocus . $spellcheck . $inputmode . $pattern . ' />';
 
 		return implode($html).'<span class="help-block">' . $this->description . '</span>';
 	}

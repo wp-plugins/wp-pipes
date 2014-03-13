@@ -733,7 +733,7 @@ function refresh_mapping() {
 }
 function call_function_from_addon(type, name, callback, value) {
 	jQuery('#dvLoading').show();
-	var url = ogb_be_url + 'execaddonmethod&type=' + type + '&name=' + name + '&method=' + callback + '&val_default=' + value + '&id=' + ogb_id;
+	var url = ogb_be_url + 'execaddonmethod&type=' + type + '&name=' + name + '&method=' + callback + '&val_default=' + value + '&id=' + ogb_id + '&ajax=1';
 	jQuery.ajax({
 		url    : url,
 		type   : 'GET',

@@ -439,6 +439,8 @@ class PIPESControllerPipe extends Controller {
 
 			return $res;
 		} else {
+			$temp = explode( '-', $name );
+			$name = end($temp);
 			include_once $path_plugin;
 		}
 

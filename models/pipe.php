@@ -514,7 +514,6 @@ class PIPESModelPipe extends Model {
 			$jdata['engine_params'] = $this->arrToStr( $post['engine']['params'] );
 		}
 
-
 		if ( ! isset( $jdata['id'] ) || ! $jdata['id'] ) {
 			$wpdb->insert(
 				$wpdb->prefix . 'wppipes_items',
@@ -710,7 +709,9 @@ class PIPESModelPipe extends Model {
 				} else {
 					$default_op[$key]->$value = str_replace( "'", "", $default_op[$key]->$value );
 					$default_op[$key]->$value = str_replace( '"', '', $default_op[$key]->$value );
-					$values[$index]           = $value . '<br /><p data-placement="bottom" title="' . ( $default_op[$key]->$value != '' ? ( strlen( $default_op[$key]->$value ) > 200 ? substr( strip_tags( $default_op[$key]->$value ), 0, 200 ) . '...' : strip_tags( $default_op[$key]->$value ) ) : 'null' ) . '" class="text-muted small">' . ( $default_op[$key]->$value != '' ? strip_tags( $default_op[$key]->$value ) . '</p>' : 'null</p>' );
+					$stripped                 = preg_replace( array( '/\s{2,}/', '/[\t\n]/' ), ' ', $default_op[$key]->$value );
+					$stripped                 = strlen( $stripped ) > 200 ? mb_substr( strip_tags($stripped), 0, 200, 'UTF-8' ) . '...' : strip_tags($stripped);
+					$values[$index]           = $value . '<br /><p data-placement="bottom" title="' . $stripped . '" class="text-muted small">' . $stripped . '</p>';
 				}
 			}
 			$data->outputs->op[$key] = $values;
@@ -1089,6 +1090,8 @@ class PIPESModelPipe extends Model {
 		foreach ( $pOutput as $out_key => $out_value ) {
 			if ( is_string( $out_value ) ) {
 				$out_value         = preg_replace( '#<script(.*?)>(.*?)</script>#is', '', $out_value );
+				$out_value         = str_replace( '"', '', $out_value );
+				$out_value         = str_replace( "'", "", $out_value );
 				$pOutput->$out_key = strip_tags( $out_value );
 			}
 		}

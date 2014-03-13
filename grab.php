@@ -246,8 +246,11 @@ class obGrab {
 
 	function get_real_class( $class ) {
 		$class_separate = explode( '_', $class );
-		$real_name      = explode( '-', $class_separate[1] );
-		$class          = $class_separate[0] . '_' . end( $real_name );
+		$prefix_class   = $class_separate[0];
+		unset( $class_separate[0] );
+		$temp      = implode( '_', $class_separate );
+		$real_name = explode( '-', $temp );
+		$class     = $prefix_class . '_' . end( $real_name );
 
 		return $class;
 	}
@@ -299,10 +302,8 @@ class obGrab {
 	function importAddon( $name, $path, $class ) {
 		$file = $path . $name . DS . $name . '.php';
 		if ( ! is_file( $file ) ) {
-			$file           = OB_PATH_PLUGIN . $name . DS . $name . '.php';
-			$class_separate = explode( '_', $class );
-			$real_name      = explode( '-', $class_separate[1] );
-			$class          = $class_separate[0] . '_' . end( $real_name );
+			$file  = OB_PATH_PLUGIN . $name . DS . $name . '.php';
+			$class = $this->get_real_class( $class );
 		}
 		if ( ! is_file( $file ) ) {
 			return 'FILE_NOT_EXIST : ' . $file;
@@ -467,7 +468,7 @@ class obGrab {
 	}
 
 	function callProcessors( &$data, $pipe ) {
-		$pInput  = $this->getInputs( $data, $pipe->ordering );
+		$pInput = $this->getInputs( $data, $pipe->ordering );
 		if ( ! class_exists( $pipe->classn ) ) {
 			$pipe->classn = $this->get_real_class( $pipe->classn );
 		}

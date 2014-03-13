@@ -36,10 +36,14 @@ class PIPES extends Application {
 		wp_register_style( 'pipes-font-awesome-css', '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css' );
 		wp_register_style( 'pipes-process-css', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/css/process.css' );
 		wp_register_style( 'pipes-chosen-css', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/css/chosen.css' );
+		//wp_register_style( 'pipes-inputtags-css', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/css/bootstrap-tagsinput.css' );
 		wp_register_script( 'pipes-bootstrap-min', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/bootstrap.min.js' );
 		wp_register_script( 'pipes-process', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/process.js' );
 		wp_register_script( 'pipes-ogb-lib-admin', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/ogb-lib-admin.js' );
 		wp_register_script( 'pipes-chosen', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/chosen.jquery.js' );
+		//js for input tags
+		//wp_register_script( 'pipes-bootstrap-tagsinput', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/bootstrap-tagsinput.js' );
+
 		parent::admin_init();
 	}
 
@@ -104,10 +108,14 @@ class PIPES extends Application {
 		wp_enqueue_style( 'pipes-font-awesome-css' );
 		wp_enqueue_style( 'pipes-process-css' );
 		wp_enqueue_style( 'pipes-chosen-css' );
+		//wp_enqueue_style( 'pipes-inputtags-css' );//css for input tags
 		wp_enqueue_script( 'pipes-bootstrap-min' );
 		wp_enqueue_script( 'pipes-process' );
 		wp_enqueue_script( 'pipes-ogb-lib-admin' );
 		wp_enqueue_script( 'pipes-chosen' );
+		//js for input tags
+		//wp_enqueue_script( 'pipes-bootstrap-tagsinput' );
+
 	}
 
 	public static function add_message( $msg, $type = 'message' ) {
