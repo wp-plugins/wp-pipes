@@ -27,6 +27,7 @@ class PIPES extends Application {
 		register_activation_hook( __FILE__, array( $this, 'install' ) );
 		register_deactivation_hook( __FILE__, array( $this, 'uninstall' ) );
 		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'admin_init', array( $this, 'pipes_plugin_redirect' ) );
 		parent::__construct( $prefix, $page_prefix );
 	}
 
@@ -45,6 +46,13 @@ class PIPES extends Application {
 		//wp_register_script( 'pipes-bootstrap-tagsinput', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/bootstrap-tagsinput.js' );
 
 		parent::admin_init();
+	}
+
+	public function pipes_plugin_redirect() {
+		if ( get_option( 'pipes_plugin_do_activation_redirect', false ) ) {
+			delete_option( 'pipes_plugin_do_activation_redirect' );
+			wp_redirect( "admin.php?page=pipes.pipes" );
+		}
 	}
 
 	public function init() {
@@ -69,8 +77,8 @@ class PIPES extends Application {
 		# add main menu
 		if ( function_exists( "add_menu_page" ) ) {
 //			$icon_url  = plugins_url( basename( dirname( __FILE__ ) ) ) . '/assets/images/menu_icon_core.png';
-			$icon_url   = 'dashicons-editor-justify';
-			$position   = 6;
+			$icon_url = 'dashicons-editor-justify';
+			$position = 6;
 			add_menu_page( __( "Pipes", "pipes" ), __( "Pipes", "pipes" ), "manage_options", $this->_page_prefix . ".pipes", array( $this, 'display' ), $icon_url, $position );
 			if ( function_exists( "add_submenu_page" ) ) {
 //				add_submenu_page( $this->_page_prefix . '.pipes', __( 'Dashboard', 'cpanel' ), __( 'Dashboard', 'cpanel' ), "manage_options", $this->_page_prefix . ".cpanel", array( $this, 'display' ) );
@@ -151,7 +159,7 @@ class PIPES extends Application {
 		}
 	}
 
-	
+
 }
 
 $wplo_mvc = new PIPES( 'PIPES', 'pipes' );

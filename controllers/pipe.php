@@ -434,13 +434,14 @@ class PIPESControllerPipe extends Controller {
 		} elseif ( ! is_file( $path_plugin ) ) {
 			$res->err = "File not found [{$type} {$name}]";
 			if ( $ajax ) {
+				print_r( json_encode( $res ) );
 				exit();
 			}
 
 			return $res;
 		} else {
 			$temp = explode( '-', $name );
-			$name = end($temp);
+			$name = end( $temp );
 			include_once $path_plugin;
 		}
 

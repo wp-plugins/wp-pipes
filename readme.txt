@@ -135,6 +135,10 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.13 =
+* Added line number to the Parser Code area in the Get Fulltext processor.
+* Pipes core tweaks to allow redirection to Pipes plugin after activating a Pipes add-ons plugin.
+
 = 1.12 =
 * Fixed minor bugs.
 * Improved Pipes UI/UX.
