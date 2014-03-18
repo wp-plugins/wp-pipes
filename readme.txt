@@ -12,7 +12,7 @@ RSS Feed to Post/bbPress, AutoBlogging, auto post to Twitter/Facebook/LinkedIn, 
 
 == Description ==
 
-Yahoo Pipes & Zapier are powerful online services for making pipeline of data, WP Pipes comes available to the Wordpress community to bring such of powerful abilities to Wordpress site, works right inside your Wordpress site.
+Yahoo Pipes & Zapier are powerful online services for making pipeline of data, [WP Pipes](http://wpbriz.com/pipes "WP Pipes plugin") by [wpBriz](http://wpbriz.com "Time Saving Wordpress Plugins") comes available to the Wordpress community to bring such of powerful abilities to Wordpress site, works right inside your Wordpress site.
 You can create many Pipes, give your Pipes input and get output as your needs.
 
 Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
