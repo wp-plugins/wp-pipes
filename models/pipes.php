@@ -172,7 +172,7 @@ class PIPESModelPipes extends Model {
 			}
 		}
 
-		return "Pipe#$new_temp_id-{$item->name} imported success! <a href='admin.php?page=pipes.pipe&task=edit&id=$new_temp_id'>View pipe</a>";
+		return "Pipe#$new_temp_id - {$item->name} imported success! <a href='admin.php?page=pipes.pipe&task=edit&id=$new_temp_id'>View pipe</a>";
 	}
 
 	public function check_exist_plugin( $key, $type ) {

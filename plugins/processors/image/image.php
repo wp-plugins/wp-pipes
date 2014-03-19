@@ -191,8 +191,12 @@ class WPPipesPro_image {
 			} else {
 				$source_urls[$i] = $src;
 			}
-			//$filename	= JFile :: getName(preg_replace("#/#", DS, $src));
-			$filename = substr( md5( $src ), - 10 ) . '.jpg';
+			$filename	= ogbFile :: getName(preg_replace("#/#", DS, $source_urls[$i]));
+			if(!is_array(getimagesize($source_urls[$i]))){//check is image or not
+				continue;
+			}
+			$temp_arr = explode(".", $filename);
+			$filename	= substr(md5($source_urls[$i]),-10).'.'.end($temp_arr);
 
 			$success = false;
 			if ( $dest_host && $dest_path ) {
@@ -234,7 +238,7 @@ class WPPipesPro_image {
 						if ( is_file( $d ) ) {
 							$size = filesize( $d );
 							if ( $size > 0 ) {
-								$img_info = getimagesize( $d );
+								$img_info = getimagesize( $source_urls[$i] );
 								$width    = isset( $img_info[0] ) ? $img_info[0] : 0;
 								$height   = isset( $img_info[1] ) ? $img_info[1] : 0;
 

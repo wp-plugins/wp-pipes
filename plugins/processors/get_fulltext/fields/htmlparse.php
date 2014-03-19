@@ -42,7 +42,7 @@ class JFormFieldHtmlparse extends JFormFieldTextarea {
 
 					function checkitout(el){
 						var auto_fulltext = 1;
-						var textarea = el.parentNode.parentNode.getElementsByTagName("textarea")[0].value;
+						var textarea = el.parentNode.parentNode.getElementsByTagName("textarea")[1].value;
 						var input_url = el.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName("obkey")[0].innerText;
 						if(input_url == "Click me"){
 						 	alert ("Please choose the first input field!");

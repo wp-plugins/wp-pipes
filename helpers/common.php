@@ -409,13 +409,13 @@ class ogbFile {
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
+		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true);
 
 		ob_start();
 		curl_exec( $ch );
-
 		if ( isset( $_GET['x11'] ) ) {
-			echo '<br /><i><b>File:</b>' . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br /> \n";
 			$info = curl_getinfo( $ch );
+			echo '<br /><i><b>File:</b>' . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br /> \n";
 			echo '<pre>';
 			print_r( $info );
 			echo '</pre>';
@@ -432,6 +432,22 @@ class ogbFile {
 		}
 
 		return $ogb_host;
+	}
+
+	public static function getName($file)
+	{
+		// Convert back slashes to forward slashes
+		$file = str_replace('\\', '/', $file);
+		$slash = strrpos($file, '/');
+
+		if ($slash !== false)
+		{
+			return substr($file, $slash + 1);
+		}
+		else
+		{
+			return $file;
+		}
 	}
 }
 
