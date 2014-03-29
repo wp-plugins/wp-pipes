@@ -50,9 +50,9 @@ class PIPESModelPipes extends Model {
 			$wpdb->query( $sql );
 			$path = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
 			if ( is_file( $path ) ) {
-				$folder = dirname($path);
+				$folder = dirname( $path );
 				unlink( $path );
-				rmdir($folder);
+				rmdir( $folder );
 			}
 		}
 		$message = ( $count > 0 ) ? $count . ' pipe(s) deleted' : '';
@@ -101,6 +101,23 @@ class PIPESModelPipes extends Model {
 		return $message;
 	}
 
+	public function change_status( $ids, $status = 1 ) {
+		global $wpdb;
+		$str_id  = implode( ",", $ids );
+		$count   = count( $ids );
+		$sql_ins = "UPDATE `{$wpdb->prefix}wppipes_items` SET `published` = {$status} WHERE `id` IN ( {$str_id} )";
+
+		if ( ! $wpdb->query( $sql_ins ) ) {
+			echo '<br />Error: ' . $wpdb->last_error;
+			$error = true;
+		} elseif ( isset( $_GET['x'] ) ) {
+			echo '<br /><br />' . $sql_ins;
+		}
+		$message = ( $status ) ? $count . ' pipe(s) been published!' : $count . ' pipe(s) been drafted!';
+
+		return $message;
+	}
+
 	public function export_to_share( $ids ) {
 		global $wpdb;
 		$res   = new stdClass();
@@ -113,6 +130,14 @@ class PIPESModelPipes extends Model {
 			if ( ! is_object( $item ) ) {
 				$msg[] = "Can not find the pipe #$id";
 			} else {
+				if ( $item->adapter == '' ) {
+					$msg[] = "The pipe #$id still not use any adapters";
+					continue;
+				}
+				if ( $item->engine == '' ) {
+					$msg[] = "The pipe #$id still not use any engines";
+					continue;
+				}
 				if ( $item->adapter == 'post' ) {
 					$adapter_params_array           = json_decode( $item->adapter_params );
 					$adapter_params_array->category = 1;
@@ -126,7 +151,7 @@ class PIPESModelPipes extends Model {
 			}
 			$items[] = $item;
 		}
-		$res->msg    = implode( "</br>", $msg ) . "</br>The file results.json in wp-admin folder";
+		$res->msg    = implode( "</br>", $msg ) . "</br>The template file could be found in uploads folder";
 		$res->result = $items;
 
 		return $res;
@@ -135,6 +160,7 @@ class PIPESModelPipes extends Model {
 	public function import_from_file( $item ) {
 		global $wpdb;
 		$insert_str = '';
+		$temp_arr   = array();
 		if ( ! self::check_exist_plugin( $item->adapter, 'adapter' ) ) {
 			return "Please install $item->adapter destination first!";
 		}
@@ -147,13 +173,24 @@ class PIPESModelPipes extends Model {
 			}
 		}
 		foreach ( $item as $key => $ins ) {
-			if ( $key != 'pipes' ) {
+			if ( $key != 'pipes' && $key != 'current_id' ) {
 				$insert_str .= ',' . $wpdb->prepare( " %s ", $ins );
+				if ( $item->current_id > 0 ) {
+					$temp_arr[] = "`" . $key . "` = '" . $ins . "'";
+				}
 			}
 		}
+		if ( count( $temp_arr ) > 0 ) {
+			$insert_str = implode( ", ", $temp_arr );
+		}
+
 		$insert_str = str_replace( '\"', '"', $insert_str );
 		$sql_ins    = "INSERT INTO " . $wpdb->prefix . "wppipes_items (`id`, `name`, `published`, `engine`, `engine_params`, `adapter`, `adapter_params`, `inherit`, `inputs`, `outputs` )
 			 VALUES ( NULL" . $insert_str . " )";
+		if ( $item->current_id > 0 ) {
+			$id      = $item->current_id;
+			$sql_ins = "UPDATE `{$wpdb->prefix}wppipes_items` SET {$insert_str} WHERE `id` = {$id}";
+		}
 		if ( ! $wpdb->query( $sql_ins ) ) {
 			echo '<br />Error: ' . $wpdb->last_error;
 			$error = true;
@@ -161,6 +198,10 @@ class PIPESModelPipes extends Model {
 			echo '<br /><br />' . $sql_ins;
 		}
 		$new_temp_id = $wpdb->insert_id;
+		if ( $item->current_id > 0 ) {
+			$new_temp_id = $item->current_id;
+			self::rmPipewith_item_id( $new_temp_id );
+		}
 		foreach ( $item->pipes as $pipe ) {
 			$qry = "INSERT INTO `{$wpdb->prefix}wppipes_pipes` (`id`,`code`,`name`,`item_id`,`params`,`ordering`)";
 			$qry .= "\n VALUES (NULL, '{$pipe->code}', '{$pipe->name}', {$new_temp_id}, '" . addslashes( $pipe->params ) . "', '{$pipe->ordering}')";
@@ -170,6 +211,10 @@ class PIPESModelPipes extends Model {
 			} elseif ( isset( $_GET['x'] ) ) {
 				echo '<br /><br />' . $qry;
 			}
+		}
+
+		if ( $item->current_id > 0 ) {
+			return "The template <strong>{$item->name}</strong> was set success!";
 		}
 
 		return "Pipe#$new_temp_id - {$item->name} imported success! <a href='admin.php?page=pipes.pipe&task=edit&id=$new_temp_id'>View pipe</a>";
@@ -184,5 +229,13 @@ class PIPESModelPipes extends Model {
 			return false;
 		}
 
+	}
+
+	public function rmPipewith_item_id( $item_id ) {
+		global $wpdb;
+		$qry = "DELETE FROM `{$wpdb->prefix}wppipes_pipes` WHERE `item_id` = {$item_id}";
+		if ( ! $wpdb->query( $qry ) ) {
+			echo '<br />Error: ' . $wpdb->last_error;
+		}
 	}
 }

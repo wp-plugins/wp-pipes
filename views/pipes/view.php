@@ -135,7 +135,7 @@ class PIPESViewPipes extends View {
 							</li>
 							<li>
 								<i class="fa fa-shopping-cart fa-fw fa-lg"></i>
-								<a href="http://foob.la/pipestore" target="_blank">Checkout Pipes Marketplace</a>
+								<a href="http://wpbriz.com/shop" target="_blank">Checkout Pipes Marketplace</a>
 							</li>
 						</ul>
 					</div>

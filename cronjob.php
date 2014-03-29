@@ -59,7 +59,7 @@ class ogbCronCallAIO {
 		if ( $x ) {
 			$mstart = microtime();
 		}
-		$step = isset( $_GET['step'] ) ? (int) $_GET['step'] : 1000;
+		$step = isset( $_GET['step'] ) ? (int) $_GET['step'] : 1;
 		$ip   = self::getRealIpAddr();
 		self::add_log_ip( $ip );
 		$url   = get_site_url() . '/?pipes=cron&task=cronjob&ip=' . $ip;
@@ -124,6 +124,11 @@ class ogbCronCallAIO {
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
+		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+		//curl_setopt( $ch, CURLOPT_CONNECTTIMEOUT, 100 );
+		//curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_AUTOREFERER, true);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 		ob_start();
 		curl_exec( $ch );
@@ -145,6 +150,7 @@ class ogbCronCallAIO {
 			return '';
 		}
 		$res = self::ob_get_curl( $url );
+		set_time_limit(0);
 		if ( isset( $_GET['x'] ) ) {
 			echo '<hr />' . date( 'Y-m-d H:i:s' ) . ' - ' . microtime() . ' - limit: ' . $limit;
 			echo '<br />' . $res;
@@ -176,7 +182,7 @@ class ogbCronCallAIO {
 	}
 
 	static function isNextCall( $text ) {
-		$step = isset( $_GET['step'] ) ? (int) $_GET['step'] : 10;
+		$step = isset( $_GET['step'] ) ? (int) $_GET['step'] : 1;
 		if ( isset( $_GET['x5'] ) && $step < 20 ) {
 			echo '<br /><i><b>File:</b>' . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br /> \n";
 
@@ -363,7 +369,7 @@ class ogbPlugCron {
 				self::setDone( '1' );
 			}
 			ogbDebug::out( "The Cronjob is not active.", __LINE__ );
-
+			echo "The Cronjob is not active.";
 			return;
 		}
 		if ( self::isRuning() ) {

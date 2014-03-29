@@ -143,7 +143,8 @@ class ogb_get_CURL extends ogb_cache {
 		return $url;
 	}
 
-	public static function getCURL( $url, $mode ) {
+	public static function getCURL( $url, $params ) {
+		$mode = $params->curl;
 		$url        = self::get_foobla_url( $url );
 		$typeData   = 'html';
 		$cache_path = self::getCachePath( $url );
@@ -161,7 +162,7 @@ class ogb_get_CURL extends ogb_cache {
 				$html = self::get_curl3( $url );
 				break;
 			case 2:
-				$html = self::get_curl2( $url );
+				$html = self::get_curl2( $url, $params->useragent );
 				break;
 			default:
 				$html = self::get_curl( $url );
@@ -246,10 +247,10 @@ class ogb_get_CURL extends ogb_cache {
 		return array( $response['http_code'], $content );
 	}
 
-	public static function get_curl2( $url, $loop = 10, $javascript_loop = 0, $timeout = 5 ) {
+	public static function get_curl2( $url, $useragent = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1', $loop = 10, $javascript_loop = 0, $timeout = 5 ) {
 		//$cookie = tempnam("/tmp", "CURLCOOKIE");
 		$ch = curl_init();
-		curl_setopt( $ch, CURLOPT_USERAGENT, "Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1" );
+		curl_setopt( $ch, CURLOPT_USERAGENT, $useragent );
 		curl_setopt( $ch, CURLOPT_URL, $url );
 		//curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie);
 		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );

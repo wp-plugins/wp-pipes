@@ -175,35 +175,12 @@ class Lo_Items_List_Table extends WP_List_Table {
 		$actions['copy']   = __( 'Copy' );
 		$actions['delete'] = __( 'Delete' );
         $actions['export_to_share'] = __('Export');
+		$actions['publish'] = __('Publish');
+		$actions['move_to_draft'] = __('Draft');
 		//$actions['inherit'] = __( 'Inherit' );
 
 
 		return $actions;
-	}
-
-	function process_bulk_action() {
-
-		//Detect when a bulk action is being triggered...
-		/*$action = $this->current_action();
-		$id     = isset( $_GET['id'] ) ? $_GET['id'] : '';
-		/*switch ( $action ) {
-			case 'copy':
-				$message  = $this->copy( $id );
-				PIPES::add_message( $message );
-				$redirect = remove_query_arg( array( 'id', 'action' ), $_SERVER['HTTP_REFERER'] );
-				wp_redirect( $redirect );
-
-				break;
-			case 'delete':
-				$_SESSION['PIPES']['messages'] = $this->delete( $id );
-				$redirect                      = remove_query_arg( array( 'id', 'action' ), $_SERVER['HTTP_REFERER'] );
-				wp_redirect( $redirect );
-				break;
-			default:
-				break;
-		}
-
-		return @$message;*/
 	}
 
 	function get_columns() {
@@ -240,7 +217,6 @@ class Lo_Items_List_Table extends WP_List_Table {
 		$mode      = empty( $_REQUEST['mode'] ) ? 'excerpt' : $_REQUEST['mode'];
 		$status    = empty( $_REQUEST['post_status'] ) ? 'all' : $_REQUEST['post_status'];
 		$condition = $this->buildquery_condition();
-
 		/**
 		 * REQUIRED. Now we need to define our column headers. This includes a complete
 		 * array of columns to be displayed (slugs & titles), a list of columns

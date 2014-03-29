@@ -226,7 +226,9 @@ class PIPESModelPipe extends Model {
 			}
 			if ( $qry != '' ) {
 				$addon  = $wpdb->get_row( $qry );
-				$name   = $addon->name;
+				if(!$name){
+					$name   = $addon->name;
+				}
 				$values = $addon->params;
 			}
 			if ( $values ) {
@@ -243,9 +245,9 @@ class PIPESModelPipe extends Model {
 				echo $values;
 			}
 			$params = json_decode( $values );
-
 			return $params;
 		}
+
 		$html = $this->addonRender( $type, $name, $values, $id );
 
 		return $html;

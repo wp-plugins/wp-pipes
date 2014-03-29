@@ -181,6 +181,9 @@ function ogb_chose_field(el) {
 }
 
 function ogb_loadAdapter(id) {
+	if(!id){
+		id = (document.getElementById('ogb_id'))?document.getElementById('ogb_id').value:0;
+	}
 	var name = obgid('ogb_adapter').value;
 	if (name == '') {
 		ogb_loada++;

@@ -48,7 +48,6 @@ class WPPipesAdapter_post {
 		$res->id     = $id;
 
 		if ( $id > 0 ) {
-			// @TODO: get Itemid, using JRoute to get to the right URL (Thong - Dec 9 2013)
 			$res->viewLink = '?p=' . $id;
 			$res->editLink = 'post.php?post=' . $id . '&action=edit';
 		} else {
@@ -141,13 +140,12 @@ class WPPipesAdapter_post {
 			$created = $data->date;
 		}
 		$metakey  = isset( $data->metakey ) ? $data->metakey : '';
-		$metadesc = isset( $data->metadesc ) ? $data->metadesc : '';
-		if(!is_array($data->images)){
-			$images   = self::get_img_from_html( $data->images );
-			$matches  = array();
+		if ( ! is_array( $data->images ) ) {
+			$images  = self::get_img_from_html( $data->images );
+			$matches = array();
 			preg_match_all( '/src="(.+?)"/i', $images, $matches );
 			$img_url = $matches[1][0];
-		}elseif($data->images[0]->src!=''){
+		} elseif ( $data->images[0]->src != '' ) {
 			$img_url = $data->images[0]->src;
 		}
 
@@ -173,12 +171,16 @@ class WPPipesAdapter_post {
 
 		$post['post_author'] = $params->author;
 
-		$content['post_type'] = 'post';
+		$post['post_type'] = 'post';
 
 		$post['tags_input'] = $metakey;
-
-		$post_id = wp_insert_post( $post, true );
-
+		$custom_fields      = self::get_all_post_custom();
+		$post_id            = wp_insert_post( $post, true );
+		foreach ( $custom_fields as $cf ) {
+			if ( isset( $data->$cf ) ) {
+				update_post_meta( $post_id, $cf, $data->$cf );
+			}
+		}
 		if ( isset( $img_url ) && '' != $img_url ) {
 			self::set_feature_image( $img_url, $post_id );
 		}
@@ -226,80 +228,28 @@ class WPPipesAdapter_post {
 	 * @return stdClass
 	 */
 	public static function getDataFields( $param = false ) {
-		$data        = new stdClass();
-		$inputs      = 'title,slug,excerpt,content,date,images,metakey';
-		$data->input = explode( ',', $inputs );
+		$custom_fields = self::get_all_post_custom();
+		$data          = new stdClass();
+		$inputs        = 'title,slug,excerpt,content,date,images,metakey';
+		$data->input   = explode( ',', $inputs );
+		$data->input   = array_merge( $data->input, $custom_fields );
 
 		return $data;
 	}
 
-	/**
-	 * Update table asset when a new content row has inserted
-	 *
-	 * @param $_title
-	 * @param $catid
-	 * @param $_assetsid
-	 * @param $_contentid
-	 */
-	public static function UpdateAssetTbl( $_title, $catid, $_assetsid, $_contentid ) {
-		$db       = JFactory::getDBO();
-		$parentid = $catid;
-		$level    = self:: getLevelAsset( $catid );
-		$rules    = '{"core.delete":[],"core.edit":[],"core.edit.state":[]}';
-		$name     = "com_content.article." . $_contentid;
-
-		$qry = "UPDATE `#__assets` SET `parent_id` ='{$parentid}', `level`='{$level}'," .
-			"`name`='{$name}',`title` = '" . addslashes( $_title ) . "',`rules` ='{$rules}' WHERE `id`='{$_assetsid}'";
-		$db->setQuery( $qry );
-		if ( ! $db->query() ) {
-			echo $db->getQuery();
-			echo '<br />' . $db->getErrorMsg();
+	public static function get_all_post_custom() {
+		global $wpdb;
+		$sql          = "SELECT `meta_key` FROM `{$wpdb->prefix}postmeta` GROUP BY `meta_key`";
+		$customfields = $wpdb->get_results( $sql, ARRAY_A );
+		$cust_f       = array();
+		foreach ( $customfields as $cf ) {
+			$meta_key = $cf['meta_key'];
+			if ( substr( $meta_key, 0, 1 ) != '_' ) {
+				$cust_f[] = $meta_key;
+			}
 		}
-	}
 
-	/**
-	 * @param $_categoryid
-	 *
-	 * @return mixed
-	 */
-
-
-	/**
-	 * This is a help function to get the input for the adapter, won't be use in production
-	 * @return stdClass
-	 */
-	public static function getInput() {
-		$data            = new stdClass();
-		$data->title     = 'New content from adapter';
-		$data->introtext = 'By PhuongNC';
-		$data->fulltext  = 'By Nguyen Cong Phuong';
-
-		return $data;
-
-	}
-
-	/**
-	 * @return string
-	 */
-	public static function getMetadata() {
-		$defaultMetadata = '{"robots":"","author":"","rights":"","xreference":""}';
-
-		return $defaultMetadata;
-	}
-
-	/**
-	 * @return string
-	 */
-	public static function getAttribs() {
-		// default param of k2_item in k2_items table
-		$attribs = '{"show_title":"","link_titles":"","show_intro":"","show_category":"","link_category":"",' .
-			'"show_parent_category":"","link_parent_category":"","show_author":"","link_author":"",' .
-			'"show_create_date":"","show_modify_date":"","show_publish_date":"","show_item_navigation":"",' .
-			'"show_icons":"","show_print_icon":"","show_email_icon":"","show_vote":"","show_hits":"",' .
-			'"show_noauth":"","alternative_readmore":"","article_layout":""}';
-
-		return $attribs;
-
+		return $cust_f;
 	}
 
 	public static function get_img_from_html( $contents ) {

@@ -8,8 +8,6 @@
  */
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
-
-define( 'OGRAB_ECACHE', OGRAB_CACHE . 'ecache' . DS );
 # Call SimplePie library
 require_once dirname( __FILE__ ) . DS . 'helpers' . DS . 'autoloader.php';
 
@@ -70,8 +68,8 @@ class WPPipesEngine_rssreader {
 	//--- Begin Get feed item ---
 	public static function update_cache( $path, $rows ) {
 		$data  = serialize( $rows );
-		$cache = self::get_cache( $path );
-		$a     = ogbFile::write( $path, $cache );
+		//$cache = self::get_cache( $path );
+		$a     = ogbFile::write( $path, $data );
 
 		return $a;
 	}
@@ -156,7 +154,7 @@ class WPPipesEngine_rssreader {
 		}
 		for ( $i = 0; $i < count( $items ); $i ++ ) {
 			$row              = new stdclass();
-			$row->title       = $items[$i]->get_title(); # the title for the post
+			$row->title       = html_entity_decode($items[$i]->get_title(), ENT_QUOTES); # the title for the post
 			$row->link        = $items[$i]->get_link(); # a single link for the post
 			$row->description = $items[$i]->get_description(); # the content of the post (prefers summaries)
 			$row->author      = $items[$i]->get_author(); # a single author for the post

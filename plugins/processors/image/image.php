@@ -103,7 +103,7 @@ class WPPipesPro_image {
 		if ( $number_imgs > $fimgs ) {
 			$number_imgs = $fimgs;
 		}
-		$wp_root_path = str_replace('/wp-content/themes', '', get_theme_root());
+		$wp_root_path = str_replace( '/wp-content/themes', '', get_theme_root() );
 		for ( $i = 0; $i < $number_imgs; $i ++ ) {
 			$img = $imgs[0][$i];
 			preg_match( '#src\s*=\s*"(.*?)"#i', $img, $src );
@@ -132,7 +132,7 @@ class WPPipesPro_image {
 	}
 
 	public static function copyImage( $contents = '', $itemLink = '', $params ) {
-		$matches = array();
+		$matches    = array();
 		$upload_dir = wp_upload_dir();
 		preg_match_all( "#<img*[^\>]*>#i", $contents, $matches );
 		if ( ! isset( $matches[0][0] ) ) {
@@ -145,8 +145,8 @@ class WPPipesPro_image {
 			$local_dir = substr( $local_dir, 1 );
 		}
 		$upload_path = $upload_dir['basedir'];
-		$url_path = $upload_dir['baseurl'] . DS . $local_dir;
-		$to       = array( 'host' => str_replace( "\\", "/", $url_path ), 'path' => $local_dir );
+		$url_path    = $upload_dir['baseurl'] . DS . $local_dir;
+		$to          = array( 'host' => str_replace( "\\", "/", $url_path ), 'path' => $local_dir );
 
 		if ( isset( $params->origin_url ) && $params->origin_url != '' ) {
 			$origin_url = $params->origin_url;
@@ -191,12 +191,13 @@ class WPPipesPro_image {
 			} else {
 				$source_urls[$i] = $src;
 			}
-			$filename	= ogbFile :: getName(preg_replace("#/#", DS, $source_urls[$i]));
-			if(!is_array(getimagesize($source_urls[$i]))){//check is image or not
+			$info_file = get_headers( $source_urls[$i],1 );
+			$mime     = $info_file['Content-Type'];
+			$temp_arr = explode( "/", $mime );
+			if ( $temp_arr[0] != 'image' ) { //check is image or not
 				continue;
 			}
-			$temp_arr = explode(".", $filename);
-			$filename	= substr(md5($source_urls[$i]),-10).'.'.end($temp_arr);
+			$filename = substr( md5( $source_urls[$i] ), - 10 ) . '.' . end( $temp_arr );
 
 			$success = false;
 			if ( $dest_host && $dest_path ) {

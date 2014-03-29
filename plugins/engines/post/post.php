@@ -9,8 +9,6 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-define( 'OGRAB_ECACHE', OGRAB_CACHE . 'ecache' . DS );
-
 class WPPipesEngine_post {
 	public static function getData( $params ) {
 		if ( isset( $_GET['e'] ) ) {

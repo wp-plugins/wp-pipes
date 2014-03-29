@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: thongta,phamtungpth
+Contributors: thongta,phamtungpth,coven-eye
 Donate link: http://wpbriz.com/
 Tags: pipes, csv, woocommerce, rss, syndicate, syndication, auto post, aggregation, aggregate, aggregator, aggregation, autoblog, autoblogging, autoblogged, autopost, posts, seo, automation, automatic, import, export, migrate, migrator, migration, wordpress, blogger, blogspot, feed to post, rss to post
 Requires at least: 3.8
@@ -17,7 +17,7 @@ You can create many Pipes, give your Pipes input and get output as your needs.
 
 Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
 
-Support: [wp.org Forum (this website)](http://wordpress.org/support/plugin/wp-pipes), [Twitter](https://twitter.com/wpbriz "wpBriz Twitter"), [Facebook](https://www.facebook.com/wpbriz "wpBriz Facebook"), [Google+](https://plus.google.com/+Wpbriz/posts "wpBriz Google+"), [Youtube](https://www.youtube.com/user/wpbriz "wpBriz Youtube")
+[Documentation](http://wpbriz.com/wp-pipes-docs/ "WP Pipes Docs") - Support: [wp.org Forum (this website)](http://wordpress.org/support/plugin/wp-pipes), [wpBriz Forum](http://wpbriz.com/forums "wpBriz Community Forum"), [Twitter](https://twitter.com/wpbriz "wpBriz Twitter"), [Facebook](https://www.facebook.com/wpbriz "wpBriz Facebook"), [Google+](https://plus.google.com/+Wpbriz/posts "wpBriz Google+"), [Youtube](https://www.youtube.com/user/wpbriz "wpBriz Youtube")
 
 [youtube https://www.youtube.com/watch?v=zLHFqAHQj2A&hd=1&&cc_load_policy=1]
 
@@ -48,7 +48,7 @@ Support: [wp.org Forum (this website)](http://wordpress.org/support/plugin/wp-pi
 <h4>AVAILABLE SOURCES (more will come up later):</h4>
 * RSS Reader: to read RSS Feed, to offer RSS Feed to Post functionality.
 * Post: to read Posts from Wordpress.
-* CSV: to read CSV files (coming soon)
+* [CSV: to read CSV files](http://wpbriz.com/shop/csv-source-pipes/ "Wordpress plugin import from CSV").
 * WooCommerce: to deal with WooCommerce products (coming soon)
 * bbPress: to deal with bbPress topics (coming soon)
 * Email: to read mailbox (coming soon)
@@ -62,9 +62,9 @@ Support: [wp.org Forum (this website)](http://wordpress.org/support/plugin/wp-pi
 * WooCommerce: to create products in WooCommerce plugin. (coming soon)
 * bbPress: to create topics in bbPress plugin. (coming soon)
 * Email: to send a new email to a mailbox. (coming soon)
-* Wordpress.com: to create post on Wordpress.com blog. (coming soon)
-* Blogger: to create blog post on Blogger. (coming soon)
-* Twitter: to create Twitter tweets. (coming soon)
+* [Wordpress.com: to create post on Wordpress.com blog](http://wpbriz.com/shop/wordpress-com-destination-pipes/ "Wordpress plugin auto post to Wordpress.com").
+* [Blogger: to create blog post on Blogger](http://wpbriz.com/shop/blogger-blogspot-destination-for-pipes/ "Wordpress plugin Auto post to Blogger / Blogspot").
+* [Twitter: to create Twitter tweets](http://wpbriz.com/shop/twitter-destination-pipes/ "Wordpress plugin Auto post to Twitter").
 * Facebook: to create message on Facebook personal wall. (coming soon)
 * Facebook Page: to create message on Facebook Page. (coming soon)
 * Facebook Group: to create message on Facebook Group. (coming soon)
@@ -87,10 +87,10 @@ Support: [wp.org Forum (this website)](http://wordpress.org/support/plugin/wp-pi
 
 <h4>ROADMAP</h4>
 
-* Writing more Source Addons: WooCommerce Products, Easy Digital Downloads, bbPress; will add ability to WP Pipes to create RSS Feed for WooCommerce, Easy Digital Downloads or bbPress.
-* Writing more Destination Addons: Google Drive (to store document as Google Drive Docs),iTunes Podcast (to generate iTunes Podcast), Google XML Sitemap (to generate Google XML Sitemap).
+* Writing more Source Addons: Clickbank, Amazon products, Commission Junction, eBay auctions, Youtube Videos, WooCommerce Products, Easy Digital Downloads, bbPress; will add ability to WP Pipes to create RSS Feed for WooCommerce, Easy Digital Downloads or bbPress.
+* Writing more Destination Addons: Google Drive (to store document as Google Drive Docs), iTunes Podcast (to generate iTunes Podcast), Google XML Sitemap (to generate Google XML Sitemap).
 * Custom schedule for each Pipe instead of the whole Pipes.
-* Adding Pre-made / Template Fields Matching sets.
+* Adding Pre-made / Template Fields Matching sets (done from 1.4).
 
 == Installation ==
 
@@ -135,70 +135,82 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.14 =
+* Fix: Repaired write cache function in rssreader source.
+* Fix: Fixed errors when click Test this pipe button. It was caused by define.
+* Fix: Fixed bug when save image from redirect urls to server.
+* Fix: cronjob problem.
+* New: Able to set a Pipe as a Pipe template. Can be loaded later conveniently.
+* New: Added one requirement: turn on allow_url_fopen.
+* New: Saving the export pipe as a template; in edit view, could load that template.
+* Improve: Moved the templates folder to uploads > wppipes.
+* Improve: Rewrote ajax in post.js.
+* Improve: Added User Agent input for get fulltext processor.
+
 = 1.13 =
-* Added line number to the Parser Code area in the Get Fulltext processor.
-* Pipes core tweaks to allow redirection to Pipes plugin after activating a Pipes add-ons plugin.
+* New: Added line number to the Parser Code area in the Get Fulltext processor.
+* Improve: Pipes core tweaks to allow redirection to Pipes plugin after activating a Pipes add-ons plugin.
 
 = 1.12 =
-* Fixed minor bugs.
-* Improved Pipes UI/UX.
+* Fix: Fixed minor bugs.
+* Improve: Improved Pipes UI/UX.
 
 = 1.11 =
-* Added drag & drop feature for fields matching area.
-* Improved fields matching UI/UX.
-* Improved Get Fulltext processor UX.
-* Improved Import feature UX.
+* New: Added drag & drop feature for fields matching area.
+* Improve: Improved fields matching UI/UX.
+* Improve: Improved Get Fulltext processor UX.
+* Improve: Improved Import feature UX.
 
 = 1.10 =
-* Emergency fix for wrong condition to get addons (sources, engines and processors) for Pipes.
+* Fix: Emergency fix for wrong condition to get addons (sources, engines and processors) for Pipes.
 
 = 1.9 =
-* Moved extra addons to WordPress plugin structure, keepin the core addons at the current place.
-* Added Test button to HTML Parser feature inside Get Fulltext processor.
-* Added "Display the first output from Source to Source Output and Processors Output Fields".
-* Removed description from Processors drop down list.
+* Improve: Moved extra addons to WordPress plugin structure, keepin the core addons at the current place.
+* New: Added Test button to HTML Parser feature inside Get Fulltext processor.
+* New: Added "Display the first output from Source to Source Output and Processors Output Fields".
+* Improve: Removed description from Processors drop down list.
 
 = 1.8 =
-* Updated condition to check type of output data in default-item file.
+* Improve: Updated condition to check type of output data in default-item file.
 
 = 1.7 =
-* Fixed missing slug processor.
-* Fixed missing combine processor.
-* Fixed minor issues with UI/UX.
+* Fix: Fixed missing slug processor.
+* Fix: Fixed missing combine processor.
+* Fix: Fixed minor issues with UI/UX.
 
 = 1.6 =
-* Fixed error with Import feature.
-* Set "excerpt" as default view mode for the Pipes listing.
+* Fix: Fixed error with Import feature.
+* Improve: Set "excerpt" as default view mode for the Pipes listing.
 
 = 1.5 =
-* Improved slug processor.
-* Cleaned source code.
-* Added combine processor to combine fields together.
-* Added sample source output for rssreader source.
-* Wordpress.com & Blogger destination addons will come up to public soon in the next release.
+* Improve: Improved slug processor.
+* Improve: Cleaned source code.
+* Improve: Added combine processor to combine fields together.
+* New: Added sample source output for rssreader source.
+* Msg: Wordpress.com & Blogger destination addons will come up to public soon in the next release.
 
 = 1.4 =
-* Added Import/Export feature in the "All Pipes" page.
-* Added Export feature in the "Add/Edit Pipe" page as a sub-menu of Save button.
-* Added Help box in the "All Pipes" page.
-* Added "Welcome" box in the "All Pipes" page as the Guideline for the first time usage.
+* New: Added Import/Export feature in the "All Pipes" page.
+* New: Added Export feature in the "Add/Edit Pipe" page as a sub-menu of Save button.
+* New: Added Help box in the "All Pipes" page.
+* New: Added "Welcome" box in the "All Pipes" page as the Guideline for the first time usage.
 
 = 1.3 =
-* Fixed error when choose only 1 category in Post destination.
-* Only display pipes with both source and destination selected.
-* Added missing jQuery in cronjob pages.
+* Fix: Fixed error when choose only 1 category in Post destination.
+* Fix: Only display pipes with both source and destination selected.
+* Fix: Added missing jQuery in cronjob pages.
 
 = 1.2 =
-* Improved PHP code to work with PHP 5.3. It used to requires PHP 5.4 or higher.
-* Allowed user to choose the number of pipes to be displayed on the Pipes Listing.
-* Fixed minor bugs on Pipe form.
-* Improved RSS Creator Destination addon.
+* Improve: Improved PHP code to work with PHP 5.3. It used to requires PHP 5.4 or higher.
+* New: Allowed user to choose the number of pipes to be displayed on the Pipes Listing.
+* Fix: Fixed minor bugs on Pipe form.
+* Improve: Improved RSS Creator Destination addon.
 
 = 1.1 =
-* Fixed RSS Destination to force create RSS in any file extension.
+* Fix: Fixed RSS Destination to force create RSS in any file extension.
 
 = 1.0 =
-* The first version
+* New: The first version
 
 == Upgrade Notice ==
 

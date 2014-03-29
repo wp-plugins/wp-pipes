@@ -47,6 +47,10 @@ class AppRequirements {
 		return ! ini_get( 'safe_mode' );
 	}
 
+	function checkAllow_url_fopen() {
+		return ini_get( 'allow_url_fopen' );
+	}
+
 	function checkMemoryLimit() {
 		$memory_limit = ini_get( 'memory_limit' );
 
@@ -102,6 +106,10 @@ class AppRequirements {
 		$status = $this->checkWP();
 		$info   = __( 'WPPipes requires WP 3.8+. Please upgrade your Wordpress version (<a href="http://www.wordpress.org" target="_blank">wordpress.org</a>).' );
 		$this->_addRequiredResult( 'WP 3.8+', $status, $info );
+
+		$status = $this->checkAllow_url_fopen();
+		$info   = 'It is required to turn on PHP allow_url_fopen.';
+		$this->_addRequiredResult( 'PHP allow_url_fopen', $status, $info );
 
 		foreach ( $this->_required_extensions as $extension ) {
 			$status = extension_loaded( $extension['extension'] );
@@ -195,7 +203,7 @@ class AppRequirements {
 			</thead>
 			<tfoot>
 			<tr>
-				<td colspan="3">Please visit <a href="http://foobla.com/kb/obgrabber/5207-obgrabber-system-requirements" target="_blank">here</a> to get more help</td>
+				<td colspan="3">Please visit <a href="http://wpbriz.com/wp-pipes-system-requirements/" target="_blank">here</a> to get more help</td>
 			</tr>
 			</tfoot>
 			<tbody>

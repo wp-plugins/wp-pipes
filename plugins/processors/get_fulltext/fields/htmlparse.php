@@ -56,9 +56,14 @@ class JFormFieldHtmlparse extends JFormFieldTextarea {
 						 	var value_input;
 						 	for(var i=0;i<list_li.length;i++){
 						 		var innerhtm = list_li[i].innerHTML;
-						 		if (input_url==innerhtm.split("<br>")[0]){
+						 		var first_innertext = innerhtm.split("</text><br>")[0];
+						 		if (input_url==first_innertext.split(">")[1]){
 						 			value_input = list_li[i].getElementsByTagName("p")[0].innerText;
 						 		}
+							}
+							if(!checkValidurl(value_input)){
+								alert ("Please input the valid url!");
+								return false;
 							}
 							var url = encodeURI("http://demo.foobla.com/html_parser/index.php?url="+value_input+"&code="+textarea+"&auto_fulltext="+auto_fulltext);
 							window.open(url);
@@ -73,6 +78,15 @@ class JFormFieldHtmlparse extends JFormFieldTextarea {
 							});
 
 							jQuery(\'#myModal\').modal({show: true});*/
+					}
+					function checkValidurl(url){
+						url_validate = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+						if(!url_validate.test(url)){
+						   return false;
+						}
+						else{
+						   return true;
+						}
 					}
 					function change_auto_fulltext(el){
 						var list_li = el.parentNode.parentNode.parentNode.getElementsByClassName("col-md-6")[1];

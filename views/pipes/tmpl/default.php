@@ -179,6 +179,9 @@ $this->itemsTable->views();
                 $(this).find(".modal-dialog").css("height", '600px').css("width", '700px').css('margin-top', '100px');
             });
             $('#myModal').modal({show: true});
+			$('#myModal').on('hidden.bs.modal',function () {
+				$('#modal_iframe').attr("src", '');
+			});
         });
     });
 </script>

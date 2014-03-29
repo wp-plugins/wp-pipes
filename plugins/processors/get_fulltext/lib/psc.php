@@ -17,7 +17,8 @@ class ogb_parser_code extends ogb_get_CURL {
 	}
 
 	public static function run_parser_code( &$res, $html, $params ) {
-		$funcs = explode( "\n", $params->code );
+		$codes = preg_replace('/^[\n\r]*|[\n\r]*$/i', '', $params->code);
+		$funcs = explode( "\n", $codes );
 		if ( isset( $_GET['php'] ) ) {
 			echo '<br /><br /><i><b>File</b> ' . __FILE__ . ' <b>Line</b> ' . __LINE__ . "</i><br />\n";
 			echo $html;
@@ -38,7 +39,6 @@ class ogb_parser_code extends ogb_get_CURL {
 				$rows[] = $resf[0];
 			} else {
 				self::setStop( $res, "Error row-{$i}: " . $resf[1] );
-
 				return $res;
 			}
 		}
@@ -72,29 +72,25 @@ class ogb_parser_code extends ogb_get_CURL {
 			}
 			$html = self::clear_tag( $html, $tag );
 		}
-
 		return $html;
 	}
 
 	public static function clear_tag( $html, $tag ) {
-		$a = explode( "<{$tag}", $html );
+		$a = explode( "</{$tag}>", $html );
+		$count_a = count($a);
 		if ( ! isset( $a[1] ) ) {
 			return $html;
 		}
 		$c   = array();
-		$c[] = $a[0];
-		for ( $i = 1; $i < count( $a ); $i ++ ) {
-			$b = explode( "</{$tag}>", $a[$i] );
-			if ( isset( $b[1] ) ) {
-				$c[] = $b[1];
+		for ( $i = 1; $i < $count_a; $i ++ ) {
+			$b = explode( "<{$tag}", $a[$i] );
+			if ( isset( $b[0] ) ) {
+				$c[] = $b[0];
 				continue;
 			}
-			$d = explode( '>', $a[$i] );
-			unset( $d[0] );
-			$c[] = implode( '>', $d );
+			//$c[] = $b[0];
 		}
 		$html = implode( '', $c );
-
 		return $html;
 	}
 
@@ -130,6 +126,7 @@ class ogb_parser_code extends ogb_get_CURL {
 	}
 
 	public static function runFuncs( $funcs, $rows ) {
+		$funcs = str_replace('\"','"',$funcs);
 		$funcs = explode( '|', trim( $funcs ) );
 		$funcs = str_replace( '::OR::', '|', $funcs );
 		if ( ! isset( $funcs[1] ) ) {
@@ -236,6 +233,7 @@ class ogb_parser_code extends ogb_get_CURL {
 	}
 
 	public static function replace( $inputs, $search, $replace, $reg = 0, $reg_limit = 0, $reg_pattern = '' ) {
+		$arg = func_get_args();
 		if ( $reg ) {
 			if ( $reg_limit ) {
 				$html = preg_replace( $search, $replace, trim( $inputs[0] ), $reg_limit );
@@ -309,7 +307,6 @@ class ogb_parser_code extends ogb_get_CURL {
 		if ( $ctag == 0 ) {
 			$ftag = self::getTagInner( $html, $tag, $ftag );
 		}
-
 		return array( $ftag );
 	}
 

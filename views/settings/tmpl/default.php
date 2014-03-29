@@ -46,7 +46,7 @@ echo PIPES::show_message( false );
 									<label title="Yes"><input type="radio" name="' . $setting->option_name . '" value="1" ' . ( ( $setting->option_value == 1 ) ? 'checked="checked"' : '' ) . '>
 									<span>Yes, I want to run my Pipes automatically when someone access my Wordpress site.</span></label><br>
 									<label title="No"><input type="radio" name="' . $setting->option_name . '" value="0" ' . ( ( $setting->option_value == 0 ) ? 'checked="checked"' : '' ) . '>
-									<span>No, I will create a cronjob task myself to run the script <a href="'.get_site_url().'/?pipes=cron&task=callaio" target="_blank">'.get_site_url().'/?pipes=cron&task=callaio</a>. More instruction can be found at <a href="http://wppipes.com/cronjob" target="_blank">this cronjob guideline</a></span>.</label><br />
+									<span>No, I will create a cronjob task myself to run the script <a href="'.get_site_url().'/?pipes=cron&task=callaio" target="_blank">'.get_site_url().'/?pipes=cron&task=callaio</a>. More instruction can be found at <a href="http://wpbriz.com/settings-up-cronjob-schedule-for-pipes/" target="_blank">this cronjob guideline</a></span>.</label><br />
 									</fieldset>';
 							echo '</td>';
 							break;

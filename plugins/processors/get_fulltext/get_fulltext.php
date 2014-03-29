@@ -86,7 +86,7 @@ class WPPipesPro_get_fulltext extends ogb_parser_code {
 				return $res;
 			}
 
-			$html = self::getCURL( $url, $params->curl );
+			$html = self::getCURL( $url, $params );
 
 			if ( isset( $_GET['curl'] ) ) {
 				echo '<br /><br /><i><b>File</b> ' . __FILE__ . ' <b>Line</b> ' . __LINE__ . "</i><br />\n";
@@ -104,6 +104,9 @@ class WPPipesPro_get_fulltext extends ogb_parser_code {
 			}
 		} else {
 			$html = $data->html;
+		}
+		if ( $params->charset != '' && $params->charset != 'UTF-8' ) {
+			$html = mb_convert_encoding( $html, "utf-8", $params->charset );
 		}
 		$fullhtml = $html;
 		if ( isset( $_GET['php2'] ) ) {

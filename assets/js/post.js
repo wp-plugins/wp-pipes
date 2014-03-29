@@ -21,10 +21,17 @@ ogbPost.geDataSucess	= function(txt){
 	}
 }
 ogbPost.adapter_store	= function(){
-	var url = window.location.pathname+'?page=pipes.pipe&task=asave&id='+ogb_id+'&row='+ogb_row;
+	var url = window.location.origin+window.location.pathname+'?page=pipes.pipe&task=asave&id='+ogb_id+'&row='+ogb_row;
 	if(ogb_ud){url	+= '&u=1';}
 	ogb_html_append('ogb-'+ogb_id+'-get-rows','<li id="ogb-'+ogb_id+'-get-row-'+ogb_row+'">Item '+ogb_row+' [Processing ...]</li>');
-	ogbAjax(url,function(txt){ogbPost.adapter_store_ss(txt)});	
+	//ogbAjax(url,function(txt){ogbPost.adapter_store_ss(txt)});
+	jQuery.ajax({
+		url    : url,
+		type   : 'GET',
+		success: function (txt) {
+			ogbPost.adapter_store_ss(txt);
+		}
+	});
 }
 ogbPost.adapter_store_ss = function(txt){
 	//ogb_set_html('ogb-'+ogb_id+'-get-row-'+ogb_row,txt+'<br />------ ------ ------<br />');

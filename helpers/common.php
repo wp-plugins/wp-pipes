@@ -27,7 +27,7 @@ class ogb_common {
 		jimport( 'includes.string.string' );
 		JForm::addFormPath( $xml_dir );
 
-		JForm::addFieldPath( JPATH_SITE . DS . 'libraries' . DS . 'joomla' . DS . 'form' . DS . 'fields' );
+		JForm::addFieldPath( PIPES_PATH . DS . 'includes' . DS . 'form'. DS . 'fields' );
 		JForm::addFieldPath( $dir . DS . 'fields' );
 
 		$name    = 'com_wppipes.' . $type;
@@ -149,9 +149,9 @@ class ogb_common {
 		$element .= '
 			<div class="tab-pane" id="' . $plugin_type[0] . '-help">
 		';
-		
+
 		$help_file_path = OBGRAB_SITE . "/plugins/{$plugin_type[0]}s/{$file}/language/en-GB/en-GB.plg_wppipes-{$plugin_type[0]}_{$file}.html";
-		
+
 		if ( JFile::exists( $help_file_path ) ) {
 			ob_start();
 			include( $help_file_path );
@@ -348,6 +348,33 @@ class ogb_common {
 
 		return $html;
 	}
+
+	public static function get_templates() {
+        $upload_dir = wp_upload_dir();
+		$path = $upload_dir['basedir'] . DS . 'wppipes' . DS . 'templates';
+        $pipes = array();
+		if ( ! is_dir( $path ) ) {
+			return $pipes;
+		}
+		$files = PIPES_Helper_FileSystem::files( $path );
+		if ( ! is_array( $files ) ) {
+			return $pipes;
+		}
+
+		foreach ( $files as $file ) {
+			$item      = new stdClass();
+			$extension = JFile::getExt( $file );
+			if ( $extension == 'pipe' ) {
+				$content        = file_get_contents( $path . DS . $file );
+				$item           = json_decode( $content );
+				$item->filename = $file;
+
+				$pipes[] = $item;
+			}
+		}
+
+		return $pipes;
+	}
 }
 
 class ogbLib {
@@ -361,15 +388,16 @@ class ogbLib {
 //ogbFile::get_curl($url);
 class ogbFile {
 	public static function write( $path, $txt = '' ) {
-		$path = self::clean($path);
-		$folder = dirname($path);
-		if(!is_dir($folder)){
-			ogbFolder::create($folder);
+		$path   = self::clean( $path );
+		$folder = dirname( $path );
+		if ( ! is_dir( $folder ) ) {
+			ogbFolder::create( $folder );
 		}
-		$ret = is_int(file_put_contents($path, $txt));
+		$ret = is_int( file_put_contents( $path, $txt ) );
+
 		return $ret;
 	}
-	
+
 	public static function read( $file ) {
 		return file_get_contents( $file );
 	}
@@ -378,28 +406,22 @@ class ogbFile {
 		return file_get_contents( $file );
 	}
 
-	public static function clean($path, $ds = DIRECTORY_SEPARATOR)
-	{
-		if (!is_string($path))
-		{
-			throw new UnexpectedValueException('obFile::clean: $path is not a string.');
+	public static function clean( $path, $ds = DIRECTORY_SEPARATOR ) {
+		if ( ! is_string( $path ) ) {
+			throw new UnexpectedValueException( 'obFile::clean: $path is not a string.' );
 		}
 
-		$path = trim($path);
+		$path = trim( $path );
 
-		if (empty($path))
-		{
+		if ( empty( $path ) ) {
 			$path = JPATH_ROOT;
 		}
 		// Remove double slashes and backslashes and convert all slashes and backslashes to DIRECTORY_SEPARATOR
 		// If dealing with a UNC path don't forget to prepend the path with a backslash.
-		elseif (($ds == '\\') && ($path[0] == '\\' ) && ( $path[1] == '\\' ))
-		{
-			$path = "\\" . preg_replace('#[/\\\\]+#', $ds, $path);
-		}
-		else
-		{
-			$path = preg_replace('#[/\\\\]+#', $ds, $path);
+		elseif ( ( $ds == '\\' ) && ( $path[0] == '\\' ) && ( $path[1] == '\\' ) ) {
+			$path = "\\" . preg_replace( '#[/\\\\]+#', $ds, $path );
+		} else {
+			$path = preg_replace( '#[/\\\\]+#', $ds, $path );
 		}
 
 		return $path;
@@ -409,7 +431,7 @@ class ogbFile {
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
 
 		ob_start();
 		curl_exec( $ch );
@@ -434,57 +456,53 @@ class ogbFile {
 		return $ogb_host;
 	}
 
-	public static function getName($file)
-	{
+	public static function getName( $file ) {
 		// Convert back slashes to forward slashes
-		$file = str_replace('\\', '/', $file);
-		$slash = strrpos($file, '/');
+		$file  = str_replace( '\\', '/', $file );
+		$slash = strrpos( $file, '/' );
 
-		if ($slash !== false)
-		{
-			return substr($file, $slash + 1);
-		}
-		else
-		{
+		if ( $slash !== false ) {
+			return substr( $file, $slash + 1 );
+		} else {
 			return $file;
 		}
 	}
 }
 
 class ogbFolder {
-	public static function create($path, $mode=0755){
-		$path = ogbFile::clean($path);
-		if(is_dir($path)){
+	public static function create( $path, $mode = 0755 ) {
+		$path = ogbFile::clean( $path );
+		if ( is_dir( $path ) ) {
 			return true;
 		}
 		$i = 0;
-		
-		$parent = dirname($path);
+
+		$parent = dirname( $path );
 //		JFolder::create();
-		if(is_dir($parent)){
+		if ( is_dir( $parent ) ) {
 			// First set umask
-			$origmask = @umask(0);
+			$origmask = @umask( 0 );
 			// Create the path
-			if (!$ret = @mkdir($path, $mode))
-			{
-				@umask($origmask);
+			if ( ! $ret = @mkdir( $path, $mode ) ) {
+				@umask( $origmask );
+
 				return false;
 			}
 			// Reset umask
-			@umask($origmask);
+			@umask( $origmask );
 		} else {
-			self::create($parent, $mode);
-			self::create($path, $mode);
+			self::create( $parent, $mode );
+			self::create( $path, $mode );
 		}
 	}
-	
-	public static function files(){
+
+	public static function files() {
 		JFolder::files();
 	}
 }
 
 class ogbDb {
-	public static function query($sql){
+	public static function query( $sql ) {
 		global $wpdb;
 		$wpdb->query( $sql );
 	}

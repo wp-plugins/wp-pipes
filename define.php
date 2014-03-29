@@ -22,6 +22,7 @@ define( 'OBGRAB_ADAPTERS'		,OBGRAB_SITE.DS.'plugins'.DS.'adapters'.DS);
 define( 'OBGRAB_PROCESSORS'		,OBGRAB_SITE.DS.'plugins'.DS.'processors'.DS);
 
 define( 'OGRAB_CACHE'			, dirname(__FILE__).DS.'cache'.DS.'wppipes'.DS);
+define( 'OGRAB_ECACHE'			, OGRAB_CACHE . 'ecache' . DS );
 
 //define( 'OGRAB_CACHE'			,JPATH_ROOT.DS.'cache'.DS.'wppipes'.DS);
 define( 'OGRAB_EDATA'			, OGRAB_CACHE.'edata'.DS);

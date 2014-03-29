@@ -7,40 +7,43 @@
  * @license          GNU/GPL v3, see LICENSE
  */
 defined( 'PIPES_CORE' ) or die( 'Restricted access' );
+
 //require_once dirname(dirname(dirname(__FILE__))).DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'view.php';
 
 class PIPESViewPipe extends View {
 	public $pipes;
+	public $template = null;
 	public $item = null;
 	public $form = null;
 	public $other_pipes = null;
-	public function __construct(){
+
+	public function __construct() {
 		parent::__construct();
 	}
-	
-	public function display(){
-		$id = filter_input(INPUT_GET, 'id');
-		
-		$model 		= $this->getModel();
-		
+
+	public function display() {
+		$id = filter_input( INPUT_GET, 'id' );
+
+		$model = $this->getModel();
+
 //		$item	= $this->get('EditData');
 		$this->item = $model->getEditData();
 		if ( $this->item->id ) {
 			$this->other_pipes = $model->get_other_pipes( $this->item->id );
 		}
-		
+		$this->templates = ogb_common::get_templates();
+
 //		echo '<pre>'.print_r( $this->item, true ).'</pre>';
 //		exit();
 //		$this->form = $model->getForm();
-		
+
 //		$this->pipes = $model->getPipes($id);
-		$this->_layout= 'form';
-		
-		
-		
+		$this->_layout = 'form';
+
+
 		parent::display();
 	}
-	
+
 	/**
 	 * Add help tab to list pipes page
 	 */

@@ -40,8 +40,6 @@
 				</field>
 				<field name="clear_attribute" type="text" default="id,class,style" label="clear Attribute" class="fullwidth"
 					   description="clear Attribute of Tags"/>
-				<field name="clear_tags" type="text" default="script,style" label="Clear Tags" class="fullwidth"
-					   description="Clear Tags"/>
 				<field name="origin_site" type="text" size="30" default="" label="Origin Site" class="fullwidth"
 					   description="Origin Site"/>
 				<field name="code" type="htmlparse" rows="5" cols="50" class="fullwidth" default="" label="Parser Code"
@@ -57,6 +55,11 @@
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
+				<field name="clear_tags" type="text" default="script,style" label="Clear Tags" class="cleartags"
+					   description="Clear Tags"/>
+				<field name="charset" class="charset" type="text" default="UTF-8" label="Charset" description="The charset of original site" />
+				<field name="useragent" type="text" size="30" default="Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1" label="User Agent" class="fullwidth"
+					   description="You could input the specified USERAGENT when choose 'Level 2' with above get CURL"/>
 				<field name="note" type="hidden" default=""/>
 			</fieldset>
 		</fields>
