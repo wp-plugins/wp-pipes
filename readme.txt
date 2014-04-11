@@ -17,7 +17,7 @@ You can create many Pipes, give your Pipes input and get output as your needs.
 
 Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
 
-[Documentation](http://wpbriz.com/wp-pipes-docs/ "WP Pipes Docs") - Support: [wp.org Forum (this website)](http://wordpress.org/support/plugin/wp-pipes), [wpBriz Forum](http://wpbriz.com/forums "wpBriz Community Forum"), [Twitter](https://twitter.com/wpbriz "wpBriz Twitter"), [Facebook](https://www.facebook.com/wpbriz "wpBriz Facebook"), [Google+](https://plus.google.com/+Wpbriz/posts "wpBriz Google+"), [Youtube](https://www.youtube.com/user/wpbriz "wpBriz Youtube")
+Support: [wp.org Forum (this website)](http://wordpress.org/support/plugin/wp-pipes), [Twitter](https://twitter.com/wpbriz "wpBriz Twitter"), [Facebook](https://www.facebook.com/wpbriz "wpBriz Facebook"), [Google+](https://plus.google.com/+Wpbriz/posts "wpBriz Google+"), [Youtube](https://www.youtube.com/user/wpbriz "wpBriz Youtube")
 
 [youtube https://www.youtube.com/watch?v=zLHFqAHQj2A&hd=1&&cc_load_policy=1]
 
@@ -87,10 +87,10 @@ Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, R
 
 <h4>ROADMAP</h4>
 
-* Writing more Source Addons: Clickbank, Amazon products, Commission Junction, eBay auctions, Youtube Videos, WooCommerce Products, Easy Digital Downloads, bbPress; will add ability to WP Pipes to create RSS Feed for WooCommerce, Easy Digital Downloads or bbPress.
-* Writing more Destination Addons: Google Drive (to store document as Google Drive Docs), iTunes Podcast (to generate iTunes Podcast), Google XML Sitemap (to generate Google XML Sitemap).
+* Writing more Source Addons: WooCommerce Products, Easy Digital Downloads, bbPress; will add ability to WP Pipes to create RSS Feed for WooCommerce, Easy Digital Downloads or bbPress.
+* Writing more Destination Addons: Google Drive (to store document as Google Drive Docs),iTunes Podcast (to generate iTunes Podcast), Google XML Sitemap (to generate Google XML Sitemap).
 * Custom schedule for each Pipe instead of the whole Pipes.
-* Adding Pre-made / Template Fields Matching sets (done from 1.4).
+* Adding Pre-made / Template Fields Matching sets.
 
 == Installation ==
 
@@ -135,13 +135,23 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.15 =
+* Fix: Repaired get full title with rssreader source.
+* Fix: Fixed bugs: pipes not run when turn off debug mode.
+* Fix: active and cron active in setting
+* New: Able to set separate schedule for each pipe.
+* New: Added quick_edit mode for pipes.
+* New: Check writable permission of "cache" folder and "upload" folder.
+* Improve: Possible to remove unnecessary templates.
+
 = 1.14 =
 * Fix: Repaired write cache function in rssreader source.
 * Fix: Fixed errors when click Test this pipe button. It was caused by define.
 * Fix: Fixed bug when save image from redirect urls to server.
-* Fix: cronjob problem.
+* Fix: Not use cache in cronjob.
 * New: Able to set a Pipe as a Pipe template. Can be loaded later conveniently.
 * New: Added one requirement: turn on allow_url_fopen.
+* New: Auto fix html input data for Blogger Destination.
 * New: Saving the export pipe as a template; in edit view, could load that template.
 * Improve: Moved the templates folder to uploads > wppipes.
 * Improve: Rewrote ajax in post.js.

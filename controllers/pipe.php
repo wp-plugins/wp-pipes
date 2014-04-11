@@ -407,11 +407,11 @@ class PIPESControllerPipe extends Controller {
 	}
 
 	function execaddonmethod() {
-		$type        = filter_input( INPUT_GET, 'type' );
-		$name        = filter_input( INPUT_GET, 'name' );
-		$id          = filter_input( INPUT_GET, 'id' );
-		$ajax        = filter_input( INPUT_GET, 'ajax' );
-		$method      = filter_input( INPUT_GET, 'method' );
+		$type        = filter_input( INPUT_POST, 'type' );
+		$name        = filter_input( INPUT_POST, 'name' );
+		$id          = filter_input( INPUT_POST, 'id' );
+		$ajax        = filter_input( INPUT_POST, 'ajax' );
+		$method      = filter_input( INPUT_POST, 'method' );
 		$res         = new stdClass();
 		$path        = PIPES_PATH . DS . 'plugins' . DS . $type . 's' . DS . $name . DS . $name . '.php';
 		$path_plugin = OB_PATH_PLUGIN . $name . DS . $name . '.php';
@@ -458,5 +458,32 @@ class PIPESControllerPipe extends Controller {
 		}
 
 		return $data;
+	}
+
+	public function delete_template() {
+		$upload_dir = wp_upload_dir();
+		if ( isset( $_POST['filename'] ) ) {
+			$path = $upload_dir['basedir'] . DS . 'wppipes' . DS . 'templates' . DS . $_POST['filename'];
+			if ( ! is_file( $path ) ) {
+				echo 'File not exists!';
+				exit();
+			} else {
+				unlink( $path );
+				//print_r(error_get_last());
+				echo 'The template remove success!';
+				exit();
+				//echo '<pre>';print_r($_POST['filename']);die;
+			}
+		} else {
+			echo 'false';
+			exit();
+		}
+	}
+
+	public function quick_edit(){
+		$mod = $this->getModel( 'pipe' );
+		$res = $mod->quick_edit_pipe();
+		echo json_encode( $res );
+		exit();
 	}
 }

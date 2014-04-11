@@ -81,7 +81,6 @@ class ogbPost {
 			$log .= $view . $edit;
 		}
 		$logSave = '<li>' . $log . "[Post id:{$info->item_id}]<hr /></li>\n";
-		echo $log;
 		//if($info->action!='Ignore'){
 		self::addSavedLog( $logSave );
 
@@ -95,10 +94,10 @@ class ogbPost {
 		}
 		$name = '';
 		if ( is_file( OGRAB_CACHE . 'savedinfo' ) ) {
-			$name = @JFile::read( OGRAB_CACHE . 'savedinfo' );
+			$name = file_get_contents( OGRAB_CACHE . 'savedinfo' );
 		}
 		if ( is_file( OGRAB_CACHE_SAVED . $name ) && filesize( OGRAB_CACHE_SAVED . $name ) < 102400 ) {
-			$old = @JFile::read( OGRAB_CACHE_SAVED . $name );
+			$old = file_get_contents( OGRAB_CACHE_SAVED . $name );
 		} else {
 			$name = date( 'Y.m.d-H.i.s' );
 			ogbFile::write( OGRAB_CACHE . 'savedinfo', $name );

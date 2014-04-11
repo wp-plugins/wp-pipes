@@ -225,7 +225,11 @@ class ogb_get_CURL extends ogb_cache {
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+		if(ini_get('open_basedir')!='' || ini_get('safe_mode') == 1){
+			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, false );
+		}else{
+			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+		}
 		curl_setopt( $ch, CURLOPT_MAXREDIRS, 10 );
 		ob_start();
 		curl_exec( $ch );
@@ -253,7 +257,11 @@ class ogb_get_CURL extends ogb_cache {
 		curl_setopt( $ch, CURLOPT_USERAGENT, $useragent );
 		curl_setopt( $ch, CURLOPT_URL, $url );
 		//curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie);
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+		if(ini_get('open_basedir')!='' || ini_get('safe_mode') == 1){
+			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, false );
+		}else{
+			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+		}
 		curl_setopt( $ch, CURLOPT_ENCODING, "" );
 		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
 		curl_setopt( $ch, CURLOPT_AUTOREFERER, true );

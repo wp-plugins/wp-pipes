@@ -1,8 +1,9 @@
 <?php
+
 /**
  * @package   wppipes
  * @author    wpbriz.com
-*/
+ */
 class AppRequirements {
 
 	var $_required_results = array();
@@ -32,15 +33,21 @@ class AppRequirements {
 		array( 'class' => 'ArrayObject', 'info' => 'Check <a target="_blank" href="http://www.php.net/manual/en/class.arrayobject.php">class.arrayobject.php</a>' )
 	);
 
+	var $_required_writable = array(
+		array( 'path' => OGRAB_CACHE, 'info' => 'Please change the permission to allow writable the folder plugins/wp-pipes/cache/' ),
+		array( 'path' => SITE_UPLOAD_DIR, 'info' => 'Please change the permission to allow writable your upload folder' )
+	);
+
 	var $_recommended_classes = array();
 
 	function checkPHP() {
 		return ! version_compare( PHP_VERSION, '5.3', '<' );
 	}
 
-	function checkWP(){
+	function checkWP() {
 		global $wp_version;
-		return ! version_compare( $wp_version, '3.8', '<');
+
+		return ! version_compare( $wp_version, '3.8', '<' );
 	}
 
 	function checkSafeMode() {
@@ -126,6 +133,11 @@ class AppRequirements {
 			$this->_addRequiredResult( 'Class: ' . $class['class'], $status, $class['info'] );
 		}
 
+		foreach ( $this->_required_writable as $path ) {
+			$status = is_writable( $path['path'] );
+			$this->_addRequiredResult( 'Path: ' . $path['path'], $status, $path['info'] );
+		}
+
 		foreach ( $this->_required_results as $return ) {
 			if ( ! $return['status'] ) {
 				return $return;
@@ -203,13 +215,15 @@ class AppRequirements {
 			</thead>
 			<tfoot>
 			<tr>
-				<td colspan="3">Please visit <a href="http://wpbriz.com/wp-pipes-system-requirements/" target="_blank">here</a> to get more help</td>
+				<td colspan="3">Please visit
+					<a href="http://wpbriz.com/wp-pipes-system-requirements/" target="_blank">here</a> to get more help
+				</td>
 			</tr>
 			</tfoot>
 			<tbody>
 			<?php
 			foreach ( $this->_required_results as $i => $req ) : ?>
-				<tr <?php echo ($i ++ % 2) ? 'class="alternate"' : ''; ?>>
+				<tr <?php echo ( $i ++ % 2 ) ? 'class="alternate"' : ''; ?>>
 					<td class="key"><?php echo $req['name']; ?></td>
 					<td>
 						<?php $style = $req['status'] ? 'font-weight: bold; color: green;' : 'font-weight: bold; color: red;'; ?>

@@ -105,7 +105,7 @@ class WPPipesPro_get_fulltext extends ogb_parser_code {
 		} else {
 			$html = $data->html;
 		}
-		if ( $params->charset != '' && $params->charset != 'UTF-8' ) {
+		if ( @$params->charset != '' && @$params->charset != 'UTF-8' ) {
 			$html = mb_convert_encoding( $html, "utf-8", $params->charset );
 		}
 		$fullhtml = $html;

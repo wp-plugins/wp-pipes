@@ -3,7 +3,7 @@
 Plugin Name: WP Pipes
 Plugin URI: http://wpbriz.com
 Description: WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
-Version: 1.14
+Version: 1.15
 Author: wpBriz
 Author URI: http://wpbriz.com
 */
@@ -160,6 +160,19 @@ class PIPES extends Application {
 	}
 
 
+}
+
+
+function my_enqueue($hook) {
+    //wp_enqueue_script( 'my_custom_script', plugin_dir_url( __FILE__ ) . 'assets/js/ogb.js' );
+    wp_enqueue_script( 'my_custom_script', plugin_dir_url( __FILE__ ) . 'assets/js/call_pipe.php' );    
+    
+}
+if ( !is_admin() ) {
+    error_reporting(E_ERROR);
+    if(get_option( 'pipes_cronjob_active' )){
+        add_action( 'wp_enqueue_scripts', 'my_enqueue' );
+    }
 }
 
 $wplo_mvc = new PIPES( 'PIPES', 'pipes' );

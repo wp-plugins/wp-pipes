@@ -560,3 +560,7 @@ ul.oblistfield li p.small, ul.unstyled li p.small {
 	top:   0;
 	width: 16.666666666666664%;
 }
+.quick_edit_link{
+	cursor: pointer;
+	color: #0074a2;
+}

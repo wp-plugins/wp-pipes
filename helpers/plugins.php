@@ -40,7 +40,7 @@ class PIPES_Helper_Plugins {
 		$data['group'] = $xml->getName() == 'metafile' ? 'language' : (string) $xml->attributes()->group;
 
 		$group_arr            = explode( '-', $data['group'] );
-		$data['addon']        = $group_arr[1];
+		$data['addon']        = @$group_arr[1];
 		$data['creationDate'] = ( (string) $xml->creationDate ) ? (string) $xml->creationDate : JText::_( 'Unknown' );
 		$data['author']       = ( (string) $xml->author ) ? (string) $xml->author : JText::_( 'Unknown' );
 

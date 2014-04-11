@@ -190,7 +190,15 @@ class obGrab {
 			var_dump( $new_data );
 			echo '<br />' . $json;
 		}
-
+        $limit = self::getItemInfo($id);
+        $limit = json_decode($limit->engine_params);
+        
+        if($limit->limit_items < $total){
+            $total = $limit->limit_items;
+        }
+        
+        
+        
 		$res        = new stdclass();
 		$res->pipe  = $item->name;
 		$res->name  = $item->engine;
@@ -302,7 +310,10 @@ class obGrab {
 	function importAddon( $name, $path, $class ) {
 		$file = $path . $name . DS . $name . '.php';
 		if ( ! is_file( $file ) ) {
-			$file  = OB_PATH_PLUGIN . $name . DS . $name . '.php';
+			$file = OB_PATH_PLUGIN . $name . DS . $name . '.php';
+			if ( ! is_file( $file ) ) {
+				$file = OB_PATH_PLUGIN_OTHER . $name . DS . $name . '.php';
+			}
 			$class = $this->get_real_class( $class );
 		}
 		if ( ! is_file( $file ) ) {

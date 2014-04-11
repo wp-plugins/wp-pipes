@@ -87,6 +87,26 @@ if (!$pipes_js) {
             location = href;
         }
     }
+	function delete_template(el,filename){
+		var answer = confirm('Are you sure?');
+		if(!answer){
+			return false;
+		}else{
+			var li_el = el.parentNode;
+			var url	= ogb_be_url+'delete_template';
+			jQuery.ajax({
+				url:url,
+				type: 'POST',
+				data: {filename:filename},
+				success: function(resp){
+					if(resp != 'false'){
+						li_el.parentNode.removeChild(li_el);
+						alert(resp);
+					}
+				}
+			});
+		}
+	}
     jQuery(document).ready(function () {
         var config = {
             ".chosen-select": {}
@@ -183,15 +203,42 @@ if (isset($_SESSION['PIPES']['messages']) && count($_SESSION['PIPES']['messages'
 				<span class="input-group-addon">
 					<input type="checkbox" name="jform[published]" value="1" <?php if ($item->published == 1) {
                         echo 'checked="checked"';
-                    } ?>>
+                    } ?>/>
 				</span>
         </div>
+        
     </div>
 
     <!-- Toolbar / Functional Buttons -->
     <div class="col-md-6" style="position: inherit">
         <div class="btn-toolbar pull-right" id="toolbar" data-spy="affix1" data-offset-top="60"
              data-offset-bottom="200">
+             <div id="toolbar-schedule" class="btn-wrapper">
+                <div class="btn-group" >
+                    <?php
+						$adapter_params = json_decode($item->adapter_params);
+                        $schedule = @$adapter_params->schedule;
+                    	echo '<select name=adapter[params][schedule]" id="adapter_params_schedule">
+                        <option ' . ( ( $schedule == '0' ) ? 'selected="selected"' : '' ) . ' value="0">Global</option>
+                        <option ' . ( ( $schedule == 'i1' ) ? 'selected="selected"' : '' ) . ' value="i1">1 minutes</option>
+    					<option ' . ( ( $schedule == 'i5' ) ? 'selected="selected"' : '' ) . ' value="i5">5 minutes</option>
+    					<option ' . ( ( $schedule == 'i10' ) ? 'selected="selected"' : '' ) . ' value="i10">10 minutes</option>
+    					<option ' . ( ( $schedule == 'i15' ) ? 'selected="selected"' : '' ) . ' value="i15">15 minutes</option>
+    					<option ' . ( ( $schedule == 'i20' ) ? 'selected="selected"' : '' ) . ' value="i20">20 minutes</option>
+    					<option ' . ( ( $schedule == 'i25' ) ? 'selected="selected"' : '' ) . ' value="i25">25 minutes</option>
+    					<option ' . ( ( $schedule == 'i30' ) ? 'selected="selected"' : '' ) . ' value="i30">30 minutes</option>
+    					<option ' . ( ( $schedule == 'h1' ) ? 'selected="selected"' : '' ) . ' value="h1">1 hour</option>
+    					<option ' . ( ( $schedule == 'h2' ) ? 'selected="selected"' : '' ) . ' value="h2">2 hours</option>
+    					<option ' . ( ( $schedule == 'h3' ) ? 'selected="selected"' : '' ) . ' value="h3">3 hours</option>
+    					<option ' . ( ( $schedule == 'h4' ) ? 'selected="selected"' : '' ) . ' value="h4">4 hours</option>
+    					<option ' . ( ( $schedule == 'h6' ) ? 'selected="selected"' : '' ) . ' value="h6">6 hours</option>
+    					<option ' . ( ( $schedule == 'h8' ) ? 'selected="selected"' : '' ) . ' value="h8">8 hours</option>
+    					<option ' . ( ( $schedule == 'h12' ) ? 'selected="selected"' : '' ) . ' value="h12">12 hours</option>
+    					<option ' . ( ( $schedule == 'h24' ) ? 'selected="selected"' : '' ) . ' value="h24">24 hours</option>
+    					</select>';
+                    ?>
+               </div> 
+        	</div>
             <div class="btn-wrapper" id="toolbar-apply">
                 <div class="btn-group">
                     <button onclick="submitbutton(this.form,'apply')" class="btn btn-default btn-lg">
@@ -384,10 +431,14 @@ if ( $item->inherit > 0 ) {
                         <ul class="dropdown-menu pull-right">
                             <?php foreach ($templates as $template): ?>
                                 <li>
-                                    <a onclick="set_template(this);" class="use_this_template" href="#"
+                                    <a style="display: inline;" onclick="set_template(this);" class="use_this_template" href="#"
                                        data-href="admin.php?page=pipes.pipes&task=import_from_file&file_name=<?php echo $template->filename; ?>&id=<?php echo $item->id; ?>">
                                         <?php echo '<strong>' . $template->filename . '</strong> <small>(' . __('Engine') . ': ' . $template->engine . ', ' . __('Adapter') . ': ' . $template->adapter . ')</small>'; ?>
-                                    </a></li>
+                                    </a>
+									<span style="cursor: pointer; text-indent: -20px;" onclick="delete_template(this,'<?php echo $template->filename; ?>');">
+										<i class="fa fa-trash-o" style="color:#b94a48"></i>
+									</span>
+								</li>
                             <?php endforeach; ?>
                         </ul>
                     </div>

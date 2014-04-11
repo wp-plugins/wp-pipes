@@ -140,12 +140,12 @@ class WPPipesAdapter_post {
 			$created = $data->date;
 		}
 		$metakey  = isset( $data->metakey ) ? $data->metakey : '';
-		if ( ! is_array( $data->images ) ) {
+		if ( ! is_array( $data->images ) && $data->images != '' ) {
 			$images  = self::get_img_from_html( $data->images );
 			$matches = array();
 			preg_match_all( '/src="(.+?)"/i', $images, $matches );
 			$img_url = $matches[1][0];
-		} elseif ( $data->images[0]->src != '' ) {
+		} elseif ( isset($data->images[0]->src) && $data->images[0]->src != '' ) {
 			$img_url = $data->images[0]->src;
 		}
 

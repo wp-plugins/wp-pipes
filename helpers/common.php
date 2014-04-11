@@ -27,7 +27,7 @@ class ogb_common {
 		jimport( 'includes.string.string' );
 		JForm::addFormPath( $xml_dir );
 
-		JForm::addFieldPath( PIPES_PATH . DS . 'includes' . DS . 'form'. DS . 'fields' );
+		JForm::addFieldPath( PIPES_PATH . DS . 'includes' . DS . 'form' . DS . 'fields' );
 		JForm::addFieldPath( $dir . DS . 'fields' );
 
 		$name    = 'com_wppipes.' . $type;
@@ -350,9 +350,9 @@ class ogb_common {
 	}
 
 	public static function get_templates() {
-        $upload_dir = wp_upload_dir();
-		$path = $upload_dir['basedir'] . DS . 'wppipes' . DS . 'templates';
-        $pipes = array();
+		$upload_dir = wp_upload_dir();
+		$path       = $upload_dir['basedir'] . DS . 'wppipes' . DS . 'templates';
+		$pipes      = array();
 		if ( ! is_dir( $path ) ) {
 			return $pipes;
 		}
@@ -363,7 +363,7 @@ class ogb_common {
 
 		foreach ( $files as $file ) {
 			$item      = new stdClass();
-			$extension = JFile::getExt( $file );
+			$extension = ogbFile::getExten( $file );
 			if ( $extension == 'pipe' ) {
 				$content        = file_get_contents( $path . DS . $file );
 				$item           = json_decode( $content );
@@ -396,6 +396,12 @@ class ogbFile {
 		$ret = is_int( file_put_contents( $path, $txt ) );
 
 		return $ret;
+	}
+
+	public static function getExten( $file ) {
+		$dot = strrpos( $file, '.' ) + 1;
+
+		return substr( $file, $dot );
 	}
 
 	public static function read( $file ) {
@@ -431,7 +437,11 @@ class ogbFile {
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
-		curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+		if ( ini_get( 'open_basedir' ) != '' || ini_get( 'safe_mode' ) == 1 ) {
+			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, false );
+		} else {
+			curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, true );
+		}
 
 		ob_start();
 		curl_exec( $ch );

@@ -154,7 +154,7 @@ class WPPipesEngine_rssreader {
 		}
 		for ( $i = 0; $i < count( $items ); $i ++ ) {
 			$row              = new stdclass();
-			$row->title       = html_entity_decode($items[$i]->get_title(), ENT_QUOTES); # the title for the post
+			$row->title       = html_entity_decode($items[$i]->get_title(), ENT_QUOTES, 'UTF-8'); # the title for the post
 			$row->link        = $items[$i]->get_link(); # a single link for the post
 			$row->description = $items[$i]->get_description(); # the content of the post (prefers summaries)
 			$row->author      = $items[$i]->get_author(); # a single author for the post
@@ -239,7 +239,7 @@ class WPPipesEngine_rssreader {
 			return array();
 		}
 		$row              = new stdclass();
-		$row->title       = $items[0]->get_title(); # the title for the post
+		$row->title       = html_entity_decode($items[0]->get_title(), ENT_QUOTES, 'UTF-8'); # the title for the post
 		$row->link        = $items[0]->get_link(); # a single link for the post
 		$row->description = $items[0]->get_description(); # the content of the post (prefers summaries)
 		$row->author      = $items[0]->get_author(); # a single author for the post

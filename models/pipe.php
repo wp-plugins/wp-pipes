@@ -225,9 +225,9 @@ class PIPESModelPipe extends Model {
 					$values = false;
 			}
 			if ( $qry != '' ) {
-				$addon  = $wpdb->get_row( $qry );
-				if(!$name){
-					$name   = $addon->name;
+				$addon = $wpdb->get_row( $qry );
+				if ( ! $name ) {
+					$name = $addon->name;
 				}
 				$values = $addon->params;
 			}
@@ -245,6 +245,7 @@ class PIPESModelPipe extends Model {
 				echo $values;
 			}
 			$params = json_decode( $values );
+
 			return $params;
 		}
 
@@ -712,7 +713,7 @@ class PIPESModelPipe extends Model {
 					$default_op[$key]->$value = str_replace( "'", "", $default_op[$key]->$value );
 					$default_op[$key]->$value = str_replace( '"', '', $default_op[$key]->$value );
 					$stripped                 = preg_replace( array( '/\s{2,}/', '/[\t\n]/' ), ' ', $default_op[$key]->$value );
-					$stripped                 = strlen( $stripped ) > 200 ? mb_substr( strip_tags($stripped), 0, 200, 'UTF-8' ) . '...' : strip_tags($stripped);
+					$stripped                 = strlen( $stripped ) > 200 ? mb_substr( strip_tags( $stripped ), 0, 200, 'UTF-8' ) . '...' : strip_tags( $stripped );
 					$values[$index]           = $value . '<br /><p data-placement="bottom" title="' . $stripped . '" class="text-muted small">' . $stripped . '</p>';
 				}
 			}
@@ -1065,6 +1066,7 @@ class PIPESModelPipe extends Model {
 			include_once $path;
 			$class = 'WPPipesPro_' . $pipe->code;
 		} elseif ( ! is_file( $path_plugin ) ) {
+			$res = new stdClass();
 			$res->err = "File not found [processor {$pipe->code}]";
 
 			return $res;
@@ -1106,5 +1108,25 @@ class PIPESModelPipe extends Model {
 		}
 
 		return $current_data;
+	}
+
+	public function quick_edit_pipe() {
+		global $wpdb;
+		$res = new stdClass();
+		$res->err = '';
+		if ( isset( $_POST ) ) {
+			$res->title = $_POST['title'];
+			$id = $_POST['id'];
+			$res->status = $_POST['status'];
+			$sql = "UPDATE `{$wpdb->prefix}wppipes_items` SET `name` = '{$res->title}', `published` = '{$res->status}' WHERE `id` = {$id}";
+
+			if ( ! $wpdb->query( $sql ) ) {
+				$res->err = $wpdb->last_error;
+				return $res;
+			}
+		}else{
+			$res->err = 'There is error';
+		}
+		return $res;
 	}
 }

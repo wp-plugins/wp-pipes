@@ -172,11 +172,12 @@ class Lo_Items_List_Table extends WP_List_Table {
 	function get_bulk_actions() {
 		$actions = array();
 
-		$actions['copy']   = __( 'Copy' );
-		$actions['delete'] = __( 'Delete' );
-        $actions['export_to_share'] = __('Export');
-		$actions['publish'] = __('Publish');
-		$actions['move_to_draft'] = __('Draft');
+		$actions['copy']            = __( 'Copy' );
+		$actions['delete']          = __( 'Delete' );
+		$actions['export_to_share'] = __( 'Export' );
+		$actions['publish']         = __( 'Publish' );
+		$actions['move_to_draft']   = __( 'Draft' );
+
 		//$actions['inherit'] = __( 'Inherit' );
 
 
@@ -388,14 +389,14 @@ class Lo_Items_List_Table extends WP_List_Table {
 
 				echo '<strong>';
 				echo '
-					<a class="row-title" href="' . sprintf( '?page=%s&task=%s&id=%s"', $_REQUEST['page'], 'edit', $item['id'] ) . '>'
+					<a class="row-title" id="row_title_' . $item['id'] . '" href="' . sprintf( '?page=%s&task=%s&id=%s"', $_REQUEST['page'], 'edit', $item['id'] ) . '>'
 					. sprintf( 'Pipe#%s', $item['id'] ) . ' - ' . $item['name'] . '
 					</a>
 				';
 
 				// If the Pipe is unpublished, show it as Draft
 				if ( $item['published'] == 0 ) {
-					echo '&nbsp;-&nbsp;<span class="post-state">' . __( 'Draft' ) . '</span>';
+					echo '<span class="post-state">' . __( ' - Draft' ) . '</span>';
 				}
 				echo '</strong>';
 
@@ -403,21 +404,58 @@ class Lo_Items_List_Table extends WP_List_Table {
 
 				echo "<div class='row-actions'><span class='edit'>";
 				echo sprintf( '<a href="?page=%s&task=%s&id=%s">Edit</a>', $_REQUEST['page'], 'edit', $item['id'] );
+				echo "</span> | <span class='quickedit'>";
+				echo '<span class="quick_edit_link" onclick="display_quick_edit(this,'. $item['id'] .');">Quick Edit</span>';
 				echo "</span> | <span class='trash'>";
 				echo sprintf( '<a href="?page=%s&task=%s&id=%s">Delete</a>', $_REQUEST['page'], 'delete', $item['id'] );
 				echo "</span> | <span class='post'>";
 				echo sprintf( '<a data-id="%s" class="btn-pipes-post" href="?page=%s&task=%s&id=%s">Test</a>', $item['id'], PIPES::$__page_prefix . '.pipe', 'post', $item['id'] );
 				echo "</span> | <span class='postupdate'>";
 				echo sprintf( '<a data-id="%s" class="btn-pipes-post" href="?page=%s&task=%s&id=%s&u=1">Test in Update mode</a>', $item['id'], PIPES::$__page_prefix . '.pipe', 'post', $item['id'] );
-                echo "</span> | <span class='export'>";
-                echo sprintf( '<a data-id="%s" class="btn-pipes-export" href="?page=%s&task=%s&id=%s">Export</a>', $item['id'], PIPES::$__page_prefix . '.pipes', 'export_to_share', $item['id'] );
+				echo "</span> | <span class='export'>";
+				echo sprintf( '<a data-id="%s" class="btn-pipes-export" href="?page=%s&task=%s&id=%s">Export</a>', $item['id'], PIPES::$__page_prefix . '.pipes', 'export_to_share', $item['id'] );
 				echo "</span></div></td>";
 			} else {
 				echo "<td $attributes>";
 				echo $this->column_default( $item, $column_name );
 				echo "</td>";
 			}
+
 		}
+		$select = $item['published'] == 1 ? 'selected' : '';
+		echo "<tr id='quickeditpipe_" . $item['id'] . "' style='display:none;' class='quick_edit_pipe inline-edit-row inline-edit-row-post inline-edit-post quick-edit-row quick-edit-row-post inline-edit-post inline-editor'>";
+		echo "<td colspan=\"4\">
+			<fieldset class=\"inline-edit-col-left\">
+				<div class=\"inline-edit-col\">
+					<h4>Quick Edit</h4>
+
+					<label>
+						<span class=\"title\">Title</span>
+						<span class=\"input-text-wrap\"><input type=\"text\" name=\"pipe_title\" class=\"ptitle\" value=\"{$item['name']}\"></span>
+					</label>
+				</div>
+			</fieldset>
+			<fieldset class=\"inline-edit-col-right\">
+				<div class=\"inline-edit-col\">
+					<span class=\"title inline-edit-categories-label\">Status</span>
+					<select name=\"pipe_status\">
+						<option value=\"1\" ";
+		echo $item['published'] == 1 ? 'selected' : '';
+		echo ">Published</option>
+						<option value=\"0\" ";
+		echo $item['published'] == 0 ? 'selected' : '';
+		echo ">Draft</option>
+					</select>
+
+				</div>
+			</fieldset>
+			<p class=\"submit inline-edit-save\">
+				<span accesskey=\"c\" onclick=\"display_quick_edit(this, {$item['id']}, 1);\" class=\"button-secondary cancel alignleft\">Cancel</span>
+				<span accesskey=\"s\" onclick=\"display_quick_edit(this, {$item['id']}, 2);\" class=\"button-primary save alignright\">Update</span>
+				<br class=\"clear\">
+			</p>
+		</td>";
+		echo "</tr>";
 	}
 
 }

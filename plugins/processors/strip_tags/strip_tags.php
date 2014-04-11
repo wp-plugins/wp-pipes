@@ -10,15 +10,33 @@
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
 class WPPipesPro_strip_tags {
+
+	public static function check_params_df( $params ) {
+		$df           = new stdclass();
+		$df->strip_tag     = '*';
+		$df->ignore  = 'div,p,a,img';
+
+		foreach ( $df as $key => $val ) {
+			if ( ! isset( $params->$key ) ) {
+				$params->$key = $val;
+			}
+		}
+
+		return $params;
+	}
+
 	static function process( $data, $params ) {
-		$a = explode( '*', $params->strip_tag );
+		if ( ! is_object( $params ) ) {
+			$params = new stdClass();
+		}
+		$a = explode( '*', @$params->strip_tag );
 		if ( isset( $a[1] ) ) {
 			$ignore     = isset( $params->ignore ) ? $params->ignore : '';
 			$ignore     = explode( ',', $ignore );
 			$ignore     = '<' . implode( '><', $ignore ) . '>';
 			$data->html = strip_tags( $data->html, $ignore );
 		} else {
-			$data->html = self::clear_tags( $data->html, $params->strip_tag );
+			$data->html = self::clear_tags( $data->html, @$params->strip_tag );
 		}
 
 		return $data;

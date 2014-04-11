@@ -181,8 +181,8 @@ function ogb_chose_field(el) {
 }
 
 function ogb_loadAdapter(id) {
-	if(!id){
-		id = (document.getElementById('ogb_id'))?document.getElementById('ogb_id').value:0;
+	if (!id) {
+		id = (document.getElementById('ogb_id')) ? document.getElementById('ogb_id').value : 0;
 	}
 	var name = obgid('ogb_adapter').value;
 	if (name == '') {
@@ -402,7 +402,8 @@ function getIOaddon(type, code, order) {
 			url += '&arg' + i + '=' + arguments[i];
 		}
 	}
-	url += '&id=' + ogb_id;
+	if (type != 'processor')
+		url += '&id=' + ogb_id;
 
 	jQuery.ajax({
 		url        : url,
@@ -484,7 +485,7 @@ function updateOprocessor(op, order) {
 	call_tooltip();
 }
 
-function call_tooltip(){
+function call_tooltip() {
 	jQuery('.text-muted').tooltip();
 }
 
@@ -736,10 +737,22 @@ function refresh_mapping() {
 }
 function call_function_from_addon(type, name, callback, value) {
 	jQuery('#dvLoading').show();
-	var url = ogb_be_url + 'execaddonmethod&type=' + type + '&name=' + name + '&method=' + callback + '&val_default=' + value + '&id=' + ogb_id + '&ajax=1';
+	//var url = ogb_be_url + 'execaddonmethod&type=' + type + '&name=' + name + '&method=' + callback + '&val_default=' + value + '&id=' + ogb_id + '&ajax=1';
+	/*jQuery.ajax({
+	 url    : url,
+	 type   : 'GET',
+	 success: function (txt) {
+	 getIOaddon(type, name);
+	 update_all_processor_output();
+	 jQuery('#dvLoading').hide();
+	 call_tooltip();
+	 }
+	 });*/
+	var url = ogb_be_url + 'execaddonmethod';
 	jQuery.ajax({
 		url    : url,
-		type   : 'GET',
+		type   : 'POST',
+		data   : {type: type, name: name, method: callback, val_default: value, id: ogb_id, ajax: 1},
 		success: function (txt) {
 			getIOaddon(type, name);
 			update_all_processor_output();
