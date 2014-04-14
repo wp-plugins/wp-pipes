@@ -218,7 +218,8 @@ if (isset($_SESSION['PIPES']['messages']) && count($_SESSION['PIPES']['messages'
                     <?php
 						$adapter_params = json_decode($item->adapter_params);
                         $schedule = @$adapter_params->schedule;
-                    	echo '<select name=adapter[params][schedule]" id="adapter_params_schedule">
+                    	echo '<select name=adapter[params][schedule]" class="chosen-select" id="adapter_params_schedule">
+                    	<option value="">--Set schedule this pipe--</option>
                         <option ' . ( ( $schedule == '0' ) ? 'selected="selected"' : '' ) . ' value="0">Global</option>
                         <option ' . ( ( $schedule == 'i1' ) ? 'selected="selected"' : '' ) . ' value="i1">1 minutes</option>
     					<option ' . ( ( $schedule == 'i5' ) ? 'selected="selected"' : '' ) . ' value="i5">5 minutes</option>

@@ -770,7 +770,7 @@ class PIPESModelPipe extends Model {
 		return $select;
 	}
 
-	function getHtmlList( $select, $rows, $default, $first = '' ) {
+	function  getHtmlList( $select, $rows, $default, $first = '' ) {
 
 		$selected = 'selected="selected"';
 		$select   = '<select ' . $select . '>';

@@ -165,13 +165,21 @@ class PIPES extends Application {
 
 function my_enqueue($hook) {
     //wp_enqueue_script( 'my_custom_script', plugin_dir_url( __FILE__ ) . 'assets/js/ogb.js' );
-    wp_enqueue_script( 'my_custom_script', plugin_dir_url( __FILE__ ) . 'assets/js/call_pipe.php' );    
+    wp_register_script( 'my_custom_script',plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/call_pipe.js' );
+    wp_enqueue_script( 'my_custom_script');            
+    
     
 }
+function ts_js(){     
+     echo '<script type="text/javascript">
+        var obHost ="'.get_site_url().'/";
+        </script>';
+    }
 if ( !is_admin() ) {
     error_reporting(E_ERROR);
     if(get_option( 'pipes_cronjob_active' )){
         add_action( 'wp_enqueue_scripts', 'my_enqueue' );
+        add_action('wp_print_scripts','ts_js');
     }
 }
 

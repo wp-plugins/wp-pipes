@@ -211,8 +211,8 @@ class WPPipesEngine_rssreader {
 	}
 
 	public static function get_default_item() {
-		$id            = filter_input( INPUT_GET, 'id' );
-		$value_default = filter_input( INPUT_GET, 'val_default' );
+		$id            = filter_input( INPUT_POST, 'id' );
+		$value_default = filter_input( INPUT_POST, 'val_default' );
 		if($value_default == ''){
 			return 'Do nothing!';
 		}
