@@ -82,7 +82,7 @@ class ogb_parser_code extends ogb_get_CURL {
 			return $html;
 		}
 		$c   = array();
-		for ( $i = 1; $i < $count_a; $i ++ ) {
+		for ( $i = 0; $i < $count_a; $i ++ ) {
 			$b = explode( "<{$tag}", $a[$i] );
 			if ( isset( $b[0] ) ) {
 				$c[] = $b[0];

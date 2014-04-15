@@ -225,7 +225,7 @@ class AppRequirements {
 			foreach ( $this->_required_results as $i => $req ) : ?>
 				<tr <?php echo ( $i ++ % 2 ) ? 'class="alternate"' : ''; ?>>
 					<td class="key"><?php echo $req['name']; ?></td>
-					<td>
+					<td style="text-align: center;color:#0f0">
 						<?php $style = $req['status'] ? 'font-weight: bold; color: green;' : 'font-weight: bold; color: red;'; ?>
 
 						<?php if ( $req['status'] ): ?>

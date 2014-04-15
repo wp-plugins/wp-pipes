@@ -407,11 +407,11 @@ class PIPESControllerPipe extends Controller {
 	}
 
 	function execaddonmethod() {
-		$type        = filter_input( INPUT_POST, 'type' );
-		$name        = filter_input( INPUT_POST, 'name' );
-		$id          = filter_input( INPUT_POST, 'id' );
-		$ajax        = filter_input( INPUT_POST, 'ajax' );
-		$method      = filter_input( INPUT_POST, 'method' );
+		$type        = filter_input( INPUT_POST, 'type' )?filter_input( INPUT_POST, 'type' ):filter_input( INPUT_GET, 'type' );
+		$name        = filter_input( INPUT_POST, 'name' )?filter_input( INPUT_POST, 'name' ):filter_input( INPUT_GET, 'name' );
+		$id          = filter_input( INPUT_POST, 'id' )?filter_input( INPUT_POST, 'id' ):filter_input( INPUT_GET, 'id' );
+		$ajax        = filter_input( INPUT_POST, 'ajax' )?filter_input( INPUT_POST, 'ajax' ):filter_input( INPUT_GET, 'ajax' );
+		$method      = filter_input( INPUT_POST, 'method' )?filter_input( INPUT_POST, 'method' ):filter_input( INPUT_GET, 'method' );
 		$res         = new stdClass();
 		$path        = PIPES_PATH . DS . 'plugins' . DS . $type . 's' . DS . $name . DS . $name . '.php';
 		$path_plugin = OB_PATH_PLUGIN . $name . DS . $name . '.php';

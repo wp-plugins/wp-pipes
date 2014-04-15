@@ -25,7 +25,7 @@ $requirements->checkRequirements();
 echo PIPES::show_message( false );
 ?>
 <div id="col-container">
-	<div id="col-right">
+	<div class="welcome-panel">
 		<form method="post" action="">
 			<table class="form-table">
 				<?php
@@ -93,9 +93,9 @@ echo PIPES::show_message( false );
 							if ( '' == $setting->option_value ) {
 								$setting->option_value = '0';
 							}
-							$date   = date( 'Y-m-d', $setting->option_value );
-							$hour   = date( 'H', $setting->option_value );
-							$minute = date( 'i', $setting->option_value );
+							$date   = date( 'Y-m-d');
+							$hour   = 0;
+							$minute = 0;
 							echo '<th scope="row"><label for="' . $setting->option_name . '">' . __( 'Start from' ) . '</label></th>';
 							echo '<td>';
 							echo '<input style="max-width: 250px" name="' . $setting->option_name . '" type="text" id="' . $setting->option_name . '" value="' . $date . '" class="regular-text">';
@@ -123,7 +123,7 @@ echo PIPES::show_message( false );
 			</p>
 		</form>
 	</div>
-	<div id="col-left">
+	<div class="welcome-panel">
 		<div class="col-wrap">
 			<?php $requirements->displayResults(); ?>
 		</div>
