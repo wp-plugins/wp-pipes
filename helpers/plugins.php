@@ -9,7 +9,7 @@
 defined( 'PIPES_CORE' ) or die( 'Restricted access' );
 
 
-@session_start();
+//@session_start();
 
 class PIPES_Helper_Plugins {
 	public static function parseXMLInstallFile( $path ) {

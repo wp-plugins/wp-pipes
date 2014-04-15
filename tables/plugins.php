@@ -12,7 +12,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 	require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-@session_start();
+//@session_start();
 @$_SESSION['PIPES']['plugins'] = array();
 
 class PIPES_Plugins_List_Table extends WP_List_Table {

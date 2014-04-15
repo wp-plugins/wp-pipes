@@ -86,7 +86,8 @@ abstract class Application {
 		if ( ! $task ) {
 			$task = 'display';
 		}
-		@list( $page_prefix, $type ) = explode( '.', $page );
+        
+		@list( $page_prefix, $type ) = count(array_filter(explode( '.', $page )))>0 ? explode( '.', $page ) : array('','') ;
 
 		if ( $page_prefix != $this->_page_prefix 
 				&& $page_prefix != 'toplevel_page_'.$this->_page_prefix ) {
