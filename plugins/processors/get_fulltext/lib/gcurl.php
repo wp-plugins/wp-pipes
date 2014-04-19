@@ -194,7 +194,7 @@ class ogb_get_CURL extends ogb_cache {
 	}
 
 	public static function get_curl4( $url ) {
-		$link = "http://kha.wppipes.com/curl/?m=3&url=" . base64_encode( $url );
+		/*$link = "http://kha.wppipes.com/curl/?m=3&url=" . base64_encode( $url );
 		$html = self::get_curl( $link );
 		if ( isset( $_GET['php2'] ) ) {
 			echo '<br /><br /><i><b>File</b> ' . __FILE__ . ' <b>Line</b> ' . __LINE__ . "</i><br />\n";
@@ -202,7 +202,27 @@ class ogb_get_CURL extends ogb_cache {
 			echo 'http_code: ' . $html[0];
 			echo $html[1];
 			exit();
-		}
+		}*/
+		$options = array(
+			CURLOPT_RETURNTRANSFER => true,     // return web page
+			CURLOPT_HEADER         => false,    // don't return headers
+			CURLOPT_FOLLOWLOCATION => true,     // follow redirects
+			CURLOPT_ENCODING       => "utf-8",       // handle all encodings
+			CURLOPT_USERAGENT      => "spider", // who am i
+			CURLOPT_AUTOREFERER    => true,     // set referer on redirect
+			CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
+			CURLOPT_TIMEOUT        => 120,      // timeout on response
+			CURLOPT_MAXREDIRS      => 10,       // stop after 10 redirects
+		);
+		$html =array();
+		$html[0] = 200;
+		$ch      = curl_init( $url );
+		curl_setopt_array( $ch, $options );
+		$html[1] = curl_exec( $ch );
+		/*$err     = curl_errno( $ch );
+		$errmsg  = curl_error( $ch );
+		$header  = curl_getinfo( $ch );*/
+		curl_close( $ch );
 
 		return $html;
 	}
@@ -317,7 +337,7 @@ class ogb_get_CURL extends ogb_cache {
 					$redirectaddr = $match[2];
 				}
 				if ( $redirectaddr ) {
-					return self::get_curl2( $redirectaddr, $javascriptloop + 1 );
+					return self::get_curl2( $redirectaddr, $javascript_loop + 1 );
 				}
 			}
 		}

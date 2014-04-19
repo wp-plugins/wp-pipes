@@ -184,22 +184,29 @@ class WPPipesPro_image {
 				$contents     = str_replace( $searches[$i], $img, $contents );
 				$searches[$i] = $replaces[$i] = $img;
 			}
-			preg_match_all( '#src=\"*[^\"]*\"#', $img, $src );
-			$src = preg_replace( "#src\s*=\s*\"|\"#", "", @$src[0][0] );
+			preg_match_all( '#\ssrc=\"*[^\"]*\"#', $img, $src );
+			$src = preg_replace( "#\ssrc\s*=\s*\"|\"#", "", @$src[0][0] );
 			if ( ! preg_match( '!https?://.+!i', $src ) ) {
 				$source_urls[$i] = $origin_url . $src;
 			} else {
 				$source_urls[$i] = $src;
 			}
-			$info_file = get_headers( $source_urls[$i],1 );
-			$mime     = $info_file['Content-Type'];
+
+			$info_file = get_headers( $source_urls[$i], 1 );
+			$mime      = $info_file['Content-Type'];
+			if ( count( $mime ) > 1 ) {
+				$mime = implode( "/", $mime );
+			}
 			$temp_arr = explode( "/", $mime );
-			if ( $temp_arr[0] != 'image' ) { //check is image or not
+
+			if ( ! in_array( 'image', $temp_arr ) ) { //check is image or not
 				continue;
 			}
+
 			$filename = substr( md5( $source_urls[$i] ), - 10 ) . '.' . end( $temp_arr );
 
 			$success = false;
+
 			if ( $dest_host && $dest_path ) {
 				$s       = $source_urls[$i];
 				$d       = $dest_path . DS . $filename;

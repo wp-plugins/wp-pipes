@@ -3,7 +3,7 @@
 Plugin Name: WP Pipes
 Plugin URI: http://wpbriz.com
 Description: WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
-Version: 1.15
+Version: 1.16
 Author: wpBriz
 Author URI: http://wpbriz.com
 */
@@ -92,7 +92,6 @@ class PIPES extends Application {
 			add_action( 'load-' . $item_page, array( $this, 'on_load_page' ) );
 			add_action( 'load-' . $items_page, array( $this, 'on_load_page' ) );
 			add_action( 'load-' . $addon_page, array( $this, 'on_load_page' ) );
-
 		}
 	}
 
@@ -158,29 +157,27 @@ class PIPES extends Application {
 			return $contens;
 		}
 	}
-
-
 }
 
 
-function my_enqueue($hook) {
-    //wp_enqueue_script( 'my_custom_script', plugin_dir_url( __FILE__ ) . 'assets/js/ogb.js' );
-    wp_register_script( 'my_custom_script',plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/call_pipe.js' );
-    wp_enqueue_script( 'my_custom_script');            
-    
-    
+function my_enqueue( $hook ) {
+	//wp_enqueue_script( 'my_custom_script', plugin_dir_url( __FILE__ ) . 'assets/js/ogb.js' );
+	wp_register_script( 'my_custom_script', plugin_dir_url( '' ) . basename( PIPES_PATH ) . '/assets/js/call_pipe.js' );
+	wp_enqueue_script( 'my_custom_script' );
 }
-function ts_js(){     
-     echo '<script type="text/javascript">
-        var obHost ="'.get_site_url().'/";
-        </script>';
-    }
-if ( !is_admin() ) {
-    error_reporting(E_ERROR);
-    if(get_option( 'pipes_cronjob_active' )){
-        add_action( 'wp_enqueue_scripts', 'my_enqueue' );
-        add_action('wp_print_scripts','ts_js');
-    }
+
+function ts_js() {
+	echo '<script type="text/javascript">
+		var obHost ="' . get_site_url() . '/";
+		</script>';
+}
+
+if ( ! is_admin() ) {
+	error_reporting( E_ERROR );
+	if ( get_option( 'pipes_cronjob_active' ) ) {
+		add_action( 'wp_enqueue_scripts', 'my_enqueue' );
+		add_action( 'wp_print_scripts', 'ts_js' );
+	}
 }
 
 $wplo_mvc = new PIPES( 'PIPES', 'pipes' );

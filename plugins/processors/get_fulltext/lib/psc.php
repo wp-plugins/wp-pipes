@@ -3,11 +3,12 @@
  * @package          WP Pipes plugin
  * @version          $Id: psc.php 170 2014-01-26 06:34:40Z thongta $
  * @author           wppipes.com
- * @copyright    2014 wppipes.com. All rights reserved.
+ * @copyright        2014 wppipes.com. All rights reserved.
  * @license          http://www.gnu.org/licenses/gpl-2.0.html
  */
 defined( '_JEXEC' ) or die( 'Restricted access' );
 require_once 'gcurl.php';
+
 class ogb_parser_code extends ogb_get_CURL {
 	public static function setStop( &$data, $msg = 'unknow', $state = true ) {
 		$stop        = new stdClass();
@@ -17,7 +18,7 @@ class ogb_parser_code extends ogb_get_CURL {
 	}
 
 	public static function run_parser_code( &$res, $html, $params ) {
-		$codes = preg_replace('/^[\n\r]*|[\n\r]*$/i', '', $params->code);
+		$codes = preg_replace( '/^[\n\r]*|[\n\r]*$/i', '', $params->code );
 		$funcs = explode( "\n", $codes );
 		if ( isset( $_GET['php'] ) ) {
 			echo '<br /><br /><i><b>File</b> ' . __FILE__ . ' <b>Line</b> ' . __LINE__ . "</i><br />\n";
@@ -39,6 +40,7 @@ class ogb_parser_code extends ogb_get_CURL {
 				$rows[] = $resf[0];
 			} else {
 				self::setStop( $res, "Error row-{$i}: " . $resf[1] );
+
 				return $res;
 			}
 		}
@@ -72,16 +74,24 @@ class ogb_parser_code extends ogb_get_CURL {
 			}
 			$html = self::clear_tag( $html, $tag );
 		}
+
 		return $html;
 	}
 
 	public static function clear_tag( $html, $tag ) {
-		$a = explode( "</{$tag}>", $html );
-		$count_a = count($a);
+
+		if ( in_array( $tag, array( "br", "img", "hr", "input", "link", "meta" ) ) ) {
+			$mix  = '/<' . $tag . '[\s|\S]*?>/iu';
+			$html = preg_replace( $mix, "", $html );
+			return $html;
+		}
+
+		$a       = explode( "</{$tag}>", $html );
+		$count_a = count( $a );
 		if ( ! isset( $a[1] ) ) {
 			return $html;
 		}
-		$c   = array();
+		$c = array();
 		for ( $i = 0; $i < $count_a; $i ++ ) {
 			$b = explode( "<{$tag}", $a[$i] );
 			if ( isset( $b[0] ) ) {
@@ -91,6 +101,7 @@ class ogb_parser_code extends ogb_get_CURL {
 			//$c[] = $b[0];
 		}
 		$html = implode( '', $c );
+
 		return $html;
 	}
 
@@ -126,7 +137,7 @@ class ogb_parser_code extends ogb_get_CURL {
 	}
 
 	public static function runFuncs( $funcs, $rows ) {
-		$funcs = str_replace('\"','"',$funcs);
+		$funcs = str_replace( '\"', '"', $funcs );
 		$funcs = explode( '|', trim( $funcs ) );
 		$funcs = str_replace( '::OR::', '|', $funcs );
 		if ( ! isset( $funcs[1] ) ) {
@@ -307,6 +318,7 @@ class ogb_parser_code extends ogb_get_CURL {
 		if ( $ctag == 0 ) {
 			$ftag = self::getTagInner( $html, $tag, $ftag );
 		}
+
 		return array( $ftag );
 	}
 

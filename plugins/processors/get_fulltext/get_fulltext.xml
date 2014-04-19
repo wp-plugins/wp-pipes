@@ -55,7 +55,7 @@
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
-				<field name="clear_tags" type="text" default="script,style" label="Clear Tags" class="cleartags"
+				<field name="clear_tags" type="text" default="script,style,link,meta" label="Clear Tags" class="cleartags"
 					   description="Clear Tags"/>
 				<field name="charset" class="charset" type="text" default="UTF-8" label="Charset" description="The charset of original site" />
 				<field name="useragent" type="text" size="30" default="Mozilla/5.0 (Windows; U; Windows NT 5.1; rv:1.7.3) Gecko/20041001 Firefox/0.10.1" label="User Agent" class="fullwidth"

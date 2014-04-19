@@ -135,6 +135,14 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.16 =
+* Fix: Fixed notice, minor bug.
+* Fix: Clear HTML comment.
+* Fix: Clear tag and parse code cho hr, link, br, img, meta, input.
+* Fix: Get image Processor.
+* New: Use other way in using curl instead of the old way.
+* New: Set input as the current time if leave blank in Change Time processor.
+
 = 1.15 =
 * Fix: Repaired get full title with rssreader source.
 * Fix: Fixed bugs: pipes not run when turn off debug mode.

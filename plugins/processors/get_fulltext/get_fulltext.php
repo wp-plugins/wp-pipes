@@ -156,28 +156,20 @@ class WPPipesPro_get_fulltext extends ogb_parser_code {
 			echo $res->fulltext;
 			exit();
 		}
-        
-        /*Add origin site*/
-        /*
-        if ( $params->origin_site == '' ) {
-			$domain      = parse_url( $url, PHP_URL_HOST );
-			$origin_site = 'http://' . $domain;
-		} else {
-			$origin_site = self::addhttp($params->origin_site);
-            $origin_text = "<p style='text-align:right'>
-                <a href='$origin_site' target='_blank' rel='nofollow' >Original source</a>
-            </p>";
-            $res->fulltext = $res->fulltext.$origin_text;
+
+		/*Remove comment html*/
+		if ( $params->clear_html_comment ) {
+			$res->fulltext = preg_replace( '/<!--[\s\S]*?-->/', '', $res->fulltext );
 		}
-        if ( isset( $_GET['ori'] ) ) {
+
+		if ( isset( $_GET['comment'] ) ) {
 			echo '<br /><br /><i><b>File</b> ' . __FILE__ . ' <b>Line</b> ' . __LINE__ . "</i><br />\n";
-            echo "orin:";
-            echo "<pre>";
-            print_r($origin_site);
-            echo "</pre>";			
+			echo "orin:";
+			echo "<pre>";
+			print_r( $res->fulltext );
+			echo "</pre>";
 		}
-        */
-        
+
 		$res->full_html = $fullhtml;
 
 		return $res;
@@ -233,11 +225,12 @@ class WPPipesPro_get_fulltext extends ogb_parser_code {
 	public static function html_encode( $html ) {
 		return htmlentities( $html );
 	}
-    
-    public static function addhttp($url) {
-        if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
-            $url = "http://" . $url;
-        }
-        return $url;
-    }
+
+	public static function addhttp( $url ) {
+		if ( ! preg_match( "~^(?:f|ht)tps?://~i", $url ) ) {
+			$url = "http://" . $url;
+		}
+
+		return $url;
+	}
 }

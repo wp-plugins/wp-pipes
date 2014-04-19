@@ -47,7 +47,7 @@ class WPPipesAdapter_post {
 		$res->msg    = $msg;
 		$res->id     = $id;
 
-		if ( $id > 0 ) {
+		if ( (int)$id > 0 ) {
 			$res->viewLink = '?p=' . $id;
 			$res->editLink = 'post.php?post=' . $id . '&action=edit';
 		} else {
@@ -106,7 +106,7 @@ class WPPipesAdapter_post {
 			echo '</pre>';
 		}
 
-		if ( $id > 0 ) {
+		if ( (int)$id > 0 ) {
 			if ( $dup_id < 1 ) {
 				$action = 'Saved';
 				$msg    = 'Saved - id:' . $id;
