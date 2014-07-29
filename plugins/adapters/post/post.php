@@ -177,8 +177,9 @@ class WPPipesAdapter_post {
 		$custom_fields      = self::get_all_post_custom();
 		$post_id            = wp_insert_post( $post, true );
 		foreach ( $custom_fields as $cf ) {
-			if ( isset( $data->$cf ) ) {
-				update_post_meta( $post_id, $cf, $data->$cf );
+			$convert_cf = str_replace('-', '__', $cf);
+			if ( isset( $data->$convert_cf ) ) {
+				update_post_meta( $post_id, $cf, $data->$convert_cf );
 			}
 		}
 		if ( isset( $img_url ) && '' != $img_url ) {
@@ -229,10 +230,11 @@ class WPPipesAdapter_post {
 	 */
 	public static function getDataFields( $param = false ) {
 		$custom_fields = self::get_all_post_custom();
+		$custom_fields = str_replace('-', '__', $custom_fields);
 		$data          = new stdClass();
 		$inputs        = 'title,slug,excerpt,content,date,images,metakey';
 		$data->input   = explode( ',', $inputs );
-		$data->input   = array_merge( $data->input, $custom_fields );
+		$data->input   = array_unique( array_merge ( $data->input, $custom_fields ) );
 
 		return $data;
 	}

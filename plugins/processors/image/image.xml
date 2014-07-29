@@ -41,6 +41,13 @@
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
+				<field name="special_img_url" type="list" label="Special Case" default="0"
+					   description="Is the image-url special? Use in case of Arabic language or the link was encoded">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="default_img" type="text" class="fullwidth" default="" label="Default Image"
+					   description="The link to default image in case there is not any images in the original source"/>
 				<field name="note" type="hidden" default=""/>
 			</fieldset>
 		</fields>

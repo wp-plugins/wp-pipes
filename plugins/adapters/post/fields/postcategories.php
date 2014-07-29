@@ -16,13 +16,6 @@ class JFormFieldPostcategories extends JFormFieldList
 	public $type = 'Postcategories';
 	protected function getOptions()
 	{
-		/*return $rows = JHTML::_('category.options', 'com_content');
-		//JOPTION_SELECT_CATEGORY
-		$db = JFactory::getDBO();
-		$query = "SELECT u.id as value, u.title as text FROM #__categories as u ORDER BY u.title LIMIT 100";
-		$db->setQuery($query);
-		$rows = $db->loadObjectList();
-		return $rows;*/
 		$cats = $this->getCatList(0, '', array());
 		
 		return $cats;
@@ -63,31 +56,3 @@ class JFormFieldPostcategories extends JFormFieldList
 		return $catsList;
 	}
 }
-/*
-jimport('joomla.html.parameter.element');
-
-class JElementContentcategories extends JElement
-{
-
-	var	$_name = 'Contentcategories';
-		
-	
-	public static function fetchElement($name, $value, &$node, $control_name)
-	{
-		/*$db = JFactory::getDBO();
-		$query = "SELECT u.id as value, u.title as text FROM #__categories as u ORDER BY u.title";	
-	
-		$db->setQuery($query);
-		$rows = $db->loadObjectList();*//*
-		$rows = JHTML::_('category.options', 'com_content');
-		if ($rows) {
-			$options[] = JHTML::_('select.option', '', JText::_('COM_OBGRABBER_ADAPTER_CONTENT_CATEGORIES_SELECT'));
-			$options = array_merge($options, $rows);
-			$authors = JHTML::_('select.genericlist', $options, ''.$control_name.'['.$name.'][]', '', 'value', 'text', $value, $control_name.$name );
-			return $authors;
-		} else {
-			return JText::_('COM_OBGRABBER_ADAPTER_CONTENT_NO_DATA)');
-		}
-	}
-}
-*/

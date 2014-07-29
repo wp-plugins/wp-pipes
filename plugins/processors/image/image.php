@@ -74,6 +74,14 @@ class WPPipesPro_image {
 				ogb_pr( $res, 'Imgs: ' );
 			}
 		}
+		if ( isset( $params->default_img ) && $params->default_img != '' ) {
+			$default_img       = new stdClass();
+			$default_img->html = "<img src=\"{$params->default_img}\" alt=\"The default image\">";
+			$default_img->src  = $params->default_img;
+			if ( empty( $res->images ) ) {
+				$res->images[] = $default_img;
+			}
+		}
 
 		return $res;
 	}
@@ -146,7 +154,8 @@ class WPPipesPro_image {
 		}
 		$upload_path = $upload_dir['basedir'];
 		$url_path    = $upload_dir['baseurl'] . DS . $local_dir;
-		$to          = array( 'host' => str_replace( "\\", "/", $url_path ), 'path' => $local_dir );
+
+		$to = array( 'host' => str_replace( "\\", "/", $url_path ), 'path' => $local_dir );
 
 		if ( isset( $params->origin_url ) && $params->origin_url != '' ) {
 			$origin_url = $params->origin_url;
@@ -154,7 +163,9 @@ class WPPipesPro_image {
 			$url_parts  = parse_url( $itemLink );
 			$origin_url = @$url_parts['scheme'] . "://" . @$url_parts['host'];
 		}
+
 		$dest_host = isset ( $to['host'] ) ? $to['host'] : '';
+
 		$more_path = date( 'Y-m' );
 		$dest_path = isset ( $to['path'] ) ? $upload_path . DS . $to['path'] . DS . $more_path : '';
 
@@ -185,15 +196,28 @@ class WPPipesPro_image {
 				$searches[$i] = $replaces[$i] = $img;
 			}
 			preg_match_all( '#\ssrc=\"*[^\"]*\"#', $img, $src );
-			$src = preg_replace( "#\ssrc\s*=\s*\"|\"#", "", @$src[0][0] );
+
+			$src = preg_replace( "#src\s*=\s*\"|\"#", "", @$src[0][0] );
+
 			if ( ! preg_match( '!https?://.+!i', $src ) ) {
-				$source_urls[$i] = $origin_url . $src;
+				$source_urls[$i] = $origin_url . trim($src);
 			} else {
 				$source_urls[$i] = $src;
 			}
 
-			$info_file = get_headers( $source_urls[$i], 1 );
-			$mime      = $info_file['Content-Type'];
+			if ( @$params->special_img_url ) {
+				$source_urls[$i] = self::img_url_encode( $source_urls[$i] );
+			}
+
+			$info_file = @get_headers( trim( $source_urls[$i] ), 1 );
+			if ( ! $info_file ) {
+				$curl                      = self::get_web_page( trim( $source_urls[$i] ) );
+				$info_file['Content-Type'] = $curl['content_type'];
+				$mime                      = $info_file['Content-Type'];
+			} else {
+				$mime = $info_file['Content-Type'];
+			}
+
 			if ( count( $mime ) > 1 ) {
 				$mime = implode( "/", $mime );
 			}
@@ -208,8 +232,9 @@ class WPPipesPro_image {
 			$success = false;
 
 			if ( $dest_host && $dest_path ) {
-				$s       = $source_urls[$i];
-				$d       = $dest_path . DS . $filename;
+				$s = $source_urls[$i];
+				$d = $dest_path . DS . $filename;
+
 				$success = file_exists( $d );
 				$unlink  = true;
 				//$remove		= true;
@@ -240,13 +265,16 @@ class WPPipesPro_image {
 				if ( ! $success ) {
 					$aa = ogbFolder::create( $dest_path );
 					if ( $aa ) {
-						$img_c = ogbFile::get_curl( $s );
-						$a     = ogbFile::write( $d, $img_c );
+
+						$img_c = ogbFile::get_curl( trim( $s ) );
+
+						$a = ogbFile::write( $d, $img_c );
+
 						//$a = copy($s, $d);
 						if ( is_file( $d ) ) {
 							$size = filesize( $d );
 							if ( $size > 0 ) {
-								$img_info = getimagesize( $source_urls[$i] );
+								$img_info = getimagesize( trim( $source_urls[$i] ) );
 								$width    = isset( $img_info[0] ) ? $img_info[0] : 0;
 								$height   = isset( $img_info[1] ) ? $img_info[1] : 0;
 
@@ -302,6 +330,7 @@ class WPPipesPro_image {
 				$replaces[$i] = preg_replace( "#src\s*=\s*\"*[^\"]*\"#", $replace, $replaces[$i] );
 			}
 		}
+
 		$contents = str_replace( $searches, $replaces, $contents );
 
 		// Debug
@@ -320,5 +349,45 @@ class WPPipesPro_image {
 		}
 
 		return $contents;
+	}
+
+	public static function img_url_encode( $url ) {
+		$url        = html_entity_decode( $url, 0, "UTF-8" );
+		$split_url  = explode( "/", $url );
+		$result_str = array();
+		foreach ( $split_url as $value ) {
+			$result_str[] = urlencode( $value );
+		}
+		$result = implode( "/", $result_str );
+		$result = str_replace( "%3A//", "://", $result );
+
+		return $result;
+	}
+
+	public static function get_web_page( $url ) {
+		$options = array(
+			CURLOPT_RETURNTRANSFER => true, // return web page
+			CURLOPT_HEADER         => false, // don't return headers
+			CURLOPT_FOLLOWLOCATION => true, // follow redirects
+			CURLOPT_ENCODING       => "utf-8", // handle all encodings
+			CURLOPT_USERAGENT      => "spider", // who am i
+			CURLOPT_AUTOREFERER    => true, // set referer on redirect
+			CURLOPT_CONNECTTIMEOUT => 120, // timeout on connect
+			CURLOPT_TIMEOUT        => 120, // timeout on response
+			CURLOPT_MAXREDIRS      => 10, // stop after 10 redirects
+		);
+
+		$ch = curl_init( $url );
+		curl_setopt_array( $ch, $options );
+		$content = curl_exec( $ch );
+		$err     = curl_errno( $ch );
+		$errmsg  = curl_error( $ch );
+		$header  = curl_getinfo( $ch );
+		curl_close( $ch );
+
+		$header['errno']  = $err;
+		$header['errmsg'] = $errmsg;
+
+		return $header;
 	}
 }

@@ -16,13 +16,6 @@ class JFormFieldPosttags extends JFormFieldList
 	public $type = 'Posttags';
 	protected function getOptions()
 	{
-		/*return $rows = JHTML::_('category.options', 'com_content');
-		//JOPTION_SELECT_CATEGORY
-		$db = JFactory::getDBO();
-		$query = "SELECT u.id as value, u.title as text FROM #__categories as u ORDER BY u.title LIMIT 100";
-		$db->setQuery($query);
-		$rows = $db->loadObjectList();
-		return $rows;*/
 		$tags = $this->getTagList();
 		
 		return $tags;

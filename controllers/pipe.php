@@ -40,49 +40,6 @@ class PIPESControllerPipe extends Controller {
 		wp_redirect( $redirect );
 	}
 
-	function udfield() {
-		$db  = JFactory::getDBO();
-		$qry = "show columns from `#__wppipes_items`";
-		$db->setQuery( $qry );
-		$columns = $db->loadObjectList();
-		$cols    = array();
-		foreach ( $columns as $column ) {
-			$cols[] = $column->Field;
-		}
-		if ( ! in_array( 'inherit', $cols ) ) {
-			$qry = "ALTER TABLE `#__wppipes_items` ADD `inherit` INT( 11 ) NOT NULL DEFAULT '0' AFTER `adapter_params`";
-			$db->setQuery( $qry );
-			if ( ! $db->query() ) {
-				echo '<br>' . $db->getErrorMsg();
-			} else {
-				echo '<h3>Add inherit field success!</h3>';
-			}
-		} else {
-			echo '<h3>inherit field existing</h3>';
-		}
-		echo "\n<br /><i><b>File:</b>" . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br />\n"; //exit();
-		echo '<pre>';
-		print_r( $cols );
-		echo '</pre>';
-		exit();
-		//exit("<h4>Stop ".__LINE__."</h4>");
-
-
-		# 1.1.1 ADD `inherit` field to #__wppipes_items table
-		//$qry = "ALTER TABLE `#__wppipes_items` ADD `inherit` INT( 11 ) NOT NULL DEFAULT '0' AFTER `adapter_params`";
-
-		# 1.2.1 ADD `inherit` field to #__wppipes_pipes table
-		//$qry = ""ALTER TABLE `#__wppipes_pipes` ADD `inherit` INT( 11 ) NOT NULL DEFAULT '0' AFTER `item_id`";
-		/*
-				$db->setQuery($qry);
-				if (!$db->query()) {
-					echo '<br>'.$db->getErrorMsg();
-				} else {
-					//echo "<br />Created #__wppipes_items success table";
-				}
-		*/
-	}
-
 	function qadd() {
 		$page = 'quickadd';
 		require_once OBGRAB_SITE . 'pages' . DS . $page . DS . 'index.php';
@@ -143,39 +100,6 @@ class PIPESControllerPipe extends Controller {
 		$res = array( 'pipes' => $pipes, 'srcs' => $srcs );
 
 		return $res;
-	}
-
-	function sinfo() {
-		//echo "\n\n<br /><i><b>File:</b>".__FILE__.' <b>Line:</b>'.__LINE__."</i><br />\n\n";		
-		$db     = JFactory::getDBO();
-		$select = '`id`,`name`,`engine_params`';
-		if ( isset( $_GET['x'] ) ) {
-			$select = '*';
-		}
-		$qry = "SELECT {$select} FROM `#__wppipes_items` WHERE `engine` = 'rssreader' ORDER BY id LIMIT 1000";
-		$db->setQuery( $qry );
-		$rows = $db->LoadObjectList();
-		$res  = array();
-		$srcs = array();
-		for ( $i = 0; $i < count( $rows ); $i ++ ) {
-			$rows[$i]->engine_params = json_decode( $rows[$i]->engine_params );
-			$row                     = $rows[$i];
-			$info                    = $this->getUrls( $row->engine_params->feed_url, $row->id );
-			$res                     = array_merge( $res, $info['pipes'] );
-			$srcs                    = array_merge( $srcs, $info['srcs'] );
-
-		}
-		if ( isset( $_GET['v2'] ) ) {
-			echo "\n\n<br /><i><b>File:</b>" . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br />\n\n";
-			asort( $srcs );
-			echo "<ol>\n";
-			foreach ( $srcs as $src ) {
-				echo "\n<li>{$src}</li>";
-			}
-			echo "\n</ol><hr/>\n";
-		}
-		echo "<ol>\n<li>\n" . implode( "\n</li>\n<li>\n", $res ) . "</li>\n</ol>";
-		exit();
 	}
 
 	//=== POST ===
@@ -334,13 +258,11 @@ class PIPESControllerPipe extends Controller {
 		exit();
 	}
 
-	function iwant() {
-		$config     = JFactory::getConfig();
+	/*function iwant() { //back later
 		$cur_url    = urldecode( JRequest::getVar( 'cur_url' ) );
 		$from_name  = $config->get( 'fromname' );
 		$from_email = $config->get( 'mailfrom' );
 		$to_email   = 'iwant@wppipes.com';
-		$mailer     = JFactory::getMailer();
 		$mailer->isHTML( true );
 		$message = JRequest::getVar( 'mess' );
 		$mes_arr = explode( ' ', $message );
@@ -363,7 +285,7 @@ class PIPESControllerPipe extends Controller {
 			echo $return;
 		}
 		exit();
-	}
+	}*/
 
 	function write_down_input_processor() {
 		$mod             = $this->getModel( 'pipe' );

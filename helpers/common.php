@@ -257,98 +257,6 @@ class ogb_common {
 		$bar->appendButton( 'Custom', $iwant_button, 'iwant' );
 	}
 
-	public static function getManifest( $element ) {
-		$db  = JFactory::getDbo();
-		$sql = "SELECT `manifest_cache` FROM `#__extensions` WHERE `type`='component' AND `element`='{$element}'";
-		$db->setQuery( $sql );
-		$res      = $db->loadResult();
-		$manifest = new JRegistry( $res );
-
-		return $manifest;
-	}
-
-	/**
-	 * Get current version of the extension
-	 * @return (string) version number from manifest_cache
-	 */
-	public static function getVersion( $element ) {
-		$manifest = self::getManifest( $element );
-		$version  = $manifest->get( 'version' );
-
-		return $version;
-	}
-
-	/**
-	 * Get latest version of the extension from Update Stream
-	 * @return (string) latest version number from #__updates table
-	 */
-	public static function getNewVersion( $element ) {
-		$db  = JFactory::getDbo();
-		$ext = JComponentHelper::getComponent( $element );
-		$sql = 'SELECT `version` FROM `#__updates` WHERE `extension_id`=' . $ext->id . ' ORDER BY update_id DESC LIMIT 1';
-		$db->setQuery( $sql );
-		$newVersion = $db->loadResult();
-
-		return $newVersion;
-	}
-
-	/**
-	 * Check if there is new version available
-	 * @return bool
-	 */
-	public static function hasNewVersion( $element ) {
-		$current_version = self::getVersion( $element );
-		$update_version  = self::getNewVersion( $element );
-		if ( version_compare( $current_version, $update_version, '>' ) == 1 ) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	/**
-	 * Render Version Notification with Update button (go to the standard Joomla Update)
-	 * @return string
-	 */
-	public static function versionNotify() {
-		global $option;
-		$html = '';
-		if ( self::hasNewVersion( $option ) ) {
-			$html .= '<div class="alert alert-error">';
-			$html .= sprintf( JText::_( 'COM_OBGRABBER_NEWVERSION_AVAILABLE_NEW' ), self::getNewVersion( $option ) );
-			$html .= ' <a class="btn btn-primary" href="index.php?option=com_installer&view=update&filter_search=wppipes">';
-			$html .= '<i class="fa fa-upload"></i> ' . JText::_( 'COM_OBGRABBER_UPDATE_NOW' );
-			$html .= '</a>';
-			$html .= '</div>';
-		}
-
-		return $html;
-	}
-
-	/**
-	 * Check if the cronjob is setting up correctly
-	 */
-	public static function checkCronjobSettings() {
-		global $option;
-		jimport( 'joomla.application.component.helper' );
-		$params = JComponentHelper::getParams( $option );
-
-		$cronjob_active = $params->get( 'cronjob_active' );
-		$js_active      = $params->get( 'js_active' );
-
-		$html = '';
-		if ( $cronjob_active + $js_active < 1 ) {
-			$html .= '<div class="alert alert-error">';
-			$uri    = JFactory::getURI();
-			$return = $uri->toString();
-			$return = base64_encode( $return );
-			$html .= sprintf( JText::_( 'COM_OBGRABBER_MSG_SETTING_CRONJOB' ), $return );
-			$html .= '</div>';
-		}
-
-		return $html;
-	}
-
 	public static function get_templates() {
 		$upload_dir = wp_upload_dir();
 		$path       = $upload_dir['basedir'] . DS . 'wppipes' . DS . 'templates';
@@ -595,7 +503,15 @@ class ogbFile {
 	 * @return html
 	 */
 	public static function get_curl3( $url ) {
-		$html = file_get_contents( $url );
+		$header = array(
+			"User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36"
+		);
+		$ch     = curl_init();
+		curl_setopt( $ch, CURLOPT_HTTPHEADER, $header );
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+		$html = curl_exec( $ch );
+		curl_close( $ch );
 
 		return array( 200, $html );
 	}

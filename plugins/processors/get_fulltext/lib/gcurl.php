@@ -228,7 +228,15 @@ class ogb_get_CURL extends ogb_cache {
 	}
 
 	public static function get_curl3( $url ) {
-		$html = file_get_contents( $url );
+		$header = array(
+			"User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.153 Safari/537.36"
+		);
+		$ch     = curl_init();
+		curl_setopt( $ch, CURLOPT_HTTPHEADER, $header );
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+		$html = curl_exec( $ch );
+		curl_close( $ch );
 
 		return array( 200, $html );
 	}

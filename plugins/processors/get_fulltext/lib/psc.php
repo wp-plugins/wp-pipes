@@ -115,9 +115,9 @@ class ogb_parser_code extends ogb_get_CURL {
 	}
 
 	public static function strip_tag( $html, $tag ) {
-		$html = preg_replace( '/<' . $tag . '.*?>/', '', $html );
-		$html = str_replace( '</' . $tag . '>', '', $html );
-
+		$html = preg_replace( '/<' . strtoupper($tag) . '\s+[^>]*>|<' . strtoupper($tag) . '\s*>|<' . strtolower($tag) . '\s+[^>]*>|<' . strtolower($tag) . '\s*>/', '', $html );
+		$html = str_replace( '</' . strtoupper($tag) . '>', '', $html );
+		$html = str_replace( '</' . strtolower($tag) . '>', '', $html );
 		return $html;
 	}
 

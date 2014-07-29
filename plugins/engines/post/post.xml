@@ -27,6 +27,13 @@
 				<field name="author" type="gruser" default="" class="form-control" label="Author" description="Select an author for posts"/>
 			</fieldset>
 			<fieldset name="advanced">
+				<field name="limit_items"
+					   type="text"
+					   size="6"
+					   class="form-control"
+					   default="20"
+					   label="Limit Items"
+					   description="The limit number of items will be fetched from the Post source"/>
 				<field name="tags" multiple="1" type="posttags" label="Tags" 
 				description="The tags that this engine will get posts base on them. Press Ctrl while selecting multiple categories."/>
 			</fieldset>

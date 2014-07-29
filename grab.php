@@ -29,11 +29,10 @@ class obGrab {
 	var $_odata = null;
 
 	function getItems( $id = 0 ) {
-		$db  = & JFactory::getDBO();
+		global $wpdb;
 		$id  = (int) $id;
-		$qry = "SELECT * FROM `#__wppipes_items` WHERE `id`={$id}";
-		$db->setQuery( $qry );
-		$item = $db->LoadObject();
+		$qry = "SELECT * FROM `{$wpdb->prefix}wppipes_items` WHERE `id`={$id}";
+		$item = $wpdb->get_results( $qry, OBJECT );
 
 		return $item;
 	}

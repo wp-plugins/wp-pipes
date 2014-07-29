@@ -60,7 +60,6 @@ class PIPESModelPipe extends Model {
 	function copyItem( $id ) {
 		global $wpdb;
 		$error = false;
-		$db    = JFactory::getDBO();
 		$qry   = "SELECT * FROM `{$wpdb->prefix}wppipes_items` WHERE `id`={$id}";
 		$db->setQuery( $qry );
 		$item = $db->loadObject();
@@ -256,8 +255,6 @@ class PIPESModelPipe extends Model {
 
 	function addonRender( $type, $name, $values, $id = 0 ) {
 		$dir = 'plugins' . DS . $type . 's' . DS . $name;
-//		$lang = JFactory::getLanguage();
-//		$lang->load("plg_wppipes-{$type}_{$name}", JPATH_ADMINISTRATOR);
 		if ( 'processorhelp' == $type ) {
 			$dir = str_replace( 'processorhelp', 'processor', $dir );
 			ob_start();
@@ -839,43 +836,6 @@ class PIPESModelPipe extends Model {
 		}
 
 		return $pipes;
-	}
-
-	function getData() {
-		if ( empty( $this->_data ) ) {
-
-			global $mainframe, $option;
-			$limit      = $mainframe->getUserStateFromRequest( 'global.list.limit', 'limit', $mainframe->getCfg( 'list_limit' ), 'int' );
-			$limitstart = $mainframe->getUserStateFromRequest( $option . '.limitstart', 'limitstart', 0, 'int' );
-			$limitstart = ( $limit != 0 ? ( floor( $limitstart / $limit ) * $limit ) : 0 );
-
-			$db    = JFactory::getDBO();
-			$query = $this->_buildQuery();
-
-			if ( $limit == 0 ) {
-				$limit = 1000;
-			}
-			$query .= " LIMIT {$limitstart},{$limit}";
-
-			$db->setQuery( $query );
-			$rows = $db->LoadObjectList();
-
-			if ( isset( $_GET['x'] ) ) {
-				echo "\n\n<br /><i><b>File:</b>" . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br />\n\n"; //exit();
-				echo $query;
-
-				echo '<br />limitstart: ' . $limitstart;
-				echo '<br />limit: ' . $limit;
-
-				echo '<pre>';
-				print_r( $rows );
-				echo '</pre>';
-				//exit();
-			}
-			$this->_data = $this->_getList( $query, $this->getState( 'limitstart' ), $this->getState( 'limit' ) );
-		}
-
-		return $this->_data;
 	}
 
 	function _buildQuery() {
