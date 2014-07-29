@@ -1,0 +1,721 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Pipes v1.8\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2014-03-03 10:45:31+0000\n"
+"Last-Translator: admin <thong@foob.la>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: CSL v1.x\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED KINGDOM\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
+
+#: helpers/common.php:162
+#@ default
+msgid "No guide available!"
+msgstr ""
+
+#: models/pipe.php:710
+#@ default
+msgid "- Add a Processor -"
+msgstr ""
+
+#: models/pipe.php:727
+#@ default
+msgid "- Select a Source -"
+msgstr ""
+
+#: models/pipe.php:744
+#@ default
+msgid "- Select a Destination -"
+msgstr ""
+
+#: models/settings.php:46
+#@ default
+msgid "Settings saved."
+msgstr ""
+
+#: pipes.php:70
+#: views/pipes/tmpl/default.php:29
+#@ pipes
+msgid "Pipes"
+msgstr ""
+
+#: pipes.php:73
+#@ pipes
+msgid "All Pipes"
+msgstr ""
+
+#: pipes.php:74
+#: views/pipe/tmpl/form_bs3.php:160
+#@ add_new
+#@ pipes
+msgid "Add New Pipe"
+msgstr ""
+
+#: pipes.php:74
+#: views/pipe/tmpl/form_bs3.php:173
+#: views/plugins/tmpl/default.php:69
+#@ add_new
+#@ pipes
+msgid "Add New"
+msgstr ""
+
+#: pipes.php:75
+#@ plugins
+msgid "Addons"
+msgstr ""
+
+#: pipes.php:76
+#@ settings
+msgid "Settings"
+msgstr ""
+
+#: plugins/adapters/rss/fields/feedurl.php:82
+#@ default
+msgid "Replace [FOLDER] and [FILENAME] with your above inputted values to have the RSS Feed URL."
+msgstr ""
+
+#: settings-init.php:18
+#@ pipes
+msgid "General Settings"
+msgstr ""
+
+#: settings-init.php:21
+#@ pipes
+msgid "Enable Cronjob / Schedule"
+msgstr ""
+
+#: settings-init.php:22
+#@ pipes
+msgid "Enable the cronjob to be executed. You have option to run the cronjob out-of-box by the below option. Set this option NO to run Pipes by manually post only."
+msgstr ""
+
+#: settings-init.php:27
+#: settings-init.php:41
+#@ pipes
+msgid "Yes"
+msgstr ""
+
+#: settings-init.php:28
+#: settings-init.php:42
+#@ pipes
+msgid "No"
+msgstr ""
+
+#: settings-init.php:34
+#@ pipes
+msgid "Auto Run"
+msgstr ""
+
+#: settings-init.php:35
+#@ pipes
+msgid "If set to yes, the cronjob will be executed via browser. If not, you will have to setup cronjob via your hosting panel."
+msgstr ""
+
+#: settings-init.php:47
+#@ pipes
+msgid "Schedule"
+msgstr ""
+
+#: settings-init.php:48
+#@ pipes
+msgid "Set the time period to execute the cronjob."
+msgstr ""
+
+#: settings-init.php:56
+#@ pipes
+msgid "5 minutes"
+msgstr ""
+
+#: settings-init.php:57
+#@ pipes
+msgid "10 minutes"
+msgstr ""
+
+#: settings-init.php:58
+#@ pipes
+msgid "15 minutes"
+msgstr ""
+
+#: settings-init.php:59
+#@ pipes
+msgid "20 minutes"
+msgstr ""
+
+#: settings-init.php:60
+#@ pipes
+msgid "25 minutes"
+msgstr ""
+
+#: settings-init.php:61
+#@ pipes
+msgid "30 minutes"
+msgstr ""
+
+#: settings-init.php:62
+#@ pipes
+msgid "1 hour"
+msgstr ""
+
+#: settings-init.php:63
+#@ pipes
+msgid "2 hours"
+msgstr ""
+
+#: settings-init.php:64
+#@ pipes
+msgid "3 hours"
+msgstr ""
+
+#: settings-init.php:65
+#@ pipes
+msgid "4 hours"
+msgstr ""
+
+#: settings-init.php:66
+#@ pipes
+msgid "6 hours"
+msgstr ""
+
+#: settings-init.php:67
+#@ pipes
+msgid "8 hours"
+msgstr ""
+
+#: settings-init.php:68
+#@ pipes
+msgid "12 hours"
+msgstr ""
+
+#: settings-init.php:69
+#@ pipes
+msgid "24 hours"
+msgstr ""
+
+#: settings-init.php:74
+#@ pipes
+msgid "Start at"
+msgstr ""
+
+#: settings-init.php:75
+#@ pipes
+msgid "Select the time for getting started"
+msgstr ""
+
+#: tables/pipes.php:101
+#@ default
+msgid "All"
+msgstr ""
+
+#: tables/pipes.php:102
+#@ default
+msgid "Publish"
+msgstr ""
+
+#: tables/pipes.php:120
+#@ default
+msgid "View all destinations"
+msgstr ""
+
+#: tables/pipes.php:130
+#@ default
+msgid "View all sources"
+msgstr ""
+
+#: tables/pipes.php:139
+#: tables/plugins.php:34
+#@ default
+msgid "Filter"
+msgstr ""
+
+#: tables/pipes.php:175
+#@ default
+msgid "Copy"
+msgstr ""
+
+#: tables/pipes.php:176
+#@ default
+msgid "Delete"
+msgstr ""
+
+#: tables/pipes.php:177
+#@ default
+msgid "Export"
+msgstr ""
+
+#: tables/pipes.php:422
+#@ default
+msgid "Draft"
+msgstr ""
+
+#: tables/plugins.php:24
+#@ default
+msgid "Destinations"
+msgstr ""
+
+#: tables/plugins.php:25
+#@ default
+msgid "Sources"
+msgstr ""
+
+#: tables/plugins.php:26
+#: views/pipe/tmpl/form_bs3.php:447
+#@ default
+msgid "Processors"
+msgstr ""
+
+#: tables/plugins.php:29
+#@ default
+msgid "Show all addon types"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:74
+#@ pipes
+msgid "Warning: After you allow this action, all processors you created before will be remove!"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:162
+#@ pipes
+msgid "Edit Pipe"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:171
+#@ default
+msgid "- or -"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:183
+#@ pipes
+msgid "The first time here?"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:227
+#@ default
+msgid "none"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:230
+#, php-format
+#@ default
+msgid "Pipe#%s"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:231
+#@ default
+msgid "Give this Pipe a name, whatever, just a name"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:247
+#@ default
+msgid "Save"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:256
+#@ default
+msgid "Export to .pipe file"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:265
+#@ default
+msgid "Test this Pipe"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:273
+#@ default
+msgid "Test in Update mode"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:329
+#: views/pipe/tmpl/form_bs3.php:360
+#@ default
+msgid "Options"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:330
+#: views/pipe/tmpl/form_bs3.php:362
+#@ default
+msgid "More Options"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:345
+#@ default
+msgid "Please select a Source. After that, specific fields will be displayed in the <span class=\"label label-success\">Source Output</span> area."
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:377
+#@ default
+msgid "Please <strong>select a Destination</strong>. After that, specific fields will be displayed in the <span class=\"label label-warning\">Destination Input</span> area."
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:404
+#@ default
+msgid "Fields Matching"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:425
+#@ default
+msgid "Source Output"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:430
+#@ default
+msgid "Please <span class=\"label label-success\">select a Source</span>. After that, specific fields from the selected Source will be displayed here."
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:448
+#@ default
+msgid "Cooking fields with processors"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:449
+#@ default
+msgid "Understanding processors"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:454
+#@ default
+msgid "Clear added processors"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:463
+#@ default
+msgid "Input Fields"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:465
+#@ default
+msgid "Processor"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:466
+#@ default
+msgid "Output Fields"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:480
+#: views/pipe/tmpl/form_bs3.php:497
+#: views/pipe/tmpl/form_bs3.php:501
+#: views/pipe/tmpl/form_bs3.php:504
+#@ default
+msgid "Loading"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:539
+#@ default
+msgid "Destination Input"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:544
+#@ default
+msgid "Please <span class=\"label label-warning\">select a Destination</span>. After that, specific fields from the selected Destination will be displayed here."
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:562
+#@ default
+msgid "Leave blank"
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:565
+#@ default
+msgid "Select a field to map with this field."
+msgstr ""
+
+#: views/pipe/tmpl/form_bs3.php:586
+#, php-format
+#@ default
+msgid "Pipe#%s: Manually Running Pipe Now..."
+msgstr ""
+
+#: views/pipe/view.php:53
+#@ default
+msgid "What is a Pipe?"
+msgstr ""
+
+#: views/pipe/view.php:54
+#@ default
+msgid "Yahoo Pipes &amp; Zapier are powerful online services for making pipeline of data, WP Pipes comes available to the Wordpress community to bring such of powerful abilities to Wordpress site, works right inside your Wordpress site. You can create many Pipes, give your Pipes input and get output as your needs."
+msgstr ""
+
+#: views/pipe/view.php:55
+#@ default
+msgid "<strong>A Pipe</strong> - is a pipeline stream of data to get content for your Wordpress site."
+msgstr ""
+
+#: views/pipe/view.php:56
+#@ default
+msgid "You can create as much Pipe as you want to get data from many SOURCES and store into many DESTINATION,..."
+msgstr ""
+
+#: views/pipe/view.php:61
+#@ default
+msgid "Title and Pipe Status"
+msgstr ""
+
+#: views/pipe/view.php:62
+#@ default
+msgid "<strong>Pipe Title</strong> - is just simply a name to identify a pipe to others."
+msgstr ""
+
+#: views/pipe/view.php:63
+#@ default
+msgid "<strong>Pipe#ID</strong> - is for refering to the ID of the Pipe which is useful information when you request support to the plugin author."
+msgstr ""
+
+#: views/pipe/view.php:64
+#@ default
+msgid "<strong>Pipe Status</strong> - give it a check if you want to enable the Pipe, it will be executed over Cronjob / Schedule."
+msgstr ""
+
+#: views/pipe/view.php:69
+#@ default
+msgid "Source"
+msgstr ""
+
+#: views/pipe/view.php:70
+#@ default
+msgid "<strong>Source</strong> - is where you get the data from."
+msgstr ""
+
+#: views/pipe/view.php:71
+#@ default
+msgid "There is a built-in one by default, it is RSSReader which is for dealing with RSS Feed sources."
+msgstr ""
+
+#: views/pipe/view.php:72
+#@ default
+msgid "<strong>Select a Source</strong> - to get specific Source Fields / Columns in the \"Source Output\" area on the bottom left area (the same heading background color as this area as)."
+msgstr ""
+
+#: views/pipe/view.php:73
+#@ default
+msgid "<strong>To install more Source</strong> - please go to Extends menu"
+msgstr ""
+
+#: views/pipe/view.php:77
+#@ default
+msgid "Destination"
+msgstr ""
+
+#: views/pipe/view.php:78
+#@ default
+msgid "<strong>Destination</strong> - is where the data from Source will be stored. It can be Post, WooCommerce Products or anything."
+msgstr ""
+
+#: views/pipe/view.php:79
+#@ default
+msgid "The built-in one is Post which is for storing Posts from Source."
+msgstr ""
+
+#: views/pipe/view.php:80
+#@ default
+msgid "<strong>Select a Destination</strong> - to get specific Destination Fields / Columns in the \"Destination Input\" area on the bottom right area (the same heading background color as this area as)."
+msgstr ""
+
+#: views/pipe/view.php:81
+#@ default
+msgid "<strong>To install more Destination</strong> - please go to Extends menu"
+msgstr ""
+
+#: views/pipe/view.php:85
+#@ default
+msgid "Fields Mapping & Processor"
+msgstr ""
+
+#: views/pipe/view.php:86
+#@ default
+msgid "Let's imagine Source Output is a grabbed item from Source (for example: a Feed Item) AND Destination Input is an item from Destination (for example: a Post)."
+msgstr ""
+
+#: views/pipe/view.php:87
+#@ default
+msgid "In this area, you will be able to map fields from Source Output to particular fields in Destination Input."
+msgstr ""
+
+#: views/pipe/view.php:88
+#@ default
+msgid "Basically, that's enough for a Pipe if your Destination Input has enough fields to map from Source Input."
+msgstr ""
+
+#: views/pipe/view.php:89
+#@ default
+msgid "<strong>Processor</strong> - is a program to cook fields from Source Output to new fields which you will need these fields for Destination Input Fields."
+msgstr ""
+
+#: views/pipe/view.php:90
+#@ default
+msgid "<strong>Click me</strong> - button will allow you to select a field to cook or map."
+msgstr ""
+
+#: views/pipe/view.php:95
+#: views/pipes/view.php:58
+#@ default
+msgid "<strong>For more information:</strong>"
+msgstr ""
+
+#: views/pipe/view.php:96
+#@ default
+msgid "<a href=\"http://foobla.com/wordpress/pipes\">Documentation on Creating a Pipe</a>"
+msgstr ""
+
+#: views/pipe/view.php:97
+#: views/pipes/view.php:60
+#@ default
+msgid "<a href=\"http://foobla.com/forums\">Support Forums</a>"
+msgstr ""
+
+#: views/pipes/tmpl/default.php:40
+#@ default
+msgid "Import single or multiple Pipe(s) in .pipe format"
+msgstr ""
+
+#: views/pipes/tmpl/default.php:42
+#@ default
+msgid " If you have a pipe or multiple pipes in a .pipe format, you may install it by uploading it here."
+msgstr ""
+
+#: views/pipes/tmpl/default.php:46
+#@ default
+msgid "Import"
+msgstr ""
+
+#: views/pipes/tmpl/default.php:51
+#@ default
+msgid ".pipe file is exported pipe(s). You can get .pipe file from:"
+msgstr ""
+
+#: views/pipes/tmpl/default.php:52
+#@ default
+msgid "Export single or multiple pipes by yourself. <a href=\"#\" onclick=\"jQuery('#contextual-help-link').click();jQuery('#tab-link-my_help_tab1 a').click();\">Find out how</a>."
+msgstr ""
+
+#: views/pipes/tmpl/default.php:53
+#@ default
+msgid "Get it from <a href=\"http://foob.la/pipestore\" target=\"_blank\">Pipes Marketplace</a> (both free & paid available)."
+msgstr ""
+
+#: views/pipes/view.php:34
+#@ default
+msgid "Manage your Pipes"
+msgstr ""
+
+#: views/pipes/view.php:35
+#@ default
+msgid "<strong>A Pipe</strong> - is a pipeline of data migration from SOURCE to DESTINATION. This screen contains the list of created or imported Pipes. Basically, you can do all management actions on this screen."
+msgstr ""
+
+#: views/pipes/view.php:36
+#@ default
+msgid "<strong>Edit</strong> - click on the Pipe title to go to Pipe Edit form. You can also hover on a pipe to see the Edit link."
+msgstr ""
+
+#: views/pipes/view.php:37
+#@ default
+msgid "<strong>Delete</strong> - delete a pipe permanently out of your WP Pipes plugin."
+msgstr ""
+
+#: views/pipes/view.php:38
+#@ default
+msgid "<strong>Test</strong> - test your Pipe manually."
+msgstr ""
+
+#: views/pipes/view.php:39
+#@ default
+msgid "<strong>Test in Update mode</strong> - test your Pipe manually in force-update mode."
+msgstr ""
+
+#: views/pipes/view.php:40
+#@ default
+msgid "<strong>Export</strong> - export a pipe. See more at Import Pipes and Export Pipes tabs."
+msgstr ""
+
+#: views/pipes/view.php:44
+#@ default
+msgid "Export Pipes"
+msgstr ""
+
+#: views/pipes/view.php:45
+#@ default
+msgid "You can export the settings of a single Pipe or multiple Pipes to share / sell it OR <strong>Import it later</strong>."
+msgstr ""
+
+#: views/pipes/view.php:46
+#@ default
+msgid "<strong>Export single Pipe</strong> - by hover on a pipe and select Export, you will be able to download a .pipe file to your local computer which contains your Pipe settings."
+msgstr ""
+
+#: views/pipes/view.php:47
+#@ default
+msgid "<strong>Export multiple Pipes</strong> - by checking some pipes and select Bulk Actions > Export, you will be able to download a .pipe file to your local computer which contains settings for your selected Pipes."
+msgstr ""
+
+#: views/pipes/view.php:51
+#@ default
+msgid "Import Pipes"
+msgstr ""
+
+#: views/pipes/view.php:52
+#@ default
+msgid "You can import .pipe file which contains settings from single or multiple Pipes over this feature. These .pipe files can be got from your export action before or from friend or <a href=\"http://foob.la/pipestore\" target=\"_blank\">Pipe Marketplace</a>."
+msgstr ""
+
+#: views/pipes/view.php:53
+#@ default
+msgid "<strong>To Import A Pipe</strong> - click Import button on the top side of the page > browse the .pipe file from your local computer > click Import and single or multiple Pipes will be imported to your WP Pipes plugin."
+msgstr ""
+
+#: views/pipes/view.php:59
+#@ default
+msgid "<a href=\"http://foobla.com/wordpress/pipes\">Documentation on Pipes Manager</a>"
+msgstr ""
+
+#: views/pipes/view.php:74
+#@ default
+msgid "Check this if you are new to Pipes"
+msgstr ""
+
+#: views/pipes/view.php:85
+#@ pipes
+msgid "Pipes per page"
+msgstr ""
+
+#: views/plugins/tmpl/default.php:68
+#@ default
+msgid "Addons Manager"
+msgstr ""
+
+#: views/plugins/view.php:39
+#@ addons
+msgid "Addons per page"
+msgstr ""
+
+#: views/settings/tmpl/default.php:15
+#@ default
+msgid "WP Pipes plugin Settings"
+msgstr ""
+
+#: views/settings/tmpl/default.php:34
+#@ default
+msgid "Cronjob Active"
+msgstr ""
+
+#: views/settings/tmpl/default.php:52
+#@ default
+msgid "Allow Auto Run"
+msgstr ""
+
+#: views/settings/tmpl/default.php:91
+#@ default
+msgid "Start from"
+msgstr ""
+
