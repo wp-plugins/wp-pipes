@@ -21,16 +21,24 @@
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
-				<field name="get_image" type="list" default="1" class="form-control" label="Get To local" description="Get image To local">
+				<field name="get_image" type="list" default="1" class="form-control" label="Get To local"
+					   description="Get image To local">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="stop_if_empty" type="list" default="0" label="Stop if not found images?">
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
 				<field name="clear_tiny" type="text" size="30" class="form-control" default="64x64" label="Clear Tiny"
 					   description="clear tiny images size less than (width x hight)"/>
-				<field name="image_local" type="text" size="30" class="form-control" default="images/wppipes" label="Save to"
+				<field name="image_local" type="text" size="30" class="form-control" default="images/wppipes"
+					   label="Save to"
 					   description="Save to"/>
-				<field name="origin_url" type="text" size="30" class="form-control" default="" label="Origin Url" description="Origin Url"/>
-				<field name="makelist" type="list" default="1" class="form-control" label="Make list" description="Make list Images">
+				<field name="origin_url" type="text" size="30" class="form-control" default="" label="Origin Url"
+					   description="Origin Url"/>
+				<field name="makelist" type="list" default="1" class="form-control" label="Make list"
+					   description="Make list Images">
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>

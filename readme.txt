@@ -135,6 +135,13 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.17 =
+* Fix: Fixed some minor bugs in Get Fulltext, Get Image processor.
+* Fix: Removed some unnecessary Joomla code
+* Fix: Checked duplicate custom fields when creating the inputs of Post Destination.
+* New: Use other way in using curl_level3 instead of the old way.
+* New: Added 1 option allow choosing stop processing item without images or not
+
 = 1.16 =
 * Fix: Fixed notice, minor bug.
 * Fix: Clear HTML comment.
@@ -239,3 +246,4 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 * Fixed error with Import feature. Highly recommended to upgrade to this version.
 
 = 1.0 =
+* first release

@@ -74,6 +74,14 @@ class WPPipesPro_image {
 				ogb_pr( $res, 'Imgs: ' );
 			}
 		}
+		if ( empty( $res->images ) && ( $params->stop_if_empty == 1 ) ) {
+			$stop        = new stdClass();
+			$stop->state = true;
+			$stop->msg   = 'no images found';
+			$res->stop   = $stop;
+
+			return $res;
+		}
 		if ( isset( $params->default_img ) && $params->default_img != '' ) {
 			$default_img       = new stdClass();
 			$default_img->html = "<img src=\"{$params->default_img}\" alt=\"The default image\">";
@@ -200,7 +208,7 @@ class WPPipesPro_image {
 			$src = preg_replace( "#src\s*=\s*\"|\"#", "", @$src[0][0] );
 
 			if ( ! preg_match( '!https?://.+!i', $src ) ) {
-				$source_urls[$i] = $origin_url . trim($src);
+				$source_urls[$i] = $origin_url . trim( $src );
 			} else {
 				$source_urls[$i] = $src;
 			}

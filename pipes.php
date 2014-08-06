@@ -3,7 +3,7 @@
 Plugin Name: WP Pipes
 Plugin URI: http://wpbriz.com
 Description: WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
-Version: 1.16
+Version: 1.17
 Author: wpBriz
 Author URI: http://wpbriz.com
 */
@@ -78,7 +78,7 @@ class PIPES extends Application {
 		if ( function_exists( "add_menu_page" ) ) {
 //			$icon_url  = plugins_url( basename( dirname( __FILE__ ) ) ) . '/assets/images/menu_icon_core.png';
 			$icon_url = 'dashicons-editor-justify';
-			$position = 6;
+			$position = $this->get_free_menu_position( 1 );
 			add_menu_page( __( "Pipes", "pipes" ), __( "Pipes", "pipes" ), "manage_options", $this->_page_prefix . ".pipes", array( $this, 'display' ), $icon_url, $position );
 			if ( function_exists( "add_submenu_page" ) ) {
 //				add_submenu_page( $this->_page_prefix . '.pipes', __( 'Dashboard', 'cpanel' ), __( 'Dashboard', 'cpanel' ), "manage_options", $this->_page_prefix . ".cpanel", array( $this, 'display' ) );
@@ -156,6 +156,23 @@ class PIPES extends Application {
 
 			return $contens;
 		}
+	}
+
+	public function get_free_menu_position( $start, $increment = 1 ) {
+		foreach ( $GLOBALS['menu'] as $key => $menu ) {
+			$menus_positions[] = $key;
+		}
+
+		if ( ! in_array( $start, $menus_positions ) ) {
+			return $start;
+		}
+
+		/* the position is already reserved find the closet one */
+		while ( in_array( $start, $menus_positions ) ) {
+			$start += $increment;
+		}
+
+		return $start;
 	}
 }
 
