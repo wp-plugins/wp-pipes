@@ -38,11 +38,11 @@
 					<option value="private">Private</option>
 				</field>
 				<field name="author" type="gruser" default="" class="form-control" label="Author" description="Select an author for posts"/>
-				<!--<field name="featured" type="list" class="form-control" default="0" label="Featured"-->
-					   <!--description="COM_OBGRABBER_ADAPTER_CONTENT_ISFEATURED_DESC">-->
-					<!--<option value="0">No</option>-->
-					<!--<option value="1">Yes</option>-->
-				<!--</field>-->
+				<field name="use_custom_field" type="list" class="form-control" default="0" label="Use Custom Field"
+					   description="Do you want to use custom fields which you created" onchange="getIOaddon('adapter', 'post', this.value)">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
 				<!--<field name="allow_comment" type="checkbox" label="Allow comments" />-->
 				<!--<field name="allow_trackbacks_and_pingbacks" type="checkbox" label="Allow trackbacks and pingbacks" />-->
 			</fieldset>

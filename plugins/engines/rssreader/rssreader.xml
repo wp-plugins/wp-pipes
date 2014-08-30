@@ -75,6 +75,22 @@
 					   default="3600"
 					   label="Cache time"
 					   description="Cache time"/>
+				<field name="order_by_date"
+					   type="list"
+					   default="0"
+					   label="Order by date"
+					   description="RSS feeds will be sort by date.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
+				<field name="order_by_date_follow"
+					   type="list"
+					   default="0"
+					   label="Order type"
+					   description="NO: New feeds will be import first. YES: New feeds will be import at last.">
+					<option value="0">No</option>
+					<option value="1">Yes</option>
+				</field>
 			</fieldset>
 		</fields>
 	</config>

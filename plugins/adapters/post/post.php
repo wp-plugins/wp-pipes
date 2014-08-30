@@ -229,8 +229,12 @@ class WPPipesAdapter_post {
 	 * @return stdClass
 	 */
 	public static function getDataFields( $param = false ) {
-		$custom_fields = self::get_all_post_custom();
-		$custom_fields = str_replace('-', '__', $custom_fields);
+		if(isset($_GET['arg2']) && $_GET['arg2'] == 1){
+			$custom_fields = self::get_all_post_custom();
+			$custom_fields = str_replace('-', '__', $custom_fields);
+		}else{
+			$custom_fields = array();
+		}
 		$data          = new stdClass();
 		$inputs        = 'title,slug,excerpt,content,date,images,metakey';
 		$data->input   = explode( ',', $inputs );

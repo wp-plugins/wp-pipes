@@ -3,7 +3,7 @@
 Plugin Name: WP Pipes
 Plugin URI: http://wpbriz.com
 Description: WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
-Version: 1.17
+Version: 1.18
 Author: wpBriz
 Author URI: http://wpbriz.com
 */

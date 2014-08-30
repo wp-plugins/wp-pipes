@@ -135,6 +135,12 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.18 =
+* New: checked free position of menu before activating
+* New: added 1 more case for Keyword Filter processor: the keywords are Latin
+* New: added option in Post Destination allow using custom fields or not
+* New: added sort by date with RSSReader source
+
 = 1.17 =
 * Fix: Fixed some minor bugs in Get Fulltext, Get Image processor.
 * Fix: Removed some unnecessary Joomla code

@@ -58,7 +58,7 @@ class WPPipesEngine_rssreader {
 			} else {
 				$default_oe->$value = str_replace( "'", "", $default_oe->$value );
 				$default_oe->$value = str_replace( '"', '', $default_oe->$value );
-				$data->output[$key] = $value . '<br /><p data-toggle="tooltip" data-original-title="'. ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ): 'null') .'" class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) . '</p>' : 'null</p>' );
+				$data->output[$key] = $value . '<br /><p data-toggle="tooltip" data-original-title="' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) : 'null' ) . '" class="text-muted small">' . ( $default_oe->$value != '' ? strip_tags( $default_oe->$value ) . '</p>' : 'null</p>' );
 			}
 		}
 
@@ -67,9 +67,9 @@ class WPPipesEngine_rssreader {
 
 	//--- Begin Get feed item ---
 	public static function update_cache( $path, $rows ) {
-		$data  = serialize( $rows );
+		$data = serialize( $rows );
 		//$cache = self::get_cache( $path );
-		$a     = ogbFile::write( $path, $data );
+		$a = ogbFile::write( $path, $data );
 
 		return $a;
 	}
@@ -137,7 +137,7 @@ class WPPipesEngine_rssreader {
 		$feed->set_timeout( 20 );
 		$feed->enable_cache( false );
 		$feed->set_stupidly_fast( true );
-		$feed->enable_order_by_date( false ); // we don't want to do anything to the feed
+		$feed->enable_order_by_date( $params->order_by_date ); // we don't want to do anything to the feed
 		$feed->set_url_replacements( array() );
 		$result = $feed->init();
 		if ( isset( $_GET['x'] ) ) {
@@ -152,9 +152,10 @@ class WPPipesEngine_rssreader {
 
 			return array();
 		}
+
 		for ( $i = 0; $i < count( $items ); $i ++ ) {
 			$row              = new stdclass();
-			$row->title       = html_entity_decode($items[$i]->get_title(), ENT_QUOTES, 'UTF-8'); # the title for the post
+			$row->title       = html_entity_decode( $items[$i]->get_title(), ENT_QUOTES, 'UTF-8' ); # the title for the post
 			$row->link        = $items[$i]->get_link(); # a single link for the post
 			$row->description = $items[$i]->get_description(); # the content of the post (prefers summaries)
 			$row->author      = $items[$i]->get_author(); # a single author for the post
@@ -163,7 +164,15 @@ class WPPipesEngine_rssreader {
 			$rows[]           = $row;
 		}
 //		var_dump($rows);
-
+		if ( $params->order_by_date && $params->order_by_date_follow ) {
+			$newrows = array();
+			if ( count( array_filter( $rows ) ) > 0 ) {
+				for ( $i = count( $rows ) - 1; $i >= 0;$i -- ) {
+					$newrows[] = $rows[$i];
+				}
+				$rows = $newrows;
+			}
+		}
 		self::update_cache( $cache_path, $rows );
 
 		return $rows;
@@ -213,11 +222,11 @@ class WPPipesEngine_rssreader {
 	public static function get_default_item() {
 		$id            = filter_input( INPUT_POST, 'id' );
 		$value_default = filter_input( INPUT_POST, 'val_default' );
-		if($value_default == ''){
+		if ( $value_default == '' ) {
 			return 'Do nothing!';
 		}
-		$feed          = new SimplePie();
-		$path          = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
+		$feed = new SimplePie();
+		$path = OGRAB_EDATA . 'item-' . $id . DS . 'row-default.dat';
 		$feed->set_feed_url( $value_default );
 		$feed->set_autodiscovery_level( SIMPLEPIE_LOCATOR_NONE );
 		$feed->set_timeout( 20 );
@@ -239,16 +248,16 @@ class WPPipesEngine_rssreader {
 			return array();
 		}
 		$row              = new stdclass();
-		$row->title       = html_entity_decode($items[0]->get_title(), ENT_QUOTES, 'UTF-8'); # the title for the post
+		$row->title       = html_entity_decode( $items[0]->get_title(), ENT_QUOTES, 'UTF-8' ); # the title for the post
 		$row->link        = $items[0]->get_link(); # a single link for the post
 		$row->description = $items[0]->get_description(); # the content of the post (prefers summaries)
 		$row->author      = $items[0]->get_author(); # a single author for the post
 		$row->date        = $items[0]->get_date( 'Y-m-d H:i:s' );
 		$row->enclosures  = $items[0]->get_enclosures();
 		if ( ! is_file( $path ) ) {
-			$source     = new stdClass();
+			$source = new stdClass();
 		} else {
-			$source     = ogb_common::get_default_data( '', $id );
+			$source = ogb_common::get_default_data( '', $id );
 		}
 		$source->so = $row;
 		$cache      = serialize( $source );
