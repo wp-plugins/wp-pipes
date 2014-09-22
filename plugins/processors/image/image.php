@@ -43,8 +43,24 @@ class WPPipesPro_image {
 			ogb_pr( $params, 'Params: ' );
 			ogb_pr( $data, 'Data: ' );
 		}
-		$html = $data->html;
-
+		if ( isset( $data->enclosure ) && is_array( $data->enclosure ) ) {
+			$html = '';
+			foreach ( $data->enclosure as $obj ) {
+				$enclosure = (array) $obj;
+				if ( isset( $params->limit_width ) ) {
+					$limit_period = explode( ';', $params->limit_width );
+					$width_img = (isset($enclosure['width']) && $enclosure['width'] > 0 )? $enclosure['width'] : 0;
+					if ( count( $limit_period ) > 1 && ( ( (int) $limit_period[0] > $width_img ) || ( $width_img > (int) $limit_period[1] ) ) ) {
+						continue;
+					}
+				}
+				if ( strpos( $enclosure['type'], 'image' ) !== false ) {
+					$html .= '<img src="' . $enclosure['link'] . '" title="' . $enclosure['title'] . '">';
+				}
+			}
+		} else {
+			$html = $data->html;
+		}
 
 		$res         = new stdClass();
 		$res->html   = $html;
@@ -96,7 +112,7 @@ class WPPipesPro_image {
 
 	public static function getDataFields() {
 		$data         = new stdClass();
-		$data->input  = array( 'url', 'html' );
+		$data->input  = array( 'url', 'html', 'enclosure' );
 		$data->output = array( 'images', 'html' );
 
 		return $data;

@@ -108,6 +108,18 @@ echo PIPES::show_message( false );
 									});
 								});
 								</script>";
+						case 'pipes_not_use_cache':
+							echo '<th scope="row">' . __( 'Not Use Cache' ) . '</th>';
+							echo '<td>';
+
+							echo '<fieldset><legend class="screen-reader-text"><span>Not Use Cache</span></legend>
+									<label title="Yes"><input type="radio" name="' . $setting->option_name . '" value="1" ' . ( ( $setting->option_value == 1 ) ? 'checked="checked"' : '' ) . '>
+									<span>Yes, I want the cronjob will be executed getting data directly from the source, not from Cache.</span></label><br>
+									<label title="No"><input type="radio" name="' . $setting->option_name . '" value="0" ' . ( ( $setting->option_value == 0 ) ? 'checked="checked"' : '' ) . '>
+									<span>No, cronjob will get data from the cache if the cache is not expired</span>.</label><br />
+									</fieldset>';
+							echo '</td>';
+							break;
 						default:
 							break;
 					}

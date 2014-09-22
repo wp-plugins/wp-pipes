@@ -54,6 +54,8 @@
 					<option value="0">No</option>
 					<option value="1">Yes</option>
 				</field>
+				<field name="limit_width" type="text" size="30" default="100;400" label="Limit Width"
+					   description="Use only with input as enclosure, set value following the format: min_width;max_width"/>
 				<field name="default_img" type="text" class="fullwidth" default="" label="Default Image"
 					   description="The link to default image in case there is not any images in the original source"/>
 				<field name="note" type="hidden" default=""/>

@@ -18,6 +18,7 @@ if ( isset( $_GET['x1'] ) ) {
 	echo '<meta http-equiv="content-type" content="text/html; charset=' . $c . '"/>';
 }
 require_once OBGRAB_HELPERS . 'common.php';
+require_once OBGRAB_SITE . 'cronjob.php';
 
 class obGrab {
 	var $_aclass = null;
@@ -158,7 +159,13 @@ class obGrab {
 	}
 
 	function start( $id ) {
+		$cronclass = new ogbPlugCron();
+		$pipecf    = $cronclass::getGbParams();
 		$item     = $this->getItemInfo( $id );
+		if ( $pipecf->not_use_cache ) {
+			$this->remove_cache_file( $item );
+		}
+		$res      = new stdclass();
 		$info     = "\nItem id:" . $item->id . ' name:' . $item->name;
 		$new_data = self::need_oeData_new( $item );
 		if ( $new_data ) {
@@ -211,6 +218,19 @@ class obGrab {
 		}
 
 		return $res;
+	}
+
+	function remove_cache_file( $item ) {
+		$path = OGRAB_EDATA . 'item-' . $item->id;
+		$dir  = opendir( $path );
+		while ( $item = readdir( $dir ) ) {
+			if ( is_file( $sub = $path . DS . $item ) ) {
+				$file = $path . DS . $item;
+				unlink( $file );
+			}
+		}
+
+		return;
 	}
 
 	function storeItems( $id, $rid ) {

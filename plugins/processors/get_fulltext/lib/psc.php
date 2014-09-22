@@ -81,8 +81,14 @@ class ogb_parser_code extends ogb_get_CURL {
 	public static function clear_tag( $html, $tag ) {
 
 		if ( in_array( $tag, array( "br", "img", "hr", "input", "link", "meta" ) ) ) {
-			$mix  = '/<' . $tag . '[\s|\S]*?>/iu';
-			$html = preg_replace( $mix, "", $html );
+			$mix = '/<' . $tag . '[\s|\S]*?>/iu';
+			$old_html = $html;
+			$html     = preg_replace( $mix, "", $old_html );
+			if ( ! $html ) {
+				$mix  = str_replace( '/iu', '/i', $mix );
+				$html = preg_replace( $mix, "", $old_html );
+			}
+
 			return $html;
 		}
 
@@ -115,9 +121,10 @@ class ogb_parser_code extends ogb_get_CURL {
 	}
 
 	public static function strip_tag( $html, $tag ) {
-		$html = preg_replace( '/<' . strtoupper($tag) . '\s+[^>]*>|<' . strtoupper($tag) . '\s*>|<' . strtolower($tag) . '\s+[^>]*>|<' . strtolower($tag) . '\s*>/', '', $html );
-		$html = str_replace( '</' . strtoupper($tag) . '>', '', $html );
-		$html = str_replace( '</' . strtolower($tag) . '>', '', $html );
+		$html = preg_replace( '/<' . strtoupper( $tag ) . '\s+[^>]*>|<' . strtoupper( $tag ) . '\s*>|<' . strtolower( $tag ) . '\s+[^>]*>|<' . strtolower( $tag ) . '\s*>/', '', $html );
+		$html = str_replace( '</' . strtoupper( $tag ) . '>', '', $html );
+		$html = str_replace( '</' . strtolower( $tag ) . '>', '', $html );
+
 		return $html;
 	}
 

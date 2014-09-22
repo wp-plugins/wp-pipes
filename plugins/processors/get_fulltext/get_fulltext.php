@@ -171,8 +171,28 @@ class WPPipesPro_get_fulltext extends ogb_parser_code {
 		}
 
 		$res->full_html = $fullhtml;
+		$count_word     = self::count_words( $res->fulltext );
+		if ( $params->minimum_word > 0 && $count_word < $params->minimum_word ) {
+			self::setStop( $res, "The amount of words less than " . $params->minimum_word );
+
+			return $res;
+		}
+		if ( $params->maximum_word > 0 && $count_word > $params->maximum_word ) {
+			self::setStop( $res, "The amount of words greater than " . $params->maximum_word );
+
+			return $res;
+		}
 
 		return $res;
+	}
+
+	public static function count_words( $text ) {
+		$text  = strip_tags( $text );
+		$text  = str_replace( array( '.', ',', '!', '?' ), '', $text );
+		$text  = preg_replace( '/\n+|\r+|\t+/i', ' ', $text );
+		$words = explode( " ", $text );
+
+		return count( $words );
 	}
 
 	public static function process_atag( $html, $params, $url = '' ) {

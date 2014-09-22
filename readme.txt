@@ -135,6 +135,13 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.19 =
+* New: added filter options "minimum words" and "maximum words" in Get Fulltext processor
+* New: added more input field of Get Image processor, could get images from enclosures
+* Fix: get free position of menu only after Post menu
+* New: add 1 more method of using curl in both common file and psc file of Get Fulltext processor.
+* New: add 1 more option allow choosing use cache or not when running cronjob
+
 = 1.18 =
 * New: checked free position of menu before activating
 * New: added 1 more case for Keyword Filter processor: the keywords are Latin

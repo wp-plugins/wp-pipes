@@ -71,6 +71,19 @@ $pipes_settings['general'] = apply_filters('pipes_general_settings', array(
 	),
 
 	array(
+		'title' 	=> __( 'Not Use Cache', 'pipes' ),
+		'desc' 		=> __( "If set to yes, the cronjob will be executed directly from the source, not from Cache. If not, cronjob will get data from the cache if the cache is not expired.", 'pipes' ),
+		'id' 		=> 'pipes_not_use_cache',
+		'default'	=> '0',
+		'type' 		=> 'radio',
+		'desc_tip'	=>  true,
+		'options'	=> array(
+			'1' => __( 'Yes', 'pipes' ),
+			'0' => __( 'No', 'pipes' )
+		),
+	),
+
+	array(
 		'title' => __( 'Start at', 'pipes' ),
 		'desc' 		=> __( 'Select the time for getting started', 'pipes' ),
 		'id' 		=> 'pipes_start_at',

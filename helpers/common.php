@@ -516,6 +516,37 @@ class ogbFile {
 		return array( 200, $html );
 	}
 
+    public static function get_curl5( $url, $custom_ck ) {
+        $httpheader = array("Accept-Encoding: gzip,deflate,lzma,sdch" ,
+            "Accept-Language: en-US,en;q=0.8" ,
+            "User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.94 Safari/537.36 OPR/24.0.1558.53" ,
+            "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8" ,
+            "Cache-Control: max-age=0" ,
+            "Cookie: {$custom_ck}" ,
+            "Connection: keep-alive");
+        $options = array(
+            CURLOPT_RETURNTRANSFER => false, // return web page
+            CURLOPT_HEADER         => false, // don't return headers
+            CURLOPT_FOLLOWLOCATION => false, // follow redirects
+            CURLOPT_ENCODING       => "utf-8", // handle all encodings
+            CURLOPT_USERAGENT      => "spider", // who am i
+            CURLOPT_AUTOREFERER    => false, // set referer on redirect
+            CURLOPT_CONNECTTIMEOUT => 120, // timeout on connect
+            CURLOPT_TIMEOUT => 120, // timeout on response
+            CURLOPT_MAXREDIRS      => 0, // stop after 10 redirects
+            CURLOPT_SSL_VERIFYPEER => false,
+            CURLOPT_HTTPHEADER => $httpheader
+        );
+        ob_start();
+        $ch = curl_init( $url );
+        curl_setopt_array( $ch, $options );
+        $content = curl_exec( $ch );
+        $html = ob_get_contents();
+        ob_clean();
+
+        return $html;
+    }
+
 	/**
 	 * @param $url link as foobla.com
 	 *

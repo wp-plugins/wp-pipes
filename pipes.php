@@ -3,7 +3,7 @@
 Plugin Name: WP Pipes
 Plugin URI: http://wpbriz.com
 Description: WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
-Version: 1.18
+Version: 1.19
 Author: wpBriz
 Author URI: http://wpbriz.com
 */
@@ -78,7 +78,7 @@ class PIPES extends Application {
 		if ( function_exists( "add_menu_page" ) ) {
 //			$icon_url  = plugins_url( basename( dirname( __FILE__ ) ) ) . '/assets/images/menu_icon_core.png';
 			$icon_url = 'dashicons-editor-justify';
-			$position = $this->get_free_menu_position( 1 );
+			$position = $this->get_free_menu_position( 5 );
 			add_menu_page( __( "Pipes", "pipes" ), __( "Pipes", "pipes" ), "manage_options", $this->_page_prefix . ".pipes", array( $this, 'display' ), $icon_url, $position );
 			if ( function_exists( "add_submenu_page" ) ) {
 //				add_submenu_page( $this->_page_prefix . '.pipes', __( 'Dashboard', 'cpanel' ), __( 'Dashboard', 'cpanel' ), "manage_options", $this->_page_prefix . ".cpanel", array( $this, 'display' ) );
