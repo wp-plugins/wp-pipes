@@ -31,8 +31,8 @@ class obGrab {
 
 	function getItems( $id = 0 ) {
 		global $wpdb;
-		$id  = (int) $id;
-		$qry = "SELECT * FROM `{$wpdb->prefix}wppipes_items` WHERE `id`={$id}";
+		$id   = (int) $id;
+		$qry  = "SELECT * FROM `{$wpdb->prefix}wppipes_items` WHERE `id`={$id}";
 		$item = $wpdb->get_results( $qry, OBJECT );
 
 		return $item;
@@ -161,7 +161,7 @@ class obGrab {
 	function start( $id ) {
 		$cronclass = new ogbPlugCron();
 		$pipecf    = $cronclass::getGbParams();
-		$item     = $this->getItemInfo( $id );
+		$item      = $this->getItemInfo( $id );
 		if ( $pipecf->not_use_cache ) {
 			$this->remove_cache_file( $item );
 		}
@@ -196,15 +196,14 @@ class obGrab {
 			var_dump( $new_data );
 			echo '<br />' . $json;
 		}
-        $limit = self::getItemInfo($id);
-        $limit = json_decode($limit->engine_params);
-        
-        if($limit->limit_items < $total){
-            $total = $limit->limit_items;
-        }
-        
-        
-        
+		$limit = self::getItemInfo( $id );
+		$limit = json_decode( $limit->engine_params );
+
+		if ( $limit->limit_items < $total ) {
+			$total = $limit->limit_items;
+		}
+
+
 		$res        = new stdclass();
 		$res->pipe  = $item->name;
 		$res->name  = $item->engine;
@@ -222,7 +221,10 @@ class obGrab {
 
 	function remove_cache_file( $item ) {
 		$path = OGRAB_EDATA . 'item-' . $item->id;
-		$dir  = opendir( $path );
+		if ( ! is_dir( $path ) ) {
+			return;
+		}
+		$dir = opendir( $path );
 		while ( $item = readdir( $dir ) ) {
 			if ( is_file( $sub = $path . DS . $item ) ) {
 				$file = $path . DS . $item;

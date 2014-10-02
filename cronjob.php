@@ -25,7 +25,7 @@ require_once OBGRAB_HELPERS . 'common.php';
 require_once OBGRAB_SITE . 'grab.php';
 
 class ogbDebug {
-	static function out( $msg = '', $line = 0 ) {
+	public static function out( $msg = '', $line = 0 ) {
 		if ( filter_input( INPUT_GET, "obDebug" ) == 1 ) {
 			echo "\n\n<br /><b>obDebug </b>";
 			if ( $line != 0 ) {
@@ -39,7 +39,7 @@ class ogbDebug {
 		}
 	}
 
-	static function getHMS( $t ) {
+	public static function getHMS( $t ) {
 		$p   = $t % 3600;
 		$h   = ( $t - $p ) / 3600;
 		$s   = $p % 60;
@@ -49,13 +49,13 @@ class ogbDebug {
 		return implode( ':', $str );
 	}
 
-	static function write( $path, $txt = '' ) {
+	public static function write( $path, $txt = '' ) {
 		$a = ogbFile::write( $path, $txt ); #JFile::write( $path, $txt );
 	}
 }
 
 class ogbCronCallAIO {
-	static function run() {
+	public static function run() {
 		$x = isset( $_GET['x'] );
 		if ( $x ) {
 			$mstart = microtime();
@@ -94,7 +94,7 @@ class ogbCronCallAIO {
 		}
 	}
 
-	static function add_log_ip( $ip ) {
+	public static function add_log_ip( $ip ) {
 		$dir_ip = OGRAB_CACHE . 'ips' . DS;
 		$file   = $dir_ip . date( 'Y-m-d' ) . '.txt';
 		$info   = date( 'H:i:s' ) . " - " . $ip . "\n";
@@ -105,7 +105,7 @@ class ogbCronCallAIO {
 		}
 	}
 
-	static function get_contents( $url ) {
+	public static function get_contents( $url ) {
 		$text = file_get_contents( $url );
 		if ( $text ) {
 			return $text;
@@ -121,7 +121,7 @@ class ogbCronCallAIO {
 		return ob_get_clean();
 	}
 
-	static function ob_get_curl( $url ) {
+	public static function ob_get_curl( $url ) {
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_URL, $url );
 		curl_setopt( $ch, CURLOPT_HEADER, 0 );
@@ -146,7 +146,7 @@ class ogbCronCallAIO {
 		return ob_get_clean();
 	}
 
-	static function call( $url = '', $limit = 1000 ) {
+	public static function call( $url = '', $limit = 1000 ) {
 		if ( ! $url ) {
 			return '';
 		}
@@ -167,7 +167,7 @@ class ogbCronCallAIO {
 		return $res;
 	}
 
-	static function getMsgRun( $rtime, $now ) {
+	public static function getMsgRun( $rtime, $now ) {
 		$nextt1 = $rtime - $now;
 		$nextt  = ogbDebug::getHMS( $nextt1 );
 		$nextt1 = "{$nextt1}";
@@ -182,7 +182,7 @@ class ogbCronCallAIO {
 		return $msg;
 	}
 
-	static function isNextCall( $text ) {
+	public static function isNextCall( $text ) {
 		$step = isset( $_GET['step'] ) ? (int) $_GET['step'] : 1;
 		if ( isset( $_GET['x5'] ) && $step < 20 ) {
 			echo '<br /><i><b>File:</b>' . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br /> \n";
@@ -204,7 +204,7 @@ class ogbCronCallAIO {
 		return false;
 	}
 
-	static function getRealIpAddr() {
+	public static function getRealIpAddr() {
 		if ( isset( $_GET['x12'] ) ) {
 			echo "\n\n<br /><i><b>File:</b>" . __FILE__ . ' <b>Line:</b>' . __LINE__ . "</i><br />\n\n"; //exit();
 			echo '<pre>$_SERVER:';
@@ -236,7 +236,7 @@ class ogbCronCallAIO {
 }
 
 class ogbPlugCron {
-	static function getGbParams() {
+	public static function getGbParams() {
 		global $gbParams;
 		if ( is_object( $gbParams ) ) {
 			return $gbParams;
@@ -260,7 +260,7 @@ class ogbPlugCron {
 	 *
 	 * @return type
 	 */
-	static function udParams( &$params ) {
+	public static function udParams( &$params ) {
 		global $wpdb;
 		$a = explode( ':', $params->start_at );
 		if ( $a[count( $a ) - 1] == '00' ) {
@@ -271,15 +271,15 @@ class ogbPlugCron {
 		$udparams = json_encode( $params );
 	}
 
-	static function setRunning( $info ) {
+	public static function setRunning( $info ) {
 		ogbDebug::write( OGRAB_CACHE_DATA_RUN, $info );
 	}
 
-	static function setCanRun() {
+	public static function setCanRun() {
 		ogbDebug::write( OGRAB_CACHE_DATA_RUN, '123' );
 	}
 
-	static function isRuning() {
+	public static function isRuning() {
 		$now = time();
 		if ( ! is_file( OGRAB_CACHE_DATA_RUN ) ) {
 			self::setRunning( $now );
@@ -315,7 +315,7 @@ class ogbPlugCron {
 		return true;
 	}
 
-	static function checkDone() {
+	public static function checkDone() {
 		if ( ! is_file( OGRAB_CACHE_DONE ) ) {
 			self::setDone( '1' );
 
@@ -329,7 +329,7 @@ class ogbPlugCron {
 		return false;
 	}
 
-	static function setDone( $value ) {
+	public static function setDone( $value ) {
 		if ( $value == 1 ) {
 			global $ogbConStop;
 			$ogbConStop = true;
@@ -337,7 +337,7 @@ class ogbPlugCron {
 		ogbDebug::write( OGRAB_CACHE_DONE, $value );
 	}
 
-	static function getMsgLeft( $rtime, $now ) {
+	public static function getMsgLeft( $rtime, $now ) {
 		$nextt1 = $rtime - $now;
 		$nextt  = ogbDebug::getHMS( $nextt1 );
 		$nextt1 = "{$nextt1}";
@@ -353,7 +353,7 @@ class ogbPlugCron {
 		return $msg;
 	}
 
-	static function checkRun() {
+	public static function checkRun() {
 		/*Get global config*/
 		$gbParams = self::getGbParams();
 		if ( isset( $_GET['x'] ) ) {
@@ -581,18 +581,18 @@ class ogbPlugCron {
 	 * Get all items of OBGraper
 	 * return list object
 	 */
-	function getPiesItems() {
+	public static function getPiesItems() {
 		global $wpdb;
 		$query = "SELECT * FROM `{$wpdb->prefix}wppipes_items` WHERE published=1 ORDER BY id ASC";
 
 		return $wpdb->get_results( $query );
 	}
 
-	static function getTime( $str ) {
+	public static function getTime( $str ) {
 		return strtotime( $str );
 	}
 
-	static function createFolder( $file ) {
+	public static function createFolder( $file ) {
 		$dir = dirname( $file );
 		if ( ! is_dir( $dir ) ) {
 			$file = $dir . DS . 'index.html';
@@ -603,7 +603,7 @@ class ogbPlugCron {
 		return true;
 	}
 
-	static function getNextRunId( $id ) {
+	public static function getNextRunId( $id ) {
 		global $wpdb;
 		$qry = "SELECT `id` FROM `{$wpdb->prefix}wppipes_items` "
 			. "\nWHERE `published` =1 AND `id` > {$id} ORDER BY `id` ASC LIMIT 1";
@@ -622,7 +622,7 @@ class ogbPlugCron {
 	 * Get next time for each item
 	 * $time str schedule of item
 	 */
-	function getNextTimeItem( $time ) {
+	public static function getNextTimeItem( $time ) {
 
 		$gbParams = self::getGbParams();
 		$start    = $gbParams->start_at;
@@ -666,11 +666,11 @@ class ogbPlugCron {
 		return $nextRun;
 	}
 
-	static function get_content( $file ) {
+	public static function get_content( $file ) {
 		return file_get_contents( $file );
 	}
 
-	static function set_data_run( $info ) {
+	public static function set_data_run( $info ) {
 		ogbDebug::write( OGRAB_CACHE_DATA_RUNING, $info );
 	}
 
@@ -679,7 +679,7 @@ class ogbPlugCron {
 	 * $id int ID of Item
 	 * result next time of item
 	 */
-	function getTimeSchedule( $id ) {
+	public static function getTimeSchedule( $id ) {
 		$now = time();
 		if ( is_file( OGRAB_CACHE_LOG_ITEM_INFO ) ) {
 			$info_items = self::get_content( OGRAB_CACHE_LOG_ITEM_INFO );
@@ -715,7 +715,7 @@ class ogbPlugCron {
 
 	}
 
-	static function runCron() {
+	public static function runCron() {
 		$ip        = isset( $_GET['ip'] ) ? $_GET['ip'] : '1.1.1.1';
 		$ip        = "[ ip: {$ip} ]";
 		$new_start = true;
@@ -834,7 +834,7 @@ class ogbPlugCron {
 		return $log;
 	}
 
-	static function makeLogCron( $info ) {
+	public static function makeLogCron( $info ) {
 		$source = '<a target="_blank" href="' . $info->src_url . '">' . $info->src_name . '</a>';
 		$log    = '<li><b>Source: </b>' . $source . '<br />[ ' . date( 'Y-m-d H:i:s' ) . ' ]';
 		$log .= '[ ' . $info->action . ' ][ ' . $info->msg . ' ]<hr /></li>';
@@ -842,7 +842,7 @@ class ogbPlugCron {
 		return $log;
 	}
 
-	static function makeLogSave( $save ) {
+	public static function makeLogSave( $save ) {
 		if ( $save->action != 'Save' ) {
 			return '';
 		}
@@ -856,7 +856,7 @@ class ogbPlugCron {
 		return $savedInfo;
 	}
 
-	static function getPathSave() {
+	public static function getPathSave() {
 		$path = OGRAB_CACHE_SAVED . date( 'Y.m.d' );
 		if ( ! is_file( $path . '-00' ) ) {
 			return $path . '-00';
@@ -905,7 +905,7 @@ class ogbPlugCron {
 		ogbDebug::write( $path, $log );
 	}
 
-	static function getlogPath( $ra = false, $new = true, $maxsize = 102400 ) {
+	public static function getlogPath( $ra = false, $new = true, $maxsize = 102400 ) {
 		if ( $ra ) {
 			return OGRAB_CACHE_LOG . date( 'Y.m.d' ) . ".24.00.00";
 		}
@@ -943,7 +943,7 @@ class ogbPlugCron {
 		return $last_file;
 	}
 
-	static function outTime( $start, $time = 3 ) {
+	public static function outTime( $start, $time = 3 ) {
 		$now = time();
 		if ( $now - $start > $time ) {
 			return true;

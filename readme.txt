@@ -135,6 +135,10 @@ Pipe Processor will process some input fields (depends on Processor) and provide
 
 == Changelog ==
 
+= 1.20 =
+* Fix: solved issue "Parse error: syntax error, unexpected T_PAAMAYIM_NEKUDOTAYIM in /wp-content/plugins/wp-pipes/grab.php on line 163"
+which appears with some version of PHP.
+
 = 1.19 =
 * New: added filter options "minimum words" and "maximum words" in Get Fulltext processor
 * New: added more input field of Get Image processor, could get images from enclosures
