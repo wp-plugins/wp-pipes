@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: WP Pipes
-Plugin URI: http://wpbriz.com
+Plugin URI: http://thimpress.com/pipes
 Description: WP Pipes plugin works the same way as Yahoo Pipes or Zapier does, give your Pipes input and get output as your needs.
 Version: 1.20
-Author: wpBriz
-Author URI: http://wpbriz.com
+Author: ThimPress
+Author URI: http://thimpress.com
 */
 define( '_JEXEC', 1 );
 @session_start();

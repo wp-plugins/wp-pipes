@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: thimpress,thongta,phamtungpth
+Contributors: thimpress, thongta, phamtungpth
 Donate link: http://thimpress.com/
 Tags: pipes, csv, woocommerce, rss, syndicate, syndication, auto post, aggregation, aggregate, aggregator, aggregation, autoblog, autoblogging, autoblogged, autopost, posts, seo, automation, automatic, import, export, migrate, migrator, migration, wordpress, blogger, blogspot, feed to post, rss to post
 Requires at least: 3.8
