@@ -1,9 +1,9 @@
 === Plugin Name ===
-Contributors: thongta,phamtungpth,coven-eye
-Donate link: http://wpbriz.com/
+Contributors: thimpress,thongta,phamtungpth
+Donate link: http://thimpress.com/
 Tags: pipes, csv, woocommerce, rss, syndicate, syndication, auto post, aggregation, aggregate, aggregator, aggregation, autoblog, autoblogging, autoblogged, autopost, posts, seo, automation, automatic, import, export, migrate, migrator, migration, wordpress, blogger, blogspot, feed to post, rss to post
 Requires at least: 3.8
-Tested up to: 3.8
+Tested up to: 4.2.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,25 +12,25 @@ RSS Feed to Post/bbPress, AutoBlogging, auto post to Twitter/Facebook/LinkedIn, 
 
 == Description ==
 
-Yahoo Pipes & Zapier are powerful online services for making pipeline of data, [WP Pipes](http://wpbriz.com/pipes "WP Pipes plugin") by [wpBriz](http://wpbriz.com "Time Saving Wordpress Plugins") comes available to the Wordpress community to bring such of powerful abilities to Wordpress site, works right inside your Wordpress site.
+Yahoo Pipes & Zapier are powerful online services for making pipeline of data, [WP Pipes](http://thimpress.com/pipes "WP Pipes plugin") by [ThimPress](http://thimpress.com "WordPress Plugins & Themes for lazy people") comes available to the WordPress community to bring such of powerful abilities to WordPress site, works right inside your WordPress site.
 You can create many Pipes, give your Pipes input and get output as your needs.
 
-Powerful Data Migration Wordpress plugin: csv importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
+Powerful Data Migration WordPress plugin: CSV importing for Posts/WooCommerce, RSS Feed Creator, AutoBlogging, auto post to Twitter/Facebook/LinkedIn.
 
-Support: [wp.org Forum (this website)](http://wordpress.org/support/plugin/wp-pipes), [Twitter](https://twitter.com/wpbriz "wpBriz Twitter"), [Facebook](https://www.facebook.com/wpbriz "wpBriz Facebook"), [Google+](https://plus.google.com/+Wpbriz/posts "wpBriz Google+"), [Youtube](https://www.youtube.com/user/wpbriz "wpBriz Youtube")
+Support: [WP Pipes Forum](http://thimpress.com/forums/forum/plugins/forum-pipes/)
 
 [youtube https://www.youtube.com/watch?v=zLHFqAHQj2A&hd=1&&cc_load_policy=1]
 
 <h4>Here are things you can do with WP Pipes (just like Yahoo Pipes):</h4>
 
-* **RSS Feed to post**: a powerful RSS Feed to Post solution, get newsfeed from RSS Feed source and store into your Wordpress as posts.
-* **RSS Feed Creator**: getting Posts from Wordpress Posts > Export as RSS Feed.
-* **iTunes Podcast creator**: get Posts from Wordpress Posts > Export as iTunes Podcast, 
-* **Google XML Sitemap generator**: get Posts from Wordpress Posts > Export as Google XML Sitemap
+* **RSS Feed to post**: a powerful RSS Feed to Post solution, get newsfeed from RSS Feed source and store into your WordPress as posts.
+* **RSS Feed Creator**: getting Posts from WordPress Posts > Export as RSS Feed.
+* **iTunes Podcast creator**: get Posts from WordPress Posts > Export as iTunes Podcast, 
+* **Google XML Sitemap generator**: get Posts from WordPress Posts > Export as Google XML Sitemap
 * **WooCommerce RSS Feed creator**: get WooCommerce Products > Export as RSS Feed or Google XML Sitemap
 * **CSV Importer for WooCommerce**: upload CSV files and import to WooCommerce.
 * **Auto Social Poster**: post from Posts, WooCommerce Products, bbPress topics / comments to Twitter, Facebook, LinkedIn, Google+ Moments, Pinterest, Vkontakle, ...
-... It's your plugin, freebie, we provide you a tools to make pipelines, just like Yahoo Pipes, do what ever you needs. This Yahoo Pipes style plugin will empower the Wordpress CMS to a new high.
+... It's your plugin, freebie, we provide you a tools to make pipelines, just like Yahoo Pipes, do what ever you needs. This Yahoo Pipes style plugin will empower the WordPress CMS to a new high.
 
 <h4>FEATURES</h4>
 
@@ -47,24 +47,24 @@ Support: [wp.org Forum (this website)](http://wordpress.org/support/plugin/wp-pi
 
 <h4>AVAILABLE SOURCES (more will come up later):</h4>
 * RSS Reader: to read RSS Feed, to offer RSS Feed to Post functionality.
-* Post: to read Posts from Wordpress.
-* [CSV: to read CSV files](http://wpbriz.com/shop/csv-source-pipes/ "Wordpress plugin import from CSV").
+* Post: to read Posts from WordPress.
+* [CSV: to read CSV files](http://thimpress.com/shop/csv-source-pipes/ "WordPress plugin import from CSV").
 * WooCommerce: to deal with WooCommerce products (coming soon)
 * bbPress: to deal with bbPress topics (coming soon)
 * Email: to read mailbox (coming soon)
 * Facebook (coming soon)
-* Wordpress.com: using oauth to connect to your blogs on wordpress.com.
-* Wordpress: deal with xmlrpc from Wordpress (hosted or wordpress.com) (coming soon)
+* WordPress.com: using oauth to connect to your blogs on wordpress.com.
+* WordPress: deal with xmlrpc from WordPress (hosted or wordpress.com) (coming soon)
 
 <h4>AVAILABLE DESTINATIONS (more will come up later):</h4>
-* RSS Creator: to create RSS Feed for Wordpress.
-* Post: to create Posts for Wordpress. Can works with RSSReader source to offer RSS Feed to post functionality.
+* RSS Creator: to create RSS Feed for WordPress.
+* Post: to create Posts for WordPress. Can works with RSSReader source to offer RSS Feed to post functionality.
 * WooCommerce: to create products in WooCommerce plugin. (coming soon)
 * bbPress: to create topics in bbPress plugin. (coming soon)
 * Email: to send a new email to a mailbox. (coming soon)
-* [Wordpress.com: to create post on Wordpress.com blog](http://wpbriz.com/shop/wordpress-com-destination-pipes/ "Wordpress plugin auto post to Wordpress.com").
-* [Blogger: to create blog post on Blogger](http://wpbriz.com/shop/blogger-blogspot-destination-for-pipes/ "Wordpress plugin Auto post to Blogger / Blogspot").
-* [Twitter: to create Twitter tweets](http://wpbriz.com/shop/twitter-destination-pipes/ "Wordpress plugin Auto post to Twitter").
+* [WordPress.com: to create post on WordPress.com blog](http://thimpress.com/shop/wordpress-com-destination-pipes/ "WordPress plugin auto post to WordPress.com").
+* [Blogger: to create blog post on Blogger](http://thimpress.com/shop/blogger-blogspot-destination-for-pipes/ "WordPress plugin Auto post to Blogger / Blogspot").
+* [Twitter: to create Twitter tweets](http://thimpress.com/shop/twitter-destination-pipes/ "WordPress plugin Auto post to Twitter").
 * Facebook: to create message on Facebook personal wall. (coming soon)
 * Facebook Page: to create message on Facebook Page. (coming soon)
 * Facebook Group: to create message on Facebook Group. (coming soon)
@@ -229,7 +229,7 @@ which appears with some version of PHP.
 * Improve: Cleaned source code.
 * Improve: Added combine processor to combine fields together.
 * New: Added sample source output for rssreader source.
-* Msg: Wordpress.com & Blogger destination addons will come up to public soon in the next release.
+* Msg: WordPress.com & Blogger destination addons will come up to public soon in the next release.
 
 = 1.4 =
 * New: Added Import/Export feature in the "All Pipes" page.
